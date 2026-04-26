@@ -9,12 +9,22 @@ Docs: https://api.artic.edu/docs/
 IIIF: https://www.artic.edu/iiif/2/{image_id}/full/full/0/default.jpg
 """
 
+import re
 import time
 import requests
 import sys
 import os
 sys.path.insert(0, os.path.dirname(os.path.dirname(__file__)))
 import config
+
+
+def _clean_artist(raw: str) -> str:
+    """
+    Strip nationality/date parentheticals from AIC artist strings.
+    'James McNeill Whistler (American, 1834-1903)' -> 'James McNeill Whistler'
+    """
+    # Remove any trailing parenthetical containing a 4-digit year
+    return re.sub(r'\s*\([^)]*\d{4}[^)]*\)\s*$', '', raw).strip()
 
 BASE_URL  = "https://api.artic.edu/api/v1"
 IIIF_BASE = "https://www.artic.edu/iiif/2"
@@ -114,7 +124,7 @@ def normalize_record(raw: dict) -> dict | None:
 
     thumbnail = raw.get("thumbnail") or {}
     artist_raw = raw.get("artist_display", "Unknown")
-    artist = artist_raw.split("\n")[0].strip()  # first line only
+    artist = _clean_artist(artist_raw.split("\n")[0].strip())  # first line, stripped of dates
 
     return {
         "source": "aic",
