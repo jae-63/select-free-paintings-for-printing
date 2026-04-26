@@ -99,26 +99,40 @@ def search(query: str, session: requests.Session) -> list:
 
 
 def get_object(object_id: int, session: requests.Session) -> dict | None:
-    """Fetch a single object's metadata with retries and backoff on 403."""
+    """
+    Fetch a single object's metadata.
+
+    403 handling:
+      - First 403: wait 5s and retry (transient rate limit)
+      - Second 403: wait 15s and retry
+      - Third 403: give up and skip — object is likely permanently restricted
+        despite appearing in public-domain search results (a known Met API quirk)
+    404: skip silently.
+    Other errors: retry with backoff up to HTTP_RETRIES times.
+    """
     url = f"{BASE_URL}/objects/{object_id}"
-    for attempt in range(config.HTTP_RETRIES):
+    forbidden_count = 0
+    for attempt in range(config.HTTP_RETRIES + 2):  # extra attempts for 403 recovery
         try:
             resp = session.get(url, timeout=config.HTTP_TIMEOUT)
             if resp.status_code == 404:
                 return None
             if resp.status_code == 403:
-                # Rate limited — back off increasingly before retrying
-                wait = 5 * (2 ** attempt)
-                print(f"  [Met] 403 rate limit on {object_id}, backing off {wait}s...")
+                forbidden_count += 1
+                if forbidden_count >= 3:
+                    # Permanently restricted — skip silently
+                    return None
+                wait = 5 * forbidden_count
+                print(f"  [Met] 403 on {object_id} (attempt {forbidden_count}), waiting {wait}s...")
                 time.sleep(wait)
                 continue
             resp.raise_for_status()
             return resp.json()
         except Exception as e:
             if attempt < config.HTTP_RETRIES - 1:
-                time.sleep(2 ** attempt)
+                time.sleep(2 ** min(attempt, 4))
             else:
-                print(f"  [Met] Object fetch error for {object_id}: {e}")
+                print(f"  [Met] Fetch error for {object_id}: {e}")
                 return None
     return None
 
@@ -159,21 +173,42 @@ def normalize_record(raw: dict) -> dict | None:
     }
 
 
+# Checkpoint: save partial results every N records so long runs
+# aren't lost to a network error or rate-limit shutdown.
+MET_CHECKPOINT_INTERVAL = 50
+MET_CHECKPOINT_FILE = "/tmp/met_checkpoint.json"
+
+
 def fetch_all_candidates(limit: int = None) -> list:
     """
     Run all landscape queries and return normalized records.
-    Deduplicates by objectID.
+    Deduplicates by objectID. Writes a checkpoint file every
+    MET_CHECKPOINT_INTERVAL records so partial progress is not lost.
 
     Args:
         limit: Max records to return. Defaults to config.MAX_CANDIDATES_PER_SOURCE.
     """
+    import json
+    from pathlib import Path
+
     if limit is None:
         limit = config.MAX_CANDIDATES_PER_SOURCE
 
+    # Resume from checkpoint if present
+    checkpoint = Path(MET_CHECKPOINT_FILE)
+    if checkpoint.exists():
+        try:
+            saved = json.loads(checkpoint.read_text())
+            records  = saved.get("records", [])
+            seen_ids = set(saved.get("seen_ids", []))
+            print(f"[Met] Resuming from checkpoint: {len(records)} records already fetched.")
+        except Exception:
+            records, seen_ids = [], set()
+    else:
+        records, seen_ids = [], set()
+
     print("[Met] Starting candidate fetch...")
     session = _session()
-    seen_ids = set()
-    records = []
 
     for query in LANDSCAPE_QUERIES:
         if len(records) >= limit:
@@ -200,8 +235,19 @@ def fetch_all_candidates(limit: int = None) -> list:
             rec = normalize_record(raw)
             if rec:
                 records.append(rec)
+                # Checkpoint periodically
+                if len(records) % MET_CHECKPOINT_INTERVAL == 0:
+                    checkpoint.write_text(json.dumps(
+                        {"records": records, "seen_ids": list(seen_ids)},
+                        ensure_ascii=False,
+                    ))
+                    print(f"  [Met] Checkpoint saved ({len(records)} records)")
 
             time.sleep(config.MET_REQUEST_DELAY)
+
+    # Clear checkpoint on successful completion
+    if checkpoint.exists():
+        checkpoint.unlink()
 
     print(f"[Met] Fetched {len(records)} candidate records.")
     return records
