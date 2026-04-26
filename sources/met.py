@@ -41,8 +41,13 @@ LANDSCAPE_QUERIES = [
     "view landscape painting",
 ]
 
-# Met medium filter for the search endpoint
-MET_MEDIUM_FILTER = "Watercolors|Oil on canvas|Paintings|Gouache|Drawings"
+# Met medium filter for the search endpoint.
+# These must match Met's own controlled vocabulary EXACTLY (case-sensitive).
+# Use pipe-separated values. Verified terms from the Met's own facet data:
+#   "Watercolors" (plural), "Gouache", "Oil on canvas", "Drawings"
+# Omitting "Paintings" — too broad, returns portraits/figures that waste quota.
+# Leave blank ("") to search all media (slower but catches more).
+MET_MEDIUM_FILTER = "Watercolors|Gouache|Oil on canvas|Oil on panel|Oil on wood"
 
 
 def _session() -> requests.Session:

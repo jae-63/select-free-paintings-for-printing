@@ -337,16 +337,16 @@ def main():
         all_records += fetch_all_candidates(limit=args.limit)
 
     if "europeana" in args.sources:
-        from sources.europeana import fetch_all_candidates, WATERCOLOR_QUERIES, OIL_QUERIES, LANDSCAPE_QUERIES
-        # Use medium-targeted queries when one target is zero, to avoid
-        # wasting the fetch budget on the wrong medium type.
-        if args.watercolor_target == 0 and args.oil_target > 0:
-            euro_queries = OIL_QUERIES
-        elif args.oil_target == 0 and args.watercolor_target > 0:
-            euro_queries = WATERCOLOR_QUERIES
-        else:
-            euro_queries = LANDSCAPE_QUERIES
-        all_records += fetch_all_candidates(limit=args.limit, queries=euro_queries)
+        from sources.europeana import fetch_all_candidates, WATERCOLOR_QUERIES, OIL_QUERIES
+        # Always fetch watercolors and oils as SEPARATE passes, each with the
+        # full limit. This prevents the watercolor target consuming the entire
+        # budget before oil queries are reached.
+        if args.watercolor_target > 0:
+            print("[Europeana] Fetching watercolor candidates...")
+            all_records += fetch_all_candidates(limit=args.limit, queries=WATERCOLOR_QUERIES)
+        if args.oil_target > 0:
+            print("[Europeana] Fetching oil candidates...")
+            all_records += fetch_all_candidates(limit=args.limit, queries=OIL_QUERIES)
 
     print(f"\nTotal raw records fetched: {len(all_records)}")
 
@@ -401,7 +401,7 @@ def main():
     if len(watercolors) < args.watercolor_target:
         shortage = args.watercolor_target - len(watercolors)
         print(f"\n⚠  {shortage} watercolor(s) short of target. Try:")
-        print(f"   --limit {args.limit * 2}   (fetch more candidates per source)")
+        print(f"   --limit {args.limit * 3}   (fetch more candidates per source)")
         if "europeana" not in args.sources:
             print(f"   --sources met aic europeana   (adds European collections)")
 

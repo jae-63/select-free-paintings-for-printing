@@ -57,7 +57,7 @@ MIN_PIXEL_WIDTH = PRINT_WIDTH_INCHES * PRINT_DPI  # = 8000
 
 # Maximum candidates to pull from each API source before filtering.
 # Increase if not reaching targets; decrease for faster test runs.
-MAX_CANDIDATES_PER_SOURCE = 2000
+MAX_CANDIDATES_PER_SOURCE = 4000  # raised from 2000; AIC needs more to hit watercolor target
 
 
 # ===========================================================================
@@ -85,7 +85,7 @@ HTTP_TIMEOUT_IMAGE = 30   # longer for image downloads
 # If sharing this project, update with your own contact info
 HTTP_USER_AGENT = (
     "CanvasPrintFinder/1.0 "
-    "(public-domain art research; https://github.com/jae-63/select-free-paintings-for-printing)"
+    "(public-domain art research; https://github.com/YOUR_USERNAME/canvas-print-finder)"
 )
 
 # Number of bytes to read when probing image dimensions from a URL
