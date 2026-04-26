@@ -68,7 +68,7 @@ MAX_CANDIDATES_PER_SOURCE = 4000  # raised from 2000; AIC needs more to hit wate
 DEFAULT_SOURCES = ["met", "aic"]
 
 # Politeness delay between API requests, in seconds, per source
-MET_REQUEST_DELAY    = 0.10   # Met has no published rate limit; 10 req/s is safe
+MET_REQUEST_DELAY    = 0.35   # ~3 req/s; Met 403s at higher rates without a key
 AIC_REQUEST_DELAY    = 0.20   # AIC asks for reasonable use
 EUROPEANA_REQUEST_DELAY = 0.30
 

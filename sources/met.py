@@ -7,12 +7,19 @@ No API key required. All parameters come from config.py.
 Docs: https://metmuseum.github.io/
 """
 
+import random
 import time
 import requests
 import sys
 import os
 sys.path.insert(0, os.path.dirname(os.path.dirname(__file__)))
 import config
+
+# Max IDs to sample from a single query result set.
+# Queries like "oil canvas landscape" can return 4000+ IDs; sampling keeps
+# us polite and ensures coverage across all queries rather than blowing the
+# entire limit on one query's results.
+MET_MAX_IDS_PER_QUERY = 150
 
 BASE_URL = "https://collectionapi.metmuseum.org/public/collection/v1"
 
@@ -92,21 +99,28 @@ def search(query: str, session: requests.Session) -> list:
 
 
 def get_object(object_id: int, session: requests.Session) -> dict | None:
-    """Fetch a single object's metadata with retries."""
+    """Fetch a single object's metadata with retries and backoff on 403."""
     url = f"{BASE_URL}/objects/{object_id}"
     for attempt in range(config.HTTP_RETRIES):
         try:
             resp = session.get(url, timeout=config.HTTP_TIMEOUT)
             if resp.status_code == 404:
                 return None
+            if resp.status_code == 403:
+                # Rate limited — back off increasingly before retrying
+                wait = 5 * (2 ** attempt)
+                print(f"  [Met] 403 rate limit on {object_id}, backing off {wait}s...")
+                time.sleep(wait)
+                continue
             resp.raise_for_status()
             return resp.json()
         except Exception as e:
             if attempt < config.HTTP_RETRIES - 1:
-                time.sleep(1)
+                time.sleep(2 ** attempt)
             else:
                 print(f"  [Met] Object fetch error for {object_id}: {e}")
                 return None
+    return None
 
 
 def normalize_record(raw: dict) -> dict | None:
@@ -167,6 +181,11 @@ def fetch_all_candidates(limit: int = None) -> list:
         print(f"  [Met] Searching: {query!r}")
         ids = search(query, session)
         print(f"         → {len(ids)} results")
+
+        # Sample randomly from large result sets so we get variety across
+        # all queries rather than exhausting the limit on one query.
+        if len(ids) > MET_MAX_IDS_PER_QUERY:
+            ids = random.sample(ids, MET_MAX_IDS_PER_QUERY)
 
         for obj_id in ids:
             if len(records) >= limit:
