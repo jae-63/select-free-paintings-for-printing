@@ -93,22 +93,43 @@ def _session() -> requests.Session:
     return s
 
 
+# Met department IDs for Western paintings and works on paper.
+# Filtering to these departments excludes Islamic Art, Asian Art, Ancient
+# Near Eastern Art etc. which match watercolor queries but are manuscript
+# illuminations, not landscape paintings suitable for canvas printing.
+#   11 = European Paintings
+#   21 = American Paintings and Sculpture
+#    9 = Drawings and Prints  (includes watercolors on paper)
+MET_DEPARTMENT_IDS = [11, 21, 9]
+
+
 def search(query: str, session: requests.Session) -> list:
-    """Return object IDs matching query. Public domain only, must have image."""
-    params = {
-        "q": query,
-        "isPublicDomain": "true",
-        "hasImages": "true",
-    }
-    url = f"{BASE_URL}/search"
-    try:
-        resp = session.get(url, params=params, timeout=config.HTTP_TIMEOUT)
-        resp.raise_for_status()
-        data = resp.json()
-        return data.get("objectIDs") or []
-    except Exception as e:
-        print(f"  [Met] Search error for {query!r}: {e}")
-        return []
+    """
+    Return object IDs matching query, restricted to Western painting departments.
+    Runs one search per department ID and merges results to stay focused on
+    paintings and works on paper rather than Islamic/Asian manuscripts.
+    """
+    all_ids = []
+    seen = set()
+    for dept_id in MET_DEPARTMENT_IDS:
+        params = {
+            "q": query,
+            "isPublicDomain": "true",
+            "hasImages": "true",
+            "departmentId": dept_id,
+        }
+        url = f"{BASE_URL}/search"
+        try:
+            resp = session.get(url, params=params, timeout=config.HTTP_TIMEOUT)
+            resp.raise_for_status()
+            ids = resp.json().get("objectIDs") or []
+            for oid in ids:
+                if oid not in seen:
+                    seen.add(oid)
+                    all_ids.append(oid)
+        except Exception as e:
+            print(f"  [Met] Search error for {query!r} dept {dept_id}: {e}")
+    return all_ids
 
 
 def get_object(object_id: int, session: requests.Session) -> dict | None:
