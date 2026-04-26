@@ -187,6 +187,28 @@ IMPASTO_DISQUALIFY_TERMS = [
     "encaustic",
 ]
 
+# Medium terms that indicate a reproductive or print process rather than an
+# original painting — excluded regardless of whether "watercolor" also appears.
+# E.g. "Color lithograph; watercolor facsimile" should not pass as a watercolor.
+EXCLUDE_MEDIUM_TERMS = [
+    "lithograph",
+    "facsimile",
+    "engraving",
+    "etching",
+    "aquatint",
+    "mezzotint",
+    "woodcut",
+    "screenprint",
+    "silkscreen",
+    "photogravure",
+    "chromolithograph",
+    "reproduction",
+    "printed",
+    "photograph",
+    "photography",
+    "daguerreotype",
+]
+
 # If any of these appear in medium/description → heuristically flag as smooth oil
 SMOOTH_OIL_MEDIUM_HINT_TERMS = [
     "glazing", "glaze", "smooth", "detailed", "luminous", "academic", "trompe",

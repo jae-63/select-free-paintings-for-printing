@@ -21,6 +21,12 @@ def classify_medium(medium: str) -> str:
     """
     m = medium.lower()
 
+    # Reproductive / print processes disqualify regardless of other terms.
+    # Catches e.g. "Color lithograph; watercolor facsimile".
+    for kw in config.EXCLUDE_MEDIUM_TERMS:
+        if kw in m:
+            return "other"
+
     for kw in config.IMPASTO_DISQUALIFY_TERMS:
         if kw in m:
             return "impasto_oil"
@@ -133,7 +139,12 @@ def parse_dimensions_from_string(dim_str: str) -> tuple:
 def dimensions_are_landscape(w, h, min_ratio: float = None) -> bool:
     """
     Return True if the larger dimension / smaller dimension >= min_ratio.
-    Handles both H×W and W×H museum conventions by comparing max/min.
+
+    Museums list dimensions inconsistently — some use W×H, others H×W.
+    We always take max/min so that a painting listed as either "30×50cm"
+    or "50×30cm" is correctly identified as landscape-oriented.
+    This means we accept any work whose longer axis is >= min_ratio times
+    its shorter axis, regardless of which the museum lists first.
     """
     if w is None or h is None:
         return False
