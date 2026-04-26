@@ -16,38 +16,55 @@ import config
 
 BASE_URL = "https://collectionapi.metmuseum.org/public/collection/v1"
 
-# Search queries targeting landscapes in various media.
-# Extend this list in config.py if you want to add more search terms
-# (or just add them here for Met-specific terms).
+# Search queries for the Met API.
+# Without a medium filter, queries need to be specific enough to surface
+# paintings and works on paper rather than sculptures, textiles, etc.
+# The Met's full-text search covers title, artist, medium, and tags.
+# Pairing a landscape subject with a medium term (watercolor, oil) works
+# well because the medium word appears in the Met's own `medium` metadata
+# field, which is indexed for full-text search even though the `medium`
+# filter parameter doesn't work reliably.
 LANDSCAPE_QUERIES = [
-    "landscape watercolor",
-    "landscape gouache",
-    "landscape oil painting",
-    "seascape watercolor",
-    "seascape oil",
-    "river landscape",
-    "coastal landscape watercolor",
-    "valley landscape",
-    "mountain landscape watercolor",
-    "pastoral landscape",
-    "countryside landscape",
-    "forest landscape watercolor",
-    "lake landscape",
-    "harbor watercolor",
-    "sunset landscape",
-    "dawn landscape watercolor",
-    "landscape aquarelle",
-    "paysage watercolor",
-    "view landscape painting",
+    # Watercolor / gouache — medium word in query pulls works-on-paper
+    "watercolor landscape",
+    "watercolor seascape",
+    "watercolor river",
+    "watercolor coastal",
+    "watercolor mountain",
+    "watercolor harbor",
+    "watercolor valley",
+    "watercolor sunset",
+    "watercolor lake",
+    "gouache landscape",
+    "aquarelle landscape",
+    # Oil landscape — paired with subject to reduce portrait noise
+    "oil canvas landscape",
+    "oil painting landscape",
+    "oil painting seascape",
+    "oil painting river",
+    "oil painting coastal",
+    "oil painting pastoral",
+    "oil painting mountain",
+    # Landscape by style / school — Met tags these reliably
+    "impressionist landscape",
+    "luminist landscape",
+    "hudson river landscape",
+    "barbizon landscape",
+    "plein air landscape",
 ]
 
-# Met medium filter for the search endpoint.
-# These must match Met's own controlled vocabulary EXACTLY (case-sensitive).
-# Use pipe-separated values. Verified terms from the Met's own facet data:
-#   "Watercolors" (plural), "Gouache", "Oil on canvas", "Drawings"
-# Omitting "Paintings" — too broad, returns portraits/figures that waste quota.
-# Leave blank ("") to search all media (slower but catches more).
-MET_MEDIUM_FILTER = "Watercolors|Gouache|Oil on canvas|Oil on panel|Oil on wood"
+# The Met API's `medium` search parameter requires exact matches against their
+# internal controlled vocabulary, which is undocumented and silently returns 0
+# results for unrecognised strings. We therefore do NOT filter by medium at
+# search time. Instead we fetch all public-domain results for each landscape
+# query and let our own classify_medium() handle medium filtering post-fetch.
+# This is the same approach used for Europeana.
+#
+# To narrow results at search time you can use `hasImages=true` (already
+# applied) and `departmentId` — Met department IDs for relevant depts:
+#   11 = European Paintings, 21 = Drawings and Prints, 13 = Greek/Roman,
+#    9 = Drawings & Prints, 3 = Ancient Near Eastern Art
+# We leave departmentId open to cast the widest net.
 
 
 def _session() -> requests.Session:
@@ -57,11 +74,11 @@ def _session() -> requests.Session:
 
 
 def search(query: str, session: requests.Session) -> list:
-    """Return object IDs matching query, filtered to public domain works."""
+    """Return object IDs matching query. Public domain only, must have image."""
     params = {
         "q": query,
         "isPublicDomain": "true",
-        "medium": MET_MEDIUM_FILTER,
+        "hasImages": "true",
     }
     url = f"{BASE_URL}/search"
     try:
