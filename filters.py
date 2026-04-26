@@ -19,7 +19,7 @@ def classify_medium(medium: str) -> str:
 
     Vocabulary lists are defined in config.py.
     """
-    m = medium.lower()
+    m = (medium or "").lower()
 
     # Reproductive / print processes disqualify regardless of other terms.
     # Catches e.g. "Color lithograph; watercolor facsimile".
