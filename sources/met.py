@@ -19,7 +19,7 @@ import config
 # Queries like "oil canvas landscape" can return 4000+ IDs; sampling keeps
 # us polite and ensures coverage across all queries rather than blowing the
 # entire limit on one query's results.
-MET_MAX_IDS_PER_QUERY = 150
+MET_MAX_IDS_PER_QUERY = 80   # most targeted queries return <80 anyway
 
 BASE_URL = "https://collectionapi.metmuseum.org/public/collection/v1"
 
@@ -31,33 +31,46 @@ BASE_URL = "https://collectionapi.metmuseum.org/public/collection/v1"
 # well because the medium word appears in the Met's own `medium` metadata
 # field, which is indexed for full-text search even though the `medium`
 # filter parameter doesn't work reliably.
+# Met full-text search indexes title, artist, medium, tags, and provenance.
+# Queries must be specific enough to avoid matching unrelated fields.
+# "oil canvas landscape" matches 4000+ records because "canvas" and "landscape"
+# appear in provenance text for unrelated works — avoid multi-word oil queries.
+#
+# Strategy: use medium-specific queries for watercolors (small, precise result
+# sets), and use department+tag filtering for oils via departmentId.
+# Met department IDs:
+#   11 = European Paintings
+#   21 = American Paintings and Sculpture  (note: also covers drawings)
+#    9 = Drawings and Prints
 LANDSCAPE_QUERIES = [
-    # Watercolor / gouache — medium word in query pulls works-on-paper
+    # Watercolor queries — "watercolor" in medium field keeps sets small & precise
     "watercolor landscape",
     "watercolor seascape",
-    "watercolor river",
+    "watercolor river landscape",
     "watercolor coastal",
-    "watercolor mountain",
+    "watercolor mountain landscape",
     "watercolor harbor",
-    "watercolor valley",
-    "watercolor sunset",
-    "watercolor lake",
+    "watercolor valley landscape",
+    "watercolor sunset landscape",
+    "watercolor lake landscape",
+    "watercolor forest landscape",
+    "watercolor pastoral landscape",
     "gouache landscape",
     "aquarelle landscape",
-    # Oil landscape — paired with subject to reduce portrait noise
-    "oil canvas landscape",
-    "oil painting landscape",
-    "oil painting seascape",
-    "oil painting river",
-    "oil painting coastal",
-    "oil painting pastoral",
-    "oil painting mountain",
-    # Landscape by style / school — Met tags these reliably
-    "impressionist landscape",
-    "luminist landscape",
-    "hudson river landscape",
-    "barbizon landscape",
-    "plein air landscape",
+    # Oil — use distinctive style/school terms that appear in Met tags & dept fields
+    # These return smaller, more relevant sets than generic "oil painting landscape"
+    "luminist landscape oil",
+    "hudson river school landscape",
+    "barbizon landscape oil",
+    "plein air landscape oil",
+    "impressionist landscape oil",
+    "tonalist landscape",
+    "dutch golden age landscape",
+    "flemish landscape oil",
+    "corot landscape",
+    "inness landscape",
+    "homer landscape oil",
+    "sargent landscape oil",
 ]
 
 # The Met API's `medium` search parameter requires exact matches against their
