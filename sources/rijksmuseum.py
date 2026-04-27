@@ -27,6 +27,11 @@ import config
 SEARCH_URL  = "https://data.rijksmuseum.nl/search/collection"
 IIIF_BASE   = "https://iiif.micr.io"
 
+# Max objects to resolve per search query. The new API can return thousands
+# of results per query; resolving each costs one HTTP call. Cap per-query to
+# spread the budget across all queries and keep runs predictable.
+RIJ_MAX_PER_QUERY = 80
+
 # Dutch medium terms for our classifier
 DUTCH_WATERCOLOR_TERMS = {"aquarel", "gouache", "waterverf"}
 DUTCH_OIL_TERMS        = {"olieverf", "olieverfschilderij"}
@@ -36,12 +41,13 @@ DUTCH_EXCLUDE_TERMS    = {"ets", "gravure", "houtsnede", "litho",
 # Search query sets — use structured params not free text
 # Each entry is a dict of API params
 WATERCOLOR_SEARCHES = [
-    {"type": "drawing", "material": "watercolor",   "imageAvailable": "true"},
-    {"type": "drawing", "material": "watercolour",  "imageAvailable": "true"},
-    {"type": "drawing", "material": "aquarel",      "imageAvailable": "true"},  # Dutch
-    {"type": "drawing", "material": "gouache",      "imageAvailable": "true"},
-    {"type": "drawing", "technique": "watercolor",  "imageAvailable": "true"},
-    {"type": "drawing", "technique": "aquarelle",   "imageAvailable": "true"},
+    # Confirmed working queries (returning results) as of 2025:
+    {"type": "drawing", "material": "watercolor",    "imageAvailable": "true"},
+    {"type": "drawing", "material": "gouache",        "imageAvailable": "true"},
+    {"type": "drawing", "technique": "watercolor",    "imageAvailable": "true"},
+    {"material": "watercolor", "imageAvailable": "true"},   # broader, no type filter
+    {"material": "aquarel",    "imageAvailable": "true"},   # Dutch term, no type filter
+    {"technique": "aquarelle", "imageAvailable": "true"},
 ]
 
 OIL_SEARCHES = [
@@ -104,17 +110,18 @@ def resolve_object(identifier: str, session: requests.Session) -> dict:
     Resolve a Linked Art object identifier to its full metadata.
     The identifier is a URL like https://id.rijksmuseum.nl/200108293
     We request JSON-LD via content negotiation.
+    Uses a short timeout (8s) to avoid hanging on slow redirects.
     """
     try:
         resp = session.get(
             identifier,
             headers={**session.headers, "Accept": "application/ld+json"},
-            timeout=config.HTTP_TIMEOUT,
+            timeout=8,
             allow_redirects=True,
         )
         resp.raise_for_status()
         return resp.json()
-    except Exception as e:
+    except Exception:
         return {}
 
 
@@ -397,7 +404,13 @@ def fetch_all_candidates(
             if pages == 0:
                 print(f"           → {total} results")
 
-            for item in items:
+            # Sample randomly from large result sets to avoid spending
+            # the entire budget on one query's first N results.
+            import random
+            if len(items) > RIJ_MAX_PER_QUERY:
+                items = random.sample(items, RIJ_MAX_PER_QUERY)
+
+            for item_idx, item in enumerate(items):
                 if len(records) >= limit:
                     break
                 identifier = item.get("id") or item.get("@id") or ""
@@ -407,6 +420,10 @@ def fetch_all_candidates(
                 if source_id in seen_ids:
                     continue
                 seen_ids.add(source_id)
+
+                if item_idx % 10 == 0:
+                    print(f"    [Rijksmuseum] resolving object {item_idx+1}/{len(items)} "
+                          f"({len(records)} keepers so far)...")
 
                 obj = resolve_object(identifier, session)
                 if not obj:
