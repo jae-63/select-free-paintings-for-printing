@@ -250,6 +250,13 @@ image URLs which cannot be probed or downloaded over HTTP. These records are
 accepted during `--no-resolution-check` runs but will fail resolution probing
 and tarball download. They will be present in the JSON but produce no image file.
 
+## Live demo
+
+A sample report generated from the three supported sources is viewable at:
+https://jae-63.github.io/select-free-paintings-for-printing/
+That way visitors to the GitHub repo page can click straight through to see what the output looks like. It's a compelling selling point for the project — seeing actual paintings is much more persuasive than reading about the pipeline.
+For future report versions, just overwrite index.html on the gh-pages branch and push. You can also keep a reports/ folder there with dated versions (report_2025-04.html, etc.) if you want a history, while index.html always points to the latest.
+
 ## Contributing
 
 Pull requests welcome — especially:
