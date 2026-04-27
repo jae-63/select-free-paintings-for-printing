@@ -280,6 +280,47 @@ SMOOTH_OIL_ARTISTS = [
 ]
 
 # ---------------------------------------------------------------------------
+# RELIGIOUS IMAGERY FILTER  (opt-in via --exclude-religious CLI flag)
+# ---------------------------------------------------------------------------
+
+# Title substrings (case-insensitive) that suggest religious subject matter.
+# Applied only when --exclude-religious is passed to fetch_candidates.py.
+# Add terms freely — false positives are better than false negatives here
+# since this is a personal-taste filter, not a quality filter.
+RELIGIOUS_TITLE_TERMS = [
+    # Christian figures and events
+    "madonna", "virgin", "annunciation", "nativity", "crucifixion",
+    "resurrection", "ascension", "assumption", "pietà", "pieta",
+    "saint ", "st.", "st ", "santa ", "san ", "santo ",
+    "jesus", "christ", "holy", "sacred", "divine",
+    "angel", "archangel", "seraph", "cherub",
+    "apostle", "disciple", "prophet", "martyr",
+    "baptism", "adoration", "lamentation", "entombment",
+    "pentecost", "transfiguration", "epiphany",
+    "madonna", "our lady", "blessed virgin",
+    "cathedral", "abbey", "chapel", "monastery", "convent",
+    "altar", "reliquary", "icon",
+    # Old Testament / Hebrew Bible
+    "moses", "noah", "abraham", "isaac", "jacob", "joseph",
+    "david", "solomon", "elijah", "samson", "judith",
+    "eden", "paradise", "exodus", "creation of",
+    # Greek/Roman mythology treated as religious
+    "zeus", "jupiter", "apollo", "venus", "diana", "minerva",
+    "hercules", "heracles", "bacchus", "dionysus", "mercury",
+    "neptune", "poseidon", "mars", "ares", "juno", "hera",
+    "athena", "prometheus", "orpheus", "eurydice",
+    # Islamic / other
+    "allah", "muhammad", "quran",
+    # Generic religious
+    "miracle", "vision of", "temptation of", "martyrdom",
+    "last supper", "last judgment", "day of judgment",
+    "heaven", "hell", "purgatory", "paradise",
+    "sermon", "prayer", "worship", "pilgrimage",
+    "church of", "basilica", "mosque", "temple of",
+    "saint ", "sainte ", "san ", "santa ", "santo ",
+]
+
+# ---------------------------------------------------------------------------
 # HTML REPORT APPEARANCE
 # ---------------------------------------------------------------------------
 

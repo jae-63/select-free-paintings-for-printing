@@ -136,6 +136,19 @@ def parse_dimensions_from_string(dim_str: str) -> tuple:
     return None, None
 
 
+def is_religious_title(title: str) -> bool:
+    """
+    Returns True if the title suggests religious subject matter.
+    Used only when --exclude-religious is passed; not a default filter.
+    Term list is defined in config.RELIGIOUS_TITLE_TERMS.
+    """
+    t = (title or "").lower()
+    for term in config.RELIGIOUS_TITLE_TERMS:
+        if term in t:
+            return True
+    return False
+
+
 def dimensions_are_landscape(w, h, min_ratio: float = None) -> bool:
     """
     Return True if the larger dimension / smaller dimension >= min_ratio.

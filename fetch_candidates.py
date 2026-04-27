@@ -55,6 +55,7 @@ from filters import (
     check_pixel_resolution,
     parse_dimensions_from_string,
     dimensions_are_landscape,
+    is_religious_title,
 )
 from exclusions import is_excluded
 from oil_classifier import is_smooth_oil, vision_status
@@ -119,6 +120,7 @@ def apply_filters(
     watercolor_target: int,
     oil_target: int,
     check_resolution: bool = True,
+    exclude_religious: bool = False,
     verbose: bool = False,
 ) -> dict:
     """
@@ -135,6 +137,7 @@ def apply_filters(
     rejected = {
         "no_image":        0,
         "excluded_famous": 0,
+        "religious_title": 0,
         "wrong_medium":    0,
         "wrong_aspect":    0,
         "low_resolution":  0,
@@ -156,6 +159,13 @@ def apply_filters(
             rejected["excluded_famous"] += 1
             if verbose:
                 print(f"  [famous] {artist} — {title}")
+            continue
+
+        # ── Religious title filter (opt-in)
+        if exclude_religious and is_religious_title(title):
+            rejected["religious_title"] += 1
+            if verbose:
+                print(f"  [religious] {artist} — {title}")
             continue
 
         # ── Medium classification
@@ -297,6 +307,8 @@ def parse_args():
                    help="Skip pixel-width probing (faster, for testing)")
     p.add_argument("--no-vision", action="store_true",
                    help="Disable Claude vision; use heuristics for oil smoothness")
+    p.add_argument("--exclude-religious", action="store_true",
+                   help="Exclude works whose titles suggest religious subject matter")
     p.add_argument("--verbose", action="store_true",
                    help="Log each rejection reason")
     return p.parse_args()
@@ -359,6 +371,7 @@ def main():
         watercolor_target=args.watercolor_target,
         oil_target=args.oil_target,
         check_resolution=not args.no_resolution_check,
+        exclude_religious=args.exclude_religious,
         verbose=args.verbose,
     )
 
