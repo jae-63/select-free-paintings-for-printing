@@ -1,29 +1,22 @@
 """
 sources/rijksmuseum.py
 
-Client for the Rijksmuseum (Amsterdam) Open Data API.
-No API key required for read-only access at modest rate.
-All parameters come from config.py.
+Client for the Rijksmuseum (Amsterdam) new Search API (2024+).
+No API key required. All parameters come from config.py.
 
-Docs:    https://data.rijksmuseum.nl/object-metadata/api/
-IIIF:    https://www.rijksmuseum.nl/api/iiif/{object_number}/manifest
+New API docs: https://data.rijksmuseum.nl/docs/search
+IIIF images:  https://iiif.micr.io/{image_id}/info.json
 
-The Rijksmuseum has the world's strongest collection of Dutch Golden Age
-landscape paintings — Ruisdael, Hobbema, van Goyen, Cuyp, Koninck — as well
-as significant holdings of 17th-century Flemish landscapes. These are exactly
-the smooth-technique oils we want.
+The old collection API (rijksmuseum.nl/api/en/collection) returned 410 Gone
+in 2024/2025. This rewrite uses the new Linked Art Search API.
 
-Medium-detection note:
-The Rijksmuseum uses Dutch medium terms. Key ones:
-  "olieverf op doek"  = oil on canvas
-  "olieverf op paneel" = oil on panel
-  "aquarel"           = watercolor
-  "gouache"           = gouache
-  "pen en inkt"       = pen and ink (excluded)
-These are handled by adding Dutch terms to our classifier.
+Architecture:
+  1. Search returns a list of Linked Art object identifiers (URLs)
+  2. Each identifier is resolved via content negotiation to get metadata
+  3. Image IDs are extracted from the Linked Art representation
+  4. IIIF endpoint at iiif.micr.io provides pixel dimensions and images
 """
 
-import re
 import time
 import requests
 import sys
@@ -31,77 +24,159 @@ import os
 sys.path.insert(0, os.path.dirname(os.path.dirname(__file__)))
 import config
 
-BASE_URL  = "https://www.rijksmuseum.nl/api/en/collection"
-IIIF_BASE = "https://www.rijksmuseum.nl/api/iiif"
+SEARCH_URL  = "https://data.rijksmuseum.nl/search/collection"
+IIIF_BASE   = "https://iiif.micr.io"
 
-# Rijksmuseum image URL pattern — serves very high resolution
-# https://lh3.googleusercontent.com/{id}=s0 gives original resolution
-# The API also returns webImage.url directly
+# Dutch medium terms for our classifier
+DUTCH_WATERCOLOR_TERMS = {"aquarel", "gouache", "waterverf"}
+DUTCH_OIL_TERMS        = {"olieverf", "olieverfschilderij"}
+DUTCH_EXCLUDE_TERMS    = {"ets", "gravure", "houtsnede", "litho",
+                          "fotografie", "foto", "zeefdruk"}
 
-# Queries — Rijksmuseum search supports Dutch and English terms
-# 'type' filter accepts: painting, drawing, print, photograph, etc.
-WATERCOLOR_QUERIES = [
-    "watercolor landscape",
-    "watercolour landscape",
-    "aquarel landschap",        # Dutch: watercolor landscape
-    "aquarel zeezicht",         # Dutch: watercolor seascape
-    "gouache landscape",
-    "watercolor seascape",
-    "watercolor river",
-    "watercolor coastal",
+# Search query sets — use structured params not free text
+# Each entry is a dict of API params
+WATERCOLOR_SEARCHES = [
+    {"type": "drawing", "material": "watercolor",   "imageAvailable": "true"},
+    {"type": "drawing", "material": "watercolour",  "imageAvailable": "true"},
+    {"type": "drawing", "material": "aquarel",      "imageAvailable": "true"},  # Dutch
+    {"type": "drawing", "material": "gouache",      "imageAvailable": "true"},
+    {"type": "drawing", "technique": "watercolor",  "imageAvailable": "true"},
+    {"type": "drawing", "technique": "aquarelle",   "imageAvailable": "true"},
 ]
 
-OIL_QUERIES = [
-    "oil painting landscape",
-    "olieverf landschap",       # Dutch: oil landscape
-    "river landscape oil",
-    "coastal landscape oil",
-    "pastoral landscape",
-    "winter landscape",
-    "forest landscape oil",
-    "seascape oil",
-    "polder landscape",         # classic Dutch subject
-    "dunes landscape",
-    "river estuary",
+OIL_SEARCHES = [
+    {"type": "painting", "material": "oil paint",  "imageAvailable": "true"},
+    {"type": "painting", "material": "olieverf",   "imageAvailable": "true"},  # Dutch
+    {"type": "painting", "technique": "oil on canvas", "imageAvailable": "true"},
+    {"type": "painting", "title": "landscape",     "imageAvailable": "true"},
+    {"type": "painting", "title": "landschap",     "imageAvailable": "true"},  # Dutch
+    {"type": "painting", "description": "landscape", "imageAvailable": "true"},
 ]
 
-LANDSCAPE_QUERIES = WATERCOLOR_QUERIES + OIL_QUERIES
-
-# Dutch medium terms that map to our classifier
-# These supplement config.WATERCOLOR_MEDIUM_TERMS and config.OIL_MEDIUM_TERMS
-DUTCH_WATERCOLOR_TERMS = {"aquarel", "gouache"}
-DUTCH_OIL_TERMS = {"olieverf op doek", "olieverf op paneel", "olieverf op koper"}
-DUTCH_EXCLUDE_TERMS = {"ets", "gravure", "houtsnede", "litho", "fotografie"}
+WATERCOLOR_QUERIES = WATERCOLOR_SEARCHES  # alias for fetch_candidates.py import
+OIL_QUERIES        = OIL_SEARCHES
+LANDSCAPE_QUERIES  = WATERCOLOR_SEARCHES + OIL_SEARCHES
 
 
 def _session() -> requests.Session:
     s = requests.Session()
-    s.headers.update({"User-Agent": config.HTTP_USER_AGENT})
+    s.headers.update({
+        "User-Agent": config.HTTP_USER_AGENT,
+        "Accept":     "application/json",
+    })
     return s
 
 
-def _clean_artist(raw: str) -> str:
-    """Normalise Rijksmuseum artist strings."""
-    if not raw:
-        return "Unknown"
-    # Rijksmuseum sometimes gives "Lastname, Firstname" — reorder
-    if "," in raw and raw.index(",") < 30:
-        parts = raw.split(",", 1)
-        raw = f"{parts[1].strip()} {parts[0].strip()}"
-    return raw.strip()
+def _get_iiif_dimensions(image_id: str, session: requests.Session) -> tuple:
+    """Query iiif.micr.io info.json for native pixel dimensions."""
+    url = f"{IIIF_BASE}/{image_id}/info.json"
+    try:
+        resp = session.get(url, timeout=config.HTTP_TIMEOUT)
+        resp.raise_for_status()
+        data = resp.json()
+        return data.get("width", 0), data.get("height", 0)
+    except Exception:
+        return 0, 0
 
 
-def _infer_medium(obj: dict) -> str:
+def search_page(params: dict, page_url: str | None,
+                session: requests.Session) -> dict:
     """
-    Extract medium from Rijksmuseum object record.
-    Checks 'materials' list and 'physicalMedium' string field.
+    Fetch one page of search results.
+    If page_url is given, fetch that URL directly (pagination).
+    Otherwise build from params.
     """
-    materials = [m.lower() for m in (obj.get("materials") or [])]
-    phys = (obj.get("physicalMedium") or "").lower()
-    sub_title = (obj.get("subTitle") or "").lower()
-    combined = " ".join(materials) + " " + phys + " " + sub_title
+    try:
+        if page_url:
+            resp = session.get(page_url, timeout=config.HTTP_TIMEOUT)
+        else:
+            resp = session.get(SEARCH_URL, params=params,
+                               timeout=config.HTTP_TIMEOUT)
+        resp.raise_for_status()
+        return resp.json()
+    except Exception as e:
+        print(f"  [Rijksmuseum] Search error: {e}")
+        return {}
 
-    # Exclusions first
+
+def resolve_object(identifier: str, session: requests.Session) -> dict:
+    """
+    Resolve a Linked Art object identifier to its full metadata.
+    The identifier is a URL like https://id.rijksmuseum.nl/200108293
+    We request JSON-LD via content negotiation.
+    """
+    try:
+        resp = session.get(
+            identifier,
+            headers={**session.headers, "Accept": "application/ld+json"},
+            timeout=config.HTTP_TIMEOUT,
+            allow_redirects=True,
+        )
+        resp.raise_for_status()
+        return resp.json()
+    except Exception as e:
+        return {}
+
+
+def _extract_text(node) -> str:
+    """Extract a plain string from a Linked Art label/content node."""
+    if not node:
+        return ""
+    if isinstance(node, str):
+        return node
+    if isinstance(node, list):
+        for item in node:
+            result = _extract_text(item)
+            if result:
+                return result
+        return ""
+    if isinstance(node, dict):
+        for key in ("content", "_label", "value", "@value"):
+            if key in node:
+                return _extract_text(node[key])
+    return ""
+
+
+def _extract_classified_labels(items: list) -> list:
+    """Extract all _label strings from a list of classified_as or similar."""
+    labels = []
+    for item in (items or []):
+        label = _extract_text(item.get("_label") or item.get("label") or "")
+        if label:
+            labels.append(label.lower())
+    return labels
+
+
+def _extract_medium(obj: dict) -> str:
+    """
+    Infer medium from Linked Art object.
+    Checks made_of (materials), technique classified_as, and title text.
+    """
+    # Materials
+    materials = []
+    for m in (obj.get("made_of") or []):
+        label = _extract_text(m.get("_label") or "")
+        if label:
+            materials.append(label.lower())
+        # Also recurse into classified_as
+        for cls in (m.get("classified_as") or []):
+            lbl = _extract_text(cls.get("_label") or "")
+            if lbl:
+                materials.append(lbl.lower())
+
+    # Production technique
+    for prod in (obj.get("produced_by") or [{}]) if isinstance(obj.get("produced_by"), list) else [obj.get("produced_by") or {}]:
+        for tech in (prod.get("technique") or []):
+            lbl = _extract_text(tech.get("_label") or "")
+            if lbl:
+                materials.append(lbl.lower())
+
+    combined = " ".join(materials)
+
+    if not combined:
+        return ""
+
+    # Exclusions
     for term in DUTCH_EXCLUDE_TERMS:
         if term in combined:
             return "other"
@@ -130,151 +205,147 @@ def _infer_medium(obj: dict) -> str:
     return ""
 
 
-def _get_image_info(obj: dict) -> tuple:
-    """
-    Extract image URL and pixel dimensions from a Rijksmuseum object record.
-    The API returns webImage with w/h dimensions — no separate IIIF probe needed.
-    Returns (image_url_full, image_url_small, pixel_width, pixel_height).
-    """
-    web_image = obj.get("webImage") or {}
-    full_url  = web_image.get("url", "")
-    px_w      = web_image.get("width", 0)
-    px_h      = web_image.get("height", 0)
-
-    # Rijksmuseum serves via Google's image CDN — append =s0 for full resolution
-    if full_url and not full_url.endswith("=s0"):
-        full_url_hires = full_url + "=s0"
-    else:
-        full_url_hires = full_url
-
-    # Small thumbnail: restrict to ~700px wide
-    small_url = full_url + "=w700" if full_url else ""
-
-    return full_url_hires, small_url, px_w, px_h
-
-
-def search(query: str, page: int, session: requests.Session) -> dict:
-    """Search the Rijksmuseum collection."""
-    params = {
-        "q":           query,
-        "type":        "painting|drawing",   # exclude prints, photos, sculptures
-        "imgonly":     "True",               # must have image
-        "toppieces":   "False",
-        "ps":          100,                  # page size (max 100)
-        "p":           page,
-        "s":           "relevance",
-        "culture":     "en",
-    }
-    try:
-        resp = session.get(BASE_URL, params=params, timeout=config.HTTP_TIMEOUT)
-        resp.raise_for_status()
-        return resp.json()
-    except Exception as e:
-        print(f"  [Rijksmuseum] Search error for {query!r} page {page}: {e}")
-        return {}
-
-
-def get_object_detail(obj_number: str, session: requests.Session) -> dict:
-    """
-    Fetch full object detail to get materials, dimensions, and high-res image info.
-    The collection search endpoint returns limited fields; detail fills in the rest.
-    """
-    url = f"{BASE_URL}/{obj_number}"
-    params = {"culture": "en"}
-    for attempt in range(config.HTTP_RETRIES):
+def _extract_dimensions(obj: dict) -> tuple:
+    """Extract (width_cm, height_cm) from Linked Art dimension records."""
+    w_cm = h_cm = None
+    for dim in (obj.get("dimension") or []):
         try:
-            resp = session.get(url, params=params, timeout=config.HTTP_TIMEOUT)
-            if resp.status_code == 404:
-                return {}
-            resp.raise_for_status()
-            return resp.json().get("artObject") or {}
-        except Exception as e:
-            if attempt < config.HTTP_RETRIES - 1:
-                time.sleep(2 ** attempt)
-            else:
-                print(f"  [Rijksmuseum] Detail fetch error for {obj_number}: {e}")
-                return {}
-    return {}
+            value = float(dim.get("value", 0))
+        except (TypeError, ValueError):
+            continue
+
+        unit_label = _extract_text(
+            (dim.get("unit") or {}).get("_label") or ""
+        ).lower()
+        type_labels = _extract_classified_labels(dim.get("classified_as") or [])
+        type_str = " ".join(type_labels)
+
+        mult = 1.0
+        if "inch" in unit_label or "in." in unit_label:
+            mult = 2.54
+        elif "mm" in unit_label:
+            mult = 0.1
+        elif "cm" not in unit_label and unit_label:
+            continue
+
+        if "width" in type_str or "breedte" in type_str:
+            w_cm = value * mult
+        elif "height" in type_str or "hoogte" in type_str:
+            h_cm = value * mult
+
+    return w_cm, h_cm
+
+
+def _extract_image_id(obj: dict) -> str:
+    """
+    Extract the Micrio IIIF image ID from a Linked Art object.
+    Image services are referenced via the representation/service chain.
+    """
+    for rep in (obj.get("representation") or []):
+        for svc in (rep.get("digitally_shown_by") or []):
+            for access in (svc.get("access_point") or []):
+                url = access.get("id") or access.get("@id") or ""
+                # iiif.micr.io/{image_id}/...
+                if "micr.io" in url:
+                    parts = url.replace("https://iiif.micr.io/", "").split("/")
+                    if parts[0]:
+                        return parts[0]
+        # Direct access_point on representation
+        for access in (rep.get("access_point") or []):
+            url = access.get("id") or access.get("@id") or ""
+            if "micr.io" in url:
+                parts = url.replace("https://iiif.micr.io/", "").split("/")
+                if parts[0]:
+                    return parts[0]
+    return ""
 
 
 def normalize_record(obj: dict) -> dict | None:
-    """
-    Convert a Rijksmuseum art object to a normalised record.
-    obj should be the full artObject detail dict.
-    """
+    """Convert a Linked Art object to a normalised record."""
     if not obj:
         return None
 
-    obj_number = obj.get("objectNumber", "")
-    title      = obj.get("title") or obj.get("longTitle") or "Untitled"
-    artist     = _clean_artist(
-        (obj.get("principalMaker") or
-         (obj.get("principalMakers") or [{}])[0].get("name", "")) or "Unknown"
-    )
-    date       = obj.get("dating", {}).get("presentingDate", "") or ""
-    medium     = _infer_medium(obj)
-
-    if not medium:
-        return None  # skip if we can't determine medium
-
-    # Dimensions
-    w_cm, h_cm = None, None
-    for dim in (obj.get("dimensions") or []):
-        unit  = dim.get("unit", "")
-        typ   = dim.get("type", "").lower()
-        value = dim.get("value")
-        try:
-            value = float(value)
-        except (TypeError, ValueError):
-            continue
-        if unit == "cm":
-            if "width" in typ or typ == "b":
-                w_cm = value
-            elif "height" in typ or typ == "h":
-                h_cm = value
-        elif unit == "in":
-            if "width" in typ or typ == "b":
-                w_cm = value * 2.54
-            elif "height" in typ or typ == "h":
-                h_cm = value * 2.54
-
-    image_full, image_small, px_w, px_h = _get_image_info(obj)
-    if not image_full:
+    # Identifier → source_id
+    identifier = obj.get("id") or obj.get("@id") or ""
+    source_id  = identifier.split("/")[-1] if identifier else ""
+    if not source_id:
         return None
 
-    public_url = f"https://www.rijksmuseum.nl/en/collection/{obj_number}"
+    # Title
+    title = "Untitled"
+    for id_node in (obj.get("identified_by") or []):
+        types = _extract_classified_labels(id_node.get("classified_as") or [])
+        if any("title" in t or "naam" in t for t in types) or not types:
+            t = _extract_text(id_node.get("content") or id_node.get("value") or "")
+            if t:
+                title = t
+                break
 
-    # Description from label text
-    desc = ""
-    for label in (obj.get("labelText") or []):
-        if label:
-            desc = label[:500]
+    # Artist
+    artist = "Unknown"
+    prod   = obj.get("produced_by") or {}
+    if isinstance(prod, list):
+        prod = prod[0] if prod else {}
+    for carried in (prod.get("carried_out_by") or []):
+        name = _extract_text(carried.get("_label") or "")
+        if name:
+            artist = name
             break
 
+    # Date
+    date = ""
+    timespan = prod.get("timespan") or {}
+    if isinstance(timespan, list):
+        timespan = timespan[0] if timespan else {}
+    for id_node in (timespan.get("identified_by") or []):
+        t = _extract_text(id_node.get("content") or id_node.get("value") or "")
+        if t:
+            date = t
+            break
+    if not date:
+        date = _extract_text(timespan.get("_label") or "")
+
+    # Medium
+    medium = _extract_medium(obj)
+    if not medium or medium == "other":
+        return None
+
+    # Dimensions
+    w_cm, h_cm = _extract_dimensions(obj)
+
+    # Image
+    image_id = _extract_image_id(obj)
+    if not image_id:
+        return None
+
+    image_url_full  = f"{IIIF_BASE}/{image_id}/full/max/0/default.jpg"
+    image_url_small = f"{IIIF_BASE}/{image_id}/full/700,/0/default.jpg"
+    public_url = f"https://www.rijksmuseum.nl/en/collection/{source_id}"
+
     return {
-        "source":        "rijksmuseum",
-        "source_id":     obj_number,
-        "title":         title,
-        "artist":        artist,
-        "date":          str(date),
-        "medium":        medium,
-        "dimensions_raw": obj.get("subTitle", ""),
-        "width_cm":      w_cm,
-        "height_cm":     h_cm,
-        "pixel_width":   px_w,
-        "pixel_height":  px_h,
-        "image_url_full":  image_full,
-        "image_url_small": image_small,
-        "detail_url":    public_url,
-        "public_url":    public_url,
-        "department":    obj.get("subCollection", {}).get("name", ""),
-        "tags":          [c.get("label", "") for c in (obj.get("classifications") or [])],
-        "country":       obj.get("countryCode", ""),
-        "period":        obj.get("dating", {}).get("period", ""),
-        "credit_line":   obj.get("acquisition", {}).get("creditLine", ""),
-        "rights":        "CC0 Public Domain",
-        "description":   desc,
-        "_image_id":     None,
+        "source":         "rijksmuseum",
+        "source_id":      source_id,
+        "title":          title,
+        "artist":         artist,
+        "date":           date,
+        "medium":         medium,
+        "dimensions_raw": "",
+        "width_cm":       w_cm,
+        "height_cm":      h_cm,
+        "pixel_width":    0,
+        "pixel_height":   0,
+        "image_url_full":   image_url_full,
+        "image_url_small":  image_url_small,
+        "detail_url":     public_url,
+        "public_url":     public_url,
+        "department":     "",
+        "tags":           [],
+        "country":        "Netherlands",
+        "period":         "",
+        "credit_line":    "",
+        "rights":         "CC0 Public Domain",
+        "description":    "",
+        "_image_id":      image_id,
     }
 
 
@@ -283,10 +354,11 @@ def fetch_all_candidates(
     limit:   int  = None,
 ) -> list:
     """
-    Run landscape queries against the Rijksmuseum API and return normalised records.
+    Run searches against the new Rijksmuseum Search API and return
+    normalised records.
 
     Args:
-        queries: Query list. Defaults to LANDSCAPE_QUERIES.
+        queries: List of param dicts. Defaults to LANDSCAPE_QUERIES.
         limit:   Max records. Defaults to config.MAX_CANDIDATES_PER_SOURCE.
     """
     if queries is None:
@@ -299,43 +371,54 @@ def fetch_all_candidates(
     seen_ids = set()
     records  = []
 
-    for query in queries:
+    for params in queries:
         if len(records) >= limit:
             break
-        print(f"  [Rijksmuseum] Searching: {query!r}")
 
-        for page in range(1, 11):  # max 10 pages = 1000 results per query
-            if len(records) >= limit:
-                break
+        param_str = " ".join(f"{k}={v}" for k, v in params.items()
+                             if k != "imageAvailable")
+        print(f"  [Rijksmuseum] Searching: {param_str}")
 
-            data  = search(query, page, session)
-            items = data.get("artObjects") or []
+        page_url = None
+        pages    = 0
+
+        while len(records) < limit and pages < 10:
+            data  = search_page(params, page_url, session)
+            items = data.get("orderedItems") or []
             if not items:
                 break
+
+            total = (data.get("partOf") or {}).get("totalItems", 0)
+            if pages == 0:
+                print(f"           → {total} results")
 
             for item in items:
                 if len(records) >= limit:
                     break
-                obj_number = item.get("objectNumber")
-                if not obj_number or obj_number in seen_ids:
+                identifier = item.get("id") or item.get("@id") or ""
+                if not identifier:
                     continue
-                seen_ids.add(obj_number)
+                source_id = identifier.split("/")[-1]
+                if source_id in seen_ids:
+                    continue
+                seen_ids.add(source_id)
 
-                # Fetch full detail for medium/dimension/image info
-                detail = get_object_detail(obj_number, session)
-                if not detail:
+                obj = resolve_object(identifier, session)
+                if not obj:
                     continue
 
-                rec = normalize_record(detail)
+                rec = normalize_record(obj)
                 if rec:
                     records.append(rec)
 
-                time.sleep(config.MET_REQUEST_DELAY)  # reuse Met's polite delay
+                time.sleep(config.AIC_REQUEST_DELAY)
 
-            total = data.get("count", 0)
-            if page * 100 >= min(total, 1000):
+            # Pagination
+            next_node = data.get("next") or {}
+            page_url  = next_node.get("id") if next_node else None
+            if not page_url:
                 break
-
+            pages += 1
             time.sleep(config.AIC_REQUEST_DELAY)
 
     print(f"[Rijksmuseum] Fetched {len(records)} candidate records.")

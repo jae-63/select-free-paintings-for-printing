@@ -61,6 +61,9 @@ def choose_download_url(rec: dict) -> str:
     if source == "aic" and image_id:
         return f"https://www.artic.edu/iiif/2/{image_id}/full/{w},/0/default.jpg"
 
+    if source == "rijksmuseum" and image_id:
+        return f"https://iiif.micr.io/{image_id}/full/{w},/0/default.jpg"
+
     if source == "getty" and image_id:
         return f"https://data.getty.edu/museum/api/iiif/{image_id}/full/{w},/0/default.jpg"
 

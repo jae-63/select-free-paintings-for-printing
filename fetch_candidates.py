@@ -238,6 +238,23 @@ def apply_filters(
                 rec["pixel_width"]  = px_w
                 rec["pixel_height"] = px_h
                 time.sleep(0.05)
+            elif image_id and source == "rijksmuseum":
+                # Rijksmuseum uses iiif.micr.io
+                url = f"https://iiif.micr.io/{image_id}/info.json"
+                try:
+                    resp = __import__("requests").get(
+                        url, timeout=config.HTTP_TIMEOUT,
+                        headers={"User-Agent": config.HTTP_USER_AGENT}
+                    )
+                    resp.raise_for_status()
+                    info = resp.json()
+                    px_w = info.get("width", 0)
+                    px_h = info.get("height", 0)
+                    rec["pixel_width"]  = px_w
+                    rec["pixel_height"] = px_h
+                except Exception:
+                    pass
+                time.sleep(0.05)
             elif image_id and source == "getty":
                 # Getty uses its own IIIF base URL
                 url = f"https://data.getty.edu/museum/api/iiif/{image_id}/info.json"
@@ -399,9 +416,8 @@ def main():
     if "rijksmuseum" in args.sources:
         from sources.rijksmuseum import (
             fetch_all_candidates as rij_fetch,
-            WATERCOLOR_QUERIES as RIJ_WC_Q,
-            OIL_QUERIES as RIJ_OIL_Q,
-            LANDSCAPE_QUERIES as RIJ_ALL_Q,
+            WATERCOLOR_SEARCHES as RIJ_WC_Q,
+            OIL_SEARCHES as RIJ_OIL_Q,
         )
         if args.watercolor_target > 0:
             print("[Rijksmuseum] Fetching watercolor candidates...")
