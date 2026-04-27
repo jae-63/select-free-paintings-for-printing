@@ -145,18 +145,25 @@ CLAUDE_VISION_SMOOTHNESS_THRESHOLD = 3
 
 # Prompt sent to Claude for each oil painting thumbnail
 CLAUDE_VISION_PROMPT = """\
-You are evaluating whether an oil painting would make an attractive canvas print.
+You are selecting oil paintings for high-resolution canvas printing in a home.
 
-For canvas printing purposes, paintings with SMOOTH, FLAT, or GLAZED brushwork
-reproduce well. Paintings with HEAVY IMPASTO (thick 3D paint texture) do NOT
-reproduce well on flat canvas prints — the texture is lost and the image looks muddy.
+Rate this painting combining TWO criteria into a single 1-5 score:
 
-Look at this painting thumbnail and rate its surface smoothness on this scale:
-  1 = Heavy impasto / very thick texture (e.g. Van Gogh's Starry Night style)
-  2 = Moderate texture / visible brushstrokes
-  3 = Some texture but mostly flat / moderate impressionism
-  4 = Smooth / flat / luminous (e.g. Whistler, Corot, Luminist style)
-  5 = Very smooth / almost photographic / glazed (e.g. academic, Dutch Golden Age)
+SUBJECT (does it suit a home?)
+- Landscapes, seascapes, coastal/river views, pastoral scenes = good
+- Portraits, figure studies, battle scenes, mythological scenes = bad
+- Still lifes, animal studies = neutral (only pass if also smooth)
+
+TECHNIQUE (will it print well flat?)
+- Smooth, flat, glazed, luminous brushwork = good
+- Heavy impasto / thick 3D texture = bad (texture disappears in a flat print)
+
+Scoring:
+  1 = Bad subject (portrait/battle) OR heavy impasto — reject
+  2 = Portrait or figure painting, or very textured — likely reject
+  3 = Borderline: acceptable subject with moderate texture, or good subject slightly textured
+  4 = Landscape/seascape with smooth or flat technique — good
+  5 = Ideal landscape/seascape, very smooth or glazed technique — excellent
 
 Reply with ONLY a single digit (1–5) and nothing else.
 """
@@ -277,6 +284,40 @@ SMOOTH_OIL_ARTISTS = [
     "albert bierstadt", "bierstadt",
     "frederic church",
     "thomas cole",
+]
+
+# ---------------------------------------------------------------------------
+# NON-PAINTING SUBJECT FILTER  (always on — these are never suitable)
+# ---------------------------------------------------------------------------
+
+# Title substrings indicating decorative arts, architectural drawings,
+# botanical illustrations, or other non-painting works that museum APIs
+# return when searching for "watercolor". Applied unconditionally.
+NON_PAINTING_TITLE_TERMS = [
+    # Decorative / applied arts
+    "design for", "design of",
+    "wallpaper", "wall paper",
+    "valance", "pelmet", "curtain",
+    "rug ", " rug", "carpet",
+    "chair back", "chair cover", "sofa",
+    "chimneypiece", "chimney piece",
+    "overmantel", "girandole", "pier-glass", "pier glass",
+    "chandelier", "candelabra", "candelabrum",
+    "vase design", "vessel design",
+    "furniture design",
+    "embroidery", "textile",
+    # Vehicles
+    "road coach", "coach #", "carriage",
+    # Architectural / engineering
+    "floor plan", "elevation", "section drawing",
+    "plans and elevations",
+    # Botanical / natural history (unless clearly landscape)
+    "study of capers", "study of flowers", "study of leaves",
+    "study of insects", "study of beetles",
+    "fritillar", "botanical",
+    # Figure studies (not landscapes)
+    "nude male figure", "nude female figure",
+    "study of a figure", "figure study",
 ]
 
 # ---------------------------------------------------------------------------

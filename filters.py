@@ -136,6 +136,21 @@ def parse_dimensions_from_string(dim_str: str) -> tuple:
     return None, None
 
 
+def is_non_painting(title: str) -> bool:
+    """
+    Returns True if the title indicates this is a decorative arts design,
+    architectural drawing, botanical illustration, or other non-painting work.
+    Applied unconditionally (not a CLI flag) since these are never suitable
+    for canvas printing regardless of personal taste.
+    Term list defined in config.NON_PAINTING_TITLE_TERMS.
+    """
+    t = (title or "").lower()
+    for term in config.NON_PAINTING_TITLE_TERMS:
+        if term in t:
+            return True
+    return False
+
+
 def is_religious_title(title: str) -> bool:
     """
     Returns True if the title suggests religious subject matter.

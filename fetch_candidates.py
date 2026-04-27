@@ -56,6 +56,7 @@ from filters import (
     parse_dimensions_from_string,
     dimensions_are_landscape,
     is_religious_title,
+    is_non_painting,
 )
 from exclusions import is_excluded
 from oil_classifier import is_smooth_oil, vision_status
@@ -138,6 +139,7 @@ def apply_filters(
         "no_image":        0,
         "excluded_famous": 0,
         "religious_title": 0,
+        "non_painting":    0,
         "wrong_medium":    0,
         "wrong_aspect":    0,
         "low_resolution":  0,
@@ -166,6 +168,13 @@ def apply_filters(
             rejected["religious_title"] += 1
             if verbose:
                 print(f"  [religious] {artist} — {title}")
+            continue
+
+        # ── Non-painting filter (always on)
+        if is_non_painting(title):
+            rejected["non_painting"] += 1
+            if verbose:
+                print(f"  [non-painting] {artist} — {title}")
             continue
 
         # ── Medium classification
