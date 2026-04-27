@@ -69,8 +69,10 @@ DEFAULT_SOURCES = ["met", "aic"]
 
 # Politeness delay between API requests, in seconds, per source
 MET_REQUEST_DELAY    = 0.35   # ~3 req/s; Met 403s at higher rates without a key
-AIC_REQUEST_DELAY    = 0.20   # AIC asks for reasonable use
+AIC_REQUEST_DELAY       = 0.20   # AIC asks for reasonable use
 EUROPEANA_REQUEST_DELAY = 0.30
+RIJKSMUSEUM_REQUEST_DELAY = 0.25  # Rijksmuseum API: polite pace
+GETTY_REQUEST_DELAY     = 0.25   # Getty API: polite pace
 
 # Max pages to fetch per query per source (each page = up to 100 results)
 AIC_MAX_PAGES_PER_QUERY = 10

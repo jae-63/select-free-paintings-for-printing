@@ -152,7 +152,7 @@ CARD_TEMPLATE = """\
 # Card builder
 # ---------------------------------------------------------------------------
 
-SOURCE_NAMES = {"met": "The Met", "aic": "Art Institute", "europeana": "Europeana"}
+SOURCE_NAMES = {"met": "The Met", "aic": "Art Institute", "europeana": "Europeana", "rijksmuseum": "Rijksmuseum", "getty": "Getty Museum"}
 
 
 def make_card(rec: dict) -> str:

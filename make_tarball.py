@@ -51,16 +51,18 @@ def _session() -> requests.Session:
 def choose_download_url(rec: dict) -> str:
     """
     Select the best URL for downloading a preview-sized image.
-    For AIC, we use a IIIF sized URL to avoid downloading the full image.
+    For IIIF sources (AIC, Getty), request a sized URL to avoid downloading
+    the full high-resolution image.
     """
     source   = rec.get("source")
     image_id = rec.get("_image_id")
+    w        = config.AIC_PREVIEW_WIDTH_PX
 
     if source == "aic" and image_id:
-        return (
-            f"https://www.artic.edu/iiif/2/{image_id}"
-            f"/full/{config.AIC_PREVIEW_WIDTH_PX},/0/default.jpg"
-        )
+        return f"https://www.artic.edu/iiif/2/{image_id}/full/{w},/0/default.jpg"
+
+    if source == "getty" and image_id:
+        return f"https://data.getty.edu/museum/api/iiif/{image_id}/full/{w},/0/default.jpg"
 
     return rec.get("image_url_small") or rec.get("image_url_full") or ""
 
