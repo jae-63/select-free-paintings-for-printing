@@ -315,6 +315,10 @@ NON_PAINTING_TITLE_TERMS = [
     "study of capers", "study of flowers", "study of leaves",
     "study of insects", "study of beetles",
     "fritillar", "botanical",
+    # Reproductions and copies
+    "reproduction.", ", reproduction",
+    # Untitled / missing metadata signals
+    "#agentof",  # malformed Europeana agent IDs in title field
     # Figure studies (not landscapes)
     "nude male figure", "nude female figure",
     "study of a figure", "figure study",

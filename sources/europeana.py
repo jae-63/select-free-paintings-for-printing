@@ -279,7 +279,7 @@ def normalize_record(item: dict) -> dict | None:
         "source":        "europeana",
         "source_id":     item.get("id", ""),
         "title":         title,
-        "artist":        artist or "Unknown",
+        "artist":        artist if (artist and not artist.startswith('#')) else "Unknown",
         "date":          date,
         "medium":        medium,
         "dimensions_raw": "",
