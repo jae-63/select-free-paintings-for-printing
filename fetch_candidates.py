@@ -238,7 +238,15 @@ def apply_filters(
                 rejected["wrong_aspect"] += 1
                 continue
 
-        if check_resolution and px_w > 0:
+        if check_resolution:
+            if px_w == 0:
+                # Probe failed or no pixel data available — reject rather than
+                # silently passing. A work we can't verify meets resolution
+                # requirements shouldn't end up in the final selection.
+                rejected["low_resolution"] += 1
+                if verbose:
+                    print(f"  [unprobed res] {artist} — {title}")
+                continue
             if not check_pixel_resolution(px_w, min_width_px):
                 rejected["low_resolution"] += 1
                 if verbose:
