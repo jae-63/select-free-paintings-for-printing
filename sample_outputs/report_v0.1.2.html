@@ -1,0 +1,1910 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Canvas Print Candidates</title>
+<style>
+  :root {
+    --bg:       #1a1a1a;
+    --card-bg:  #252525;
+    --text:     #e0e0e0;
+    --muted:    #999;
+    --accent:   #c8a96e;
+    --border:   #333;
+    --wc-tag:   #3a7a5a;
+    --oil-tag:  #5a4a7a;
+    --shadow:   0 4px 16px rgba(0,0,0,0.5);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: Georgia, 'Times New Roman', serif;
+    padding: 2rem;
+  }
+  h1 { color: var(--accent); font-size: 2rem; margin-bottom: 0.4rem; }
+  .subtitle {
+    color: var(--muted); font-size: 0.9rem; margin-bottom: 1.5rem;
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+  }
+  .stats {
+    background: var(--card-bg); border: 1px solid var(--border);
+    border-radius: 8px; padding: 0.8rem 1.4rem; margin-bottom: 2rem;
+    font-family: 'Helvetica Neue', Arial, sans-serif; font-size: 0.82rem;
+    color: var(--muted); display: flex; gap: 2rem; flex-wrap: wrap;
+  }
+  .stats b { color: var(--text); }
+  .section-header {
+    font-size: 1.4rem; color: var(--accent);
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 0.4rem; margin: 2.5rem 0 1.4rem; font-style: italic;
+  }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.4rem;
+  }
+  .card {
+    background: var(--card-bg); border: 1px solid var(--border);
+    border-radius: 10px; overflow: hidden; box-shadow: var(--shadow);
+    transition: transform .2s, box-shadow .2s;
+  }
+  .card:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(0,0,0,.7); }
+  .card img {
+    width: 100%; height: 185px; object-fit: cover; object-position: center;
+    display: block; background: #111;
+  }
+  .no-image {
+    width: 100%; height: 185px; background: #111;
+    display: flex; align-items: center; justify-content: center;
+    color: #444; font-size: 0.8rem; font-family: 'Helvetica Neue', Arial, sans-serif;
+  }
+  .card-body { padding: 0.9rem 1rem 1rem; }
+  .tag {
+    display: inline-block; padding: 2px 8px; border-radius: 12px;
+    font-size: 0.68rem; font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-weight: bold; letter-spacing: .05em; text-transform: uppercase;
+    margin-right: 4px; margin-bottom: 6px;
+  }
+  .tag-wc  { background: var(--wc-tag);  color: #a8e8c8; }
+  .tag-oil { background: var(--oil-tag); color: #c8b8f0; }
+  .tag-src { background: #333; color: #aaa; }
+  .card-title  { font-size: 0.98rem; color: var(--text); margin-bottom: .25rem; font-style: italic; }
+  .card-artist { font-size: 0.83rem; color: var(--accent); margin-bottom: .45rem;
+                  font-family: 'Helvetica Neue', Arial, sans-serif; font-weight: bold; }
+  .card-meta   { font-family: 'Helvetica Neue', Arial, sans-serif; font-size: 0.74rem;
+                  color: var(--muted); line-height: 1.55; }
+  .dims        { margin-top: .3rem; font-size: 0.70rem; color: #666; font-family: monospace; }
+  .card-links  { margin-top: .7rem; font-family: 'Helvetica Neue', Arial, sans-serif; font-size: 0.74rem; }
+  .card-links a { color: var(--accent); text-decoration: none; margin-right: 1rem; }
+  .card-links a:hover { text-decoration: underline; }
+</style>
+</head>
+<body>
+
+<h1>🎨 Canvas Print Candidates</h1>
+<p class="subtitle">Public-domain landscapes filtered for high-resolution canvas printing (≥200 DPI at 40")</p>
+
+<div class="stats">
+  <div>Watercolors: <b>120</b></div>
+  <div>Smooth Oils: <b>30</b></div>
+  <div>Total: <b>150</b></div>
+  <div>Min aspect ratio: <b>1.4:1</b></div>
+  <div>Print spec: <b>40" @ 200 DPI (8000px)</b></div>
+  <div>Sources: <b>EUROPEANA, MET, AIC</b></div>
+  <div>Vision: <b>unknown</b></div>
+</div>
+
+<div class="section-header">Watercolors &amp; Gouaches — 120 works</div>
+<div class="grid">
+<div class="card">
+  <img src="https://www.artic.edu/iiif/2/4472904e-92de-7e95-d52e-4a7c764973df/full/700,/0/default.jpg" alt="Schooner - Nassau" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-wc">Watercolor</span>
+    <span class="tag tag-src">AIC</span>
+    <div class="card-title">"Schooner - Nassau"</div>
+    <div class="card-artist">Winslow Homer</div>
+    <div class="card-meta"><b>1898/99</b><br>Transparent watercolor, with traces of opaque watercolor, rewetting, blotting an…<br></div>
+    <div class="dims">Physical: 38.0 × 54.5 cm (ratio 1.43)<br>Image: 11801 × 8288px (295 DPI@40")</div>
+    <div class="card-links"><a href="https://www.artic.edu/iiif/2/4472904e-92de-7e95-d52e-4a7c764973df/full/full/0/default.jpg" target="_blank">Full image ↗</a><a href="https://www.artic.edu/artworks/145823" target="_blank">Art Institute page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://www.artic.edu/iiif/2/b34de958-1cbe-065f-4941-c34f64d2b366/full/700,/0/default.jpg" alt="After the Hurricane, Bahamas" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-wc">Watercolor</span>
+    <span class="tag tag-src">AIC</span>
+    <div class="card-title">"After the Hurricane, Bahamas"</div>
+    <div class="card-artist">Winslow Homer</div>
+    <div class="card-meta"><b>1899</b><br>Transparent watercolor, with touches of opaque watercolor, rewetting, blotting a…<br></div>
+    <div class="dims">Physical: 37.2 × 54.2 cm (ratio 1.46)<br>Image: 11777 × 8265px (294 DPI@40")</div>
+    <div class="card-links"><a href="https://www.artic.edu/iiif/2/b34de958-1cbe-065f-4941-c34f64d2b366/full/full/0/default.jpg" target="_blank">Full image ↗</a><a href="https://www.artic.edu/artworks/16776" target="_blank">Art Institute page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://www.artic.edu/iiif/2/5ca8e39e-8cf3-b0e1-a4a2-b54444954de3/full/700,/0/default.jpg" alt="Sunshine and Shadow, Prout's Neck" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-wc">Watercolor</span>
+    <span class="tag tag-src">AIC</span>
+    <div class="card-title">"Sunshine and Shadow, Prout's Neck"</div>
+    <div class="card-artist">Winslow Homer</div>
+    <div class="card-meta"><b>1894</b><br>Watercolor, with rewetting and blotting, over graphite, on thick, rough-textured…<br></div>
+    <div class="dims">Physical: 38.5 × 54.6 cm (ratio 1.42)<br>Image: 11543 × 8047px (289 DPI@40")</div>
+    <div class="card-links"><a href="https://www.artic.edu/iiif/2/5ca8e39e-8cf3-b0e1-a4a2-b54444954de3/full/full/0/default.jpg" target="_blank">Full image ↗</a><a href="https://www.artic.edu/artworks/16834" target="_blank">Art Institute page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://www.artic.edu/iiif/2/2a4794cd-a78e-b43d-06e8-65573bf812e9/full/700,/0/default.jpg" alt="Life-Size Black Bass" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-wc">Watercolor</span>
+    <span class="tag tag-src">AIC</span>
+    <div class="card-title">"Life-Size Black Bass"</div>
+    <div class="card-artist">Winslow Homer</div>
+    <div class="card-meta"><b>1904</b><br>Transparent watercolor, with touches of opaque watercolor, rewetting, blotting a…<br></div>
+    <div class="dims">Physical: 35.0 × 52.6 cm (ratio 1.50)<br>Image: 11310 × 7535px (283 DPI@40")</div>
+    <div class="card-links"><a href="https://www.artic.edu/iiif/2/2a4794cd-a78e-b43d-06e8-65573bf812e9/full/full/0/default.jpg" target="_blank">Full image ↗</a><a href="https://www.artic.edu/artworks/189152" target="_blank">Art Institute page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://www.artic.edu/iiif/2/3d3c78e3-3360-f2d1-894d-556b5e289dab/full/700,/0/default.jpg" alt="Netting the Fish" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-wc">Watercolor</span>
+    <span class="tag tag-src">AIC</span>
+    <div class="card-title">"Netting the Fish"</div>
+    <div class="card-artist">Winslow Homer</div>
+    <div class="card-meta"><b>1889</b><br>Transparent watercolor, heightened with opaque white watercolor, with rewetting,…<br></div>
+    <div class="dims">Physical: 35.3 × 50.8 cm (ratio 1.44)<br>Image: 11135 × 7811px (278 DPI@40")</div>
+    <div class="card-links"><a href="https://www.artic.edu/iiif/2/3d3c78e3-3360-f2d1-894d-556b5e289dab/full/full/0/default.jpg" target="_blank">Full image ↗</a><a href="https://www.artic.edu/artworks/14837" target="_blank">Art Institute page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://www.artic.edu/iiif/2/c3152f34-b272-5bc5-bf52-031c467bb57a/full/700,/0/default.jpg" alt="The End of the Day, Adirondacks" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-wc">Watercolor</span>
+    <span class="tag tag-src">AIC</span>
+    <div class="card-title">"The End of the Day, Adirondacks"</div>
+    <div class="card-artist">Winslow Homer</div>
+    <div class="card-meta"><b>1890</b><br>Transparent watercolor, with traces of opaque watercolor, rewetting, blotting, a…<br></div>
+    <div class="dims">Physical: 35.4 × 50.8 cm (ratio 1.44)<br>Image: 11012 × 7746px (275 DPI@40")</div>
+    <div class="card-links"><a href="https://www.artic.edu/iiif/2/c3152f34-b272-5bc5-bf52-031c467bb57a/full/full/0/default.jpg" target="_blank">Full image ↗</a><a href="https://www.artic.edu/artworks/16785" target="_blank">Art Institute page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://www.artic.edu/iiif/2/2ba29e23-e11f-1346-971f-a8c63f94bc54/full/700,/0/default.jpg" alt="Boy in Boat, Gloucester" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-wc">Watercolor</span>
+    <span class="tag tag-src">AIC</span>
+    <div class="card-title">"Boy in Boat, Gloucester"</div>
+    <div class="card-artist">Winslow Homer</div>
+    <div class="card-meta"><b>1880/81</b><br>Transparent watercolor, with touches of opaque watercolor and scraping, over gra…<br></div>
+    <div class="dims">Physical: 23.2 × 34.9 cm (ratio 1.50)<br>Image: 10858 × 7248px (271 DPI@40")</div>
+    <div class="card-links"><a href="https://www.artic.edu/iiif/2/2ba29e23-e11f-1346-971f-a8c63f94bc54/full/full/0/default.jpg" target="_blank">Full image ↗</a><a href="https://www.artic.edu/artworks/16800" target="_blank">Art Institute page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://www.artic.edu/iiif/2/1de73bb7-52d6-e099-f4e1-763e201e78fa/full/700,/0/default.jpg" alt="The Water Fan" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-wc">Watercolor</span>
+    <span class="tag tag-src">AIC</span>
+    <div class="card-title">"The Water Fan"</div>
+    <div class="card-artist">Winslow Homer</div>
+    <div class="card-meta"><b>1898/99</b><br>Watercolor, with blotting and touches of scraping, over graphite, on thick, roug…<br></div>
+    <div class="dims">Physical: 37.4 × 53.4 cm (ratio 1.43)<br>Image: 10659 × 7423px (266 DPI@40")</div>
+    <div class="card-links"><a href="https://www.artic.edu/iiif/2/1de73bb7-52d6-e099-f4e1-763e201e78fa/full/full/0/default.jpg" target="_blank">Full image ↗</a><a href="https://www.artic.edu/artworks/38666" target="_blank">Art Institute page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://www.artic.edu/iiif/2/1fb99ef6-1112-cd05-5038-5cd29d8b3a4d/full/700,/0/default.jpg" alt="Seascape at Dinard" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-wc">Watercolor</span>
+    <span class="tag tag-src">AIC</span>
+    <div class="card-title">"Seascape at Dinard"</div>
+    <div class="card-artist">Félix Buhot</div>
+    <div class="card-meta"><b>c. 1889</b><br>Monotype in black, with black ink wash, on cream laid paper<br></div>
+    <div class="dims">Physical: 11.2 × 27.4 cm (ratio 2.45)<br>Image: 10527 × 4522px (263 DPI@40")</div>
+    <div class="card-links"><a href="https://www.artic.edu/iiif/2/1fb99ef6-1112-cd05-5038-5cd29d8b3a4d/full/full/0/default.jpg" target="_blank">Full image ↗</a><a href="https://www.artic.edu/artworks/265813" target="_blank">Art Institute page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://www.artic.edu/iiif/2/560ff8f8-8932-6114-54d5-8174144615e5/full/700,/0/default.jpg" alt="Mussooree and the Dhoon from Landour" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-wc">Watercolor</span>
+    <span class="tag tag-src">AIC</span>
+    <div class="card-title">"Mussooree and the Dhoon from Landour"</div>
+    <div class="card-artist">Joseph Mallord William Turner</div>
+    <div class="card-meta"><b>c. 1835</b><br>Watercolor and gouache, over graphite, on off-white wove paper, edge mounted on …<br></div>
+    <div class="dims">Physical: 12.3 × 20.2 cm (ratio 1.64)<br>Image: 10316 × 6346px (258 DPI@40")</div>
+    <div class="card-links"><a href="https://www.artic.edu/iiif/2/560ff8f8-8932-6114-54d5-8174144615e5/full/full/0/default.jpg" target="_blank">Full image ↗</a><a href="https://www.artic.edu/artworks/186418" target="_blank">Art Institute page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://www.artic.edu/iiif/2/84d9d54d-a83c-bf89-fa5f-a0665cb9cc47/full/700,/0/default.jpg" alt="Montagne Sainte-Victoire (The Arc Valley)" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-wc">Watercolor</span>
+    <span class="tag tag-src">AIC</span>
+    <div class="card-title">"Montagne Sainte-Victoire (The Arc Valley)"</div>
+    <div class="card-artist">Paul Cézanne</div>
+    <div class="card-meta"><b>c. 1885</b><br>Watercolor with graphite, heightened with opaque white watercolor, on cream wove…<br></div>
+    <div class="dims">Physical: 35.4 × 53.7 cm (ratio 1.52)<br>Image: 9810 × 6534px (245 DPI@40")</div>
+    <div class="card-links"><a href="https://www.artic.edu/iiif/2/84d9d54d-a83c-bf89-fa5f-a0665cb9cc47/full/full/0/default.jpg" target="_blank">Full image ↗</a><a href="https://www.artic.edu/artworks/20529" target="_blank">Art Institute page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://www.artic.edu/iiif/2/9d0b3787-9300-717b-fafb-4f21fc6e4d43/full/700,/0/default.jpg" alt="Sunset" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-wc">Watercolor</span>
+    <span class="tag tag-src">AIC</span>
+    <div class="card-title">"Sunset"</div>
+    <div class="card-artist">Auguste Rodin</div>
+    <div class="card-meta"><b>n.d.</b><br>Watercolor and graphite, with smudging, on cream wove paper<br></div>
+    <div class="dims">Physical: 32.8 × 50.2 cm (ratio 1.53)<br>Image: 8854 × 5707px (221 DPI@40")</div>
+    <div class="card-links"><a href="https://www.artic.edu/iiif/2/9d0b3787-9300-717b-fafb-4f21fc6e4d43/full/full/0/default.jpg" target="_blank">Full image ↗</a><a href="https://www.artic.edu/artworks/66958" target="_blank">Art Institute page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://www.artic.edu/iiif/2/d6a6ee14-75f4-c6b8-3d14-a0c0a8344be5/full/700,/0/default.jpg" alt="Olive Trees, Corfu" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-wc">Watercolor</span>
+    <span class="tag tag-src">AIC</span>
+    <div class="card-title">"Olive Trees, Corfu"</div>
+    <div class="card-artist">John Singer Sargent</div>
+    <div class="card-meta"><b>1909</b><br>Watercolor and opaque watercolor with scraping and wax resist over graphite on i…<br></div>
+    <div class="dims">Physical: 35.6 × 50.8 cm (ratio 1.43)<br>Image: 8000 × 6000px (200 DPI@40")</div>
+    <div class="card-links"><a href="https://www.artic.edu/iiif/2/d6a6ee14-75f4-c6b8-3d14-a0c0a8344be5/full/full/0/default.jpg" target="_blank">Full image ↗</a><a href="https://www.artic.edu/artworks/14792" target="_blank">Art Institute page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://www.artic.edu/iiif/2/ca20b7a7-8ae2-3ef5-a603-083332d0d239/full/700,/0/default.jpg" alt="View of the Ponte Rotto, Rome, with Watermills" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-wc">Watercolor</span>
+    <span class="tag tag-src">AIC</span>
+    <div class="card-title">"View of the Ponte Rotto, Rome, with Watermills"</div>
+    <div class="card-artist">Jan Asselijn</div>
+    <div class="card-meta"><b>late 1630s</b><br>Watercolor, over graphite, on cream laid paper<br></div>
+    <div class="dims">Physical: 20.0 × 45.5 cm (ratio 2.27)<br>Image: 8000 × 3594px (200 DPI@40")</div>
+    <div class="card-links"><a href="https://www.artic.edu/iiif/2/ca20b7a7-8ae2-3ef5-a603-083332d0d239/full/full/0/default.jpg" target="_blank">Full image ↗</a><a href="https://www.artic.edu/artworks/155214" target="_blank">Art Institute page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://images.metmuseum.org/CRDImages/dp/web-large/DP850986.jpg" alt="View of the Round Howe near Richmond, Yorkshire" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-wc">Watercolor</span>
+    <span class="tag tag-src">MET</span>
+    <div class="card-title">"View of the Round Howe near Richmond, Yorkshire"</div>
+    <div class="card-artist">George Cuit the Elder</div>
+    <div class="card-meta"><b>1788</b><br>Gouache (bodycolor)<br></div>
+    <div class="dims">Physical: 50.2 × 66.7 cm (ratio 1.33)<br>Resolution: not checked</div>
+    <div class="card-links"><a href="https://images.metmuseum.org/CRDImages/dp/original/DP850986.jpg" target="_blank">Full image ↗</a><a href="https://www.metmuseum.org/art/collection/search/341215" target="_blank">The Met page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://images.metmuseum.org/CRDImages/dp/web-large/DP829463.jpg" alt="Berry Pomeroy Castle in Devon" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-wc">Watercolor</span>
+    <span class="tag tag-src">MET</span>
+    <div class="card-title">"Berry Pomeroy Castle in Devon"</div>
+    <div class="card-artist">Francis Towne</div>
+    <div class="card-meta"><b>1773–80, with additions in 1805</b><br>Watercolor and pen and ink on two joined sheets<br></div>
+    <div class="dims">Physical: 30.7 × 48.0 cm (ratio 1.56)<br>Resolution: not checked</div>
+    <div class="card-links"><a href="https://images.metmuseum.org/CRDImages/dp/original/DP829463.jpg" target="_blank">Full image ↗</a><a href="https://www.metmuseum.org/art/collection/search/420441" target="_blank">The Met page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://images.metmuseum.org/CRDImages/dp/web-large/DP829460.jpg" alt="Agia Paraskevi, Epirus, Greece" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-wc">Watercolor</span>
+    <span class="tag tag-src">MET</span>
+    <div class="card-title">"Agia Paraskevi, Epirus, Greece"</div>
+    <div class="card-artist">Edward Lear</div>
+    <div class="card-meta"><b>April 13, 1857</b><br>Graphite, pen and brown ink and watercolor<br></div>
+    <div class="dims">Physical: 32.8 × 51.1 cm (ratio 1.56)<br>Resolution: not checked</div>
+    <div class="card-links"><a href="https://images.metmuseum.org/CRDImages/dp/original/DP829460.jpg" target="_blank">Full image ↗</a><a href="https://www.metmuseum.org/art/collection/search/421664" target="_blank">The Met page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://images.metmuseum.org/CRDImages/dp/web-large/DP801246.jpg" alt="The Cable Passed From the Works into the Hulk (the Old Frigate Iris) Lying in the Thames at Greenwich" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-wc">Watercolor</span>
+    <span class="tag tag-src">MET</span>
+    <div class="card-title">"The Cable Passed From the Works into the Hulk (the Old Frigate Iris) Lying in th"</div>
+    <div class="card-artist">Robert Charles Dudley</div>
+    <div class="card-meta"><b>1865–66</b><br>Watercolor over graphite with touches of gouache (bodycolor)<br></div>
+    <div class="dims">Physical: 16.4 × 25.5 cm (ratio 1.55)<br>Resolution: not checked</div>
+    <div class="card-links"><a href="https://images.metmuseum.org/CRDImages/dp/original/DP801246.jpg" target="_blank">Full image ↗</a><a href="https://www.metmuseum.org/art/collection/search/383813" target="_blank">The Met page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://images.metmuseum.org/CRDImages/dp/web-large/DP-14421-001.jpg" alt="Italianate river landscape" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-wc">Watercolor</span>
+    <span class="tag tag-src">MET</span>
+    <div class="card-title">"Italianate river landscape"</div>
+    <div class="card-artist">William Taverner</div>
+    <div class="card-meta"><b>1750–60</b><br>Watercolor, gouache (bodycolor) and iron gall ink over graphite on three joined …<br></div>
+    <div class="dims">Physical: 32.1 × 118.6 cm (ratio 3.69)<br>Resolution: not checked</div>
+    <div class="card-links"><a href="https://images.metmuseum.org/CRDImages/dp/original/DP-14421-001.jpg" target="_blank">Full image ↗</a><a href="https://www.metmuseum.org/art/collection/search/764179" target="_blank">The Met page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://images.metmuseum.org/CRDImages/dp/web-large/DP807731.jpg" alt="Farm House by a River with Figures" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-wc">Watercolor</span>
+    <span class="tag tag-src">MET</span>
+    <div class="card-title">"Farm House by a River with Figures"</div>
+    <div class="card-artist">Louis Gabriel Moreau</div>
+    <div class="card-meta"><b>1765</b><br>Pen and brown ink, brush and watercolor, over black chalk.<br></div>
+    <div class="dims">Physical: 13.8 × 21.0 cm (ratio 1.52)<br>Resolution: not checked</div>
+    <div class="card-links"><a href="https://images.metmuseum.org/CRDImages/dp/original/DP807731.jpg" target="_blank">Full image ↗</a><a href="https://www.metmuseum.org/art/collection/search/343091" target="_blank">The Met page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://images.metmuseum.org/CRDImages/dp/web-large/DP821858.jpg" alt="Woodcutters at Park Place, Henley, the river Thames beyond" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-wc">Watercolor</span>
+    <span class="tag tag-src">MET</span>
+    <div class="card-title">"Woodcutters at Park Place, Henley, the river Thames beyond"</div>
+    <div class="card-artist">William Havell</div>
+    <div class="card-meta"><b>ca. 1826</b><br>Graphite, watercolor and gouache (bodycolor) with gum arabic and scratching out<br></div>
+    <div class="dims">Physical: 24.4 × 33.9 cm (ratio 1.39)<br>Resolution: not checked</div>
+    <div class="card-links"><a href="https://images.metmuseum.org/CRDImages/dp/original/DP821858.jpg" target="_blank">Full image ↗</a><a href="https://www.metmuseum.org/art/collection/search/399141" target="_blank">The Met page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://images.metmuseum.org/CRDImages/dp/web-large/DP802355.jpg" alt="The Salzach Valley with a View of the Watzmann Massif in the Background" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-wc">Watercolor</span>
+    <span class="tag tag-src">MET</span>
+    <div class="card-title">"The Salzach Valley with a View of the Watzmann Massif in the Background"</div>
+    <div class="card-artist">Frederik van Valkenborch</div>
+    <div class="card-meta"><b>ca. 1595–1600</b><br>Pen and gray ink, brush and brown wash and blue watercolor; framing lines in pen…<br></div>
+    <div class="dims">Physical: 15.9 × 27.5 cm (ratio 1.73)<br>Resolution: not checked</div>
+    <div class="card-links"><a href="https://images.metmuseum.org/CRDImages/dp/original/DP802355.jpg" target="_blank">Full image ↗</a><a href="https://www.metmuseum.org/art/collection/search/343421" target="_blank">The Met page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://images.metmuseum.org/CRDImages/dp/web-large/DP130032.jpg" alt="General Plan of the Gardens at Kew" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-wc">Watercolor</span>
+    <span class="tag tag-src">MET</span>
+    <div class="card-title">"General Plan of the Gardens at Kew"</div>
+    <div class="card-artist">Sir William Chambers</div>
+    <div class="card-meta"><b>1763</b><br>Watercolor, pen and ink<br></div>
+    <div class="dims">Physical: 53.0 × 121.0 cm (ratio 2.28)<br>Resolution: not checked</div>
+    <div class="card-links"><a href="https://images.metmuseum.org/CRDImages/dp/original/DP130032.jpg" target="_blank">Full image ↗</a><a href="https://www.metmuseum.org/art/collection/search/360547" target="_blank">The Met page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://images.metmuseum.org/CRDImages/dp/web-large/DP819781.jpg" alt="The River Elbe Downstream of Hamburg by Moonlight" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-wc">Watercolor</span>
+    <span class="tag tag-src">MET</span>
+    <div class="card-title">"The River Elbe Downstream of Hamburg by Moonlight"</div>
+    <div class="card-artist">Christian Ernst Morgenstern</div>
+    <div class="card-meta"><b>ca. 1828</b><br>Black chalk, brush and gray ink, heightened with white, orange and yellow gouach…<br></div>
+    <div class="dims">Physical: 40.0 × 58.5 cm (ratio 1.46)<br>Resolution: not checked</div>
+    <div class="card-links"><a href="https://images.metmuseum.org/CRDImages/dp/original/DP819781.jpg" target="_blank">Full image ↗</a><a href="https://www.metmuseum.org/art/collection/search/366205" target="_blank">The Met page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://images.metmuseum.org/CRDImages/dp/web-large/DP862732.jpg" alt="The Great Exotic Stove at Kew" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-wc">Watercolor</span>
+    <span class="tag tag-src">MET</span>
+    <div class="card-title">"The Great Exotic Stove at Kew"</div>
+    <div class="card-artist">Sir William Chambers</div>
+    <div class="card-meta"><b>1763</b><br>Pen and ink, brush and wash, watercolor<br></div>
+    <div class="dims">Physical: 29.0 × 42.0 cm (ratio 1.45)<br>Resolution: not checked</div>
+    <div class="card-links"><a href="https://images.metmuseum.org/CRDImages/dp/original/DP862732.jpg" target="_blank">Full image ↗</a><a href="https://www.metmuseum.org/art/collection/search/360559" target="_blank">The Met page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://images.metmuseum.org/CRDImages/dp/web-large/DP862735.jpg" alt="View of the Menagerie at Kew" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-wc">Watercolor</span>
+    <span class="tag tag-src">MET</span>
+    <div class="card-title">"View of the Menagerie at Kew"</div>
+    <div class="card-artist">Thomas Sandby</div>
+    <div class="card-meta"><b>1763</b><br>Watercolor<br></div>
+    <div class="dims">Physical: 27.5 × 45.0 cm (ratio 1.64)<br>Resolution: not checked</div>
+    <div class="card-links"><a href="https://images.metmuseum.org/CRDImages/dp/original/DP862735.jpg" target="_blank">Full image ↗</a><a href="https://www.metmuseum.org/art/collection/search/360449" target="_blank">The Met page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://images.metmuseum.org/CRDImages/dp/web-large/DP-42884-001.jpg" alt="Near Tannah, Bombay Line" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-wc">Watercolor</span>
+    <span class="tag tag-src">MET</span>
+    <div class="card-title">"Near Tannah, Bombay Line"</div>
+    <div class="card-artist">Constance Frederica Gordon-Cumming</div>
+    <div class="card-meta"><b>December 2, 1869</b><br>Watercolor over graphite<br></div>
+    <div class="dims">Physical: 17.0 × 35.0 cm (ratio 2.06)<br>Resolution: not checked</div>
+    <div class="card-links"><a href="https://images.metmuseum.org/CRDImages/dp/original/DP-42884-001.jpg" target="_blank">Full image ↗</a><a href="https://www.metmuseum.org/art/collection/search/929274" target="_blank">The Met page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://images.metmuseum.org/CRDImages/dp/web-large/DP105028.jpg" alt="View of the Lake and the Island from the Lawn at Kew" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-wc">Watercolor</span>
+    <span class="tag tag-src">MET</span>
+    <div class="card-title">"View of the Lake and the Island from the Lawn at Kew"</div>
+    <div class="card-artist">William Marlow</div>
+    <div class="card-meta"><b>1763</b><br>Watercolor<br></div>
+    <div class="dims">Physical: 28.4 × 45.2 cm (ratio 1.59)<br>Resolution: not checked</div>
+    <div class="card-links"><a href="https://images.metmuseum.org/CRDImages/dp/original/DP105028.jpg" target="_blank">Full image ↗</a><a href="https://www.metmuseum.org/art/collection/search/360571" target="_blank">The Met page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://images.metmuseum.org/CRDImages/dp/web-large/DP105027.jpg" alt="View of the Wilderness at Kew" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-wc">Watercolor</span>
+    <span class="tag tag-src">MET</span>
+    <div class="card-title">"View of the Wilderness at Kew"</div>
+    <div class="card-artist">William Marlow</div>
+    <div class="card-meta"><b>1763</b><br>Watercolor<br></div>
+    <div class="dims">Physical: 28.1 × 45.2 cm (ratio 1.61)<br>Resolution: not checked</div>
+    <div class="card-links"><a href="https://images.metmuseum.org/CRDImages/dp/original/DP105027.jpg" target="_blank">Full image ↗</a><a href="https://www.metmuseum.org/art/collection/search/360450" target="_blank">The Met page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://images.metmuseum.org/CRDImages/dp/web-large/DP-42886-001.jpg" alt="Hilo, Banks of the Wailuku, Hawaii" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-wc">Watercolor</span>
+    <span class="tag tag-src">MET</span>
+    <div class="card-title">"Hilo, Banks of the Wailuku, Hawaii"</div>
+    <div class="card-artist">Constance Frederica Gordon-Cumming</div>
+    <div class="card-meta"><b>November 18, 1879</b><br>Watercolor over graphite, heightened with white gouache<br></div>
+    <div class="dims">Physical: 46.4 × 70.3 cm (ratio 1.52)<br>Resolution: not checked</div>
+    <div class="card-links"><a href="https://images.metmuseum.org/CRDImages/dp/original/DP-42886-001.jpg" target="_blank">Full image ↗</a><a href="https://www.metmuseum.org/art/collection/search/929441" target="_blank">The Met page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://images.metmuseum.org/CRDImages/dp/web-large/DP811603.jpg" alt="Illustration for Goethe" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-wc">Watercolor</span>
+    <span class="tag tag-src">MET</span>
+    <div class="card-title">"Illustration for Goethe"</div>
+    <div class="card-artist">Leopold Schulz</div>
+    <div class="card-meta"><b>1842</b><br>Watercolor, over graphite (?); three framing lines, the inner one in pen and bro…<br></div>
+    <div class="dims">Physical: 31.1 × 23.4 cm (ratio 1.33)<br>Resolution: not checked</div>
+    <div class="card-links"><a href="https://images.metmuseum.org/CRDImages/dp/original/DP811603.jpg" target="_blank">Full image ↗</a><a href="https://www.metmuseum.org/art/collection/search/392342" target="_blank">The Met page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://images.metmuseum.org/CRDImages/dp/web-large/DP231021.jpg" alt="Westminster Bridge, the Surrey side" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-wc">Watercolor</span>
+    <span class="tag tag-src">MET</span>
+    <div class="card-title">"Westminster Bridge, the Surrey side"</div>
+    <div class="card-artist">Samuel Scott</div>
+    <div class="card-meta"><b>ca. 1750</b><br>Watercolor and black chalk, with touches of pen and ink<br></div>
+    <div class="dims">Physical: 23.8 × 87.0 cm (ratio 3.66)<br>Resolution: not checked</div>
+    <div class="card-links"><a href="https://images.metmuseum.org/CRDImages/dp/original/DP231021.jpg" target="_blank">Full image ↗</a><a href="https://www.metmuseum.org/art/collection/search/392486" target="_blank">The Met page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://images.metmuseum.org/CRDImages/dp/web-large/DP880872.jpg" alt="Valley of Vardan, Caucasus" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-wc">Watercolor</span>
+    <span class="tag tag-src">MET</span>
+    <div class="card-title">"Valley of Vardan, Caucasus"</div>
+    <div class="card-artist">William Simpson</div>
+    <div class="card-meta"><b>1855–58</b><br>Watercolor and gouache (bodycolor) over graphite<br></div>
+    <div class="dims">Physical: 31.6 × 46.7 cm (ratio 1.48)<br>Resolution: not checked</div>
+    <div class="card-links"><a href="https://images.metmuseum.org/CRDImages/dp/original/DP880872.jpg" target="_blank">Full image ↗</a><a href="https://www.metmuseum.org/art/collection/search/729402" target="_blank">The Met page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://images.metmuseum.org/CRDImages/dp/web-large/DP843921.jpg" alt="On the Thames at Hammersmith" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-wc">Watercolor</span>
+    <span class="tag tag-src">MET</span>
+    <div class="card-title">"On the Thames at Hammersmith"</div>
+    <div class="card-artist">John Varley</div>
+    <div class="card-meta"><b>ca. 1836</b><br>Watercolor and graphite<br></div>
+    <div class="dims">Physical: 19.7 × 27.9 cm (ratio 1.42)<br>Resolution: not checked</div>
+    <div class="card-links"><a href="https://images.metmuseum.org/CRDImages/dp/original/DP843921.jpg" target="_blank">Full image ↗</a><a href="https://www.metmuseum.org/art/collection/search/426773" target="_blank">The Met page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://images.metmuseum.org/CRDImages/dp/web-large/DP800088.jpg" alt="Seascape with Seven Figures and a Dog" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-wc">Watercolor</span>
+    <span class="tag tag-src">MET</span>
+    <div class="card-title">"Seascape with Seven Figures and a Dog"</div>
+    <div class="card-artist">Nicolaas Aartman</div>
+    <div class="card-meta"><b>1728–93</b><br>Brush and gray and black ink, with watercolor, over traces of black chalk<br></div>
+    <div class="dims">Physical: 7.0 × 9.7 cm (ratio 1.39)<br>Resolution: not checked</div>
+    <div class="card-links"><a href="https://images.metmuseum.org/CRDImages/dp/original/DP800088.jpg" target="_blank">Full image ↗</a><a href="https://www.metmuseum.org/art/collection/search/335041" target="_blank">The Met page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://images.metmuseum.org/CRDImages/dp/web-large/DP805929.jpg" alt="Mount Olympus from Larissa, Thessaly, Greece" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-wc">Watercolor</span>
+    <span class="tag tag-src">MET</span>
+    <div class="card-title">"Mount Olympus from Larissa, Thessaly, Greece"</div>
+    <div class="card-artist">Edward Lear</div>
+    <div class="card-meta"><b>1850–85</b><br>Watercolor<br></div>
+    <div class="dims">Physical: 17.8 × 38.1 cm (ratio 2.14)<br>Resolution: not checked</div>
+    <div class="card-links"><a href="https://images.metmuseum.org/CRDImages/dp/original/DP805929.jpg" target="_blank">Full image ↗</a><a href="https://www.metmuseum.org/art/collection/search/355390" target="_blank">The Met page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://images.metmuseum.org/CRDImages/dp/web-large/DP800082.jpg" alt="Winter Landscape with a Hunter and his Dog" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-wc">Watercolor</span>
+    <span class="tag tag-src">MET</span>
+    <div class="card-title">"Winter Landscape with a Hunter and his Dog"</div>
+    <div class="card-artist">Hendrick Avercamp</div>
+    <div class="card-meta"><b>17th century (?)</b><br>Pen and brown ink, with brush and gray ink and watercolor, over black chalk; fra…<br></div>
+    <div class="dims">Physical: 18.4 × 30.8 cm (ratio 1.67)<br>Resolution: not checked</div>
+    <div class="card-links"><a href="https://images.metmuseum.org/CRDImages/dp/original/DP800082.jpg" target="_blank">Full image ↗</a><a href="https://www.metmuseum.org/art/collection/search/370453" target="_blank">The Met page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://images.metmuseum.org/CRDImages/dp/web-large/DP821141.jpg" alt="Storm Over A Lake" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-wc">Watercolor</span>
+    <span class="tag tag-src">MET</span>
+    <div class="card-title">"Storm Over A Lake"</div>
+    <div class="card-artist">Joseph Barber</div>
+    <div class="card-meta"><b>1800–1811</b><br>Watercolor<br></div>
+    <div class="dims">Physical: 35.2 × 46.0 cm (ratio 1.31)<br>Resolution: not checked</div>
+    <div class="card-links"><a href="https://images.metmuseum.org/CRDImages/dp/original/DP821141.jpg" target="_blank">Full image ↗</a><a href="https://www.metmuseum.org/art/collection/search/340873" target="_blank">The Met page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://images.metmuseum.org/CRDImages/dp/web-large/DP873522.jpg" alt="View of Lake Como" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-wc">Watercolor</span>
+    <span class="tag tag-src">MET</span>
+    <div class="card-title">"View of Lake Como"</div>
+    <div class="card-artist">Francis Towne</div>
+    <div class="card-meta"><b>August 27, 1781</b><br>Pen and brown ink and watercolor<br></div>
+    <div class="dims">Physical: 15.9 × 21.0 cm (ratio 1.32)<br>Resolution: not checked</div>
+    <div class="card-links"><a href="https://images.metmuseum.org/CRDImages/dp/original/DP873522.jpg" target="_blank">Full image ↗</a><a href="https://www.metmuseum.org/art/collection/search/727696" target="_blank">The Met page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://images.metmuseum.org/CRDImages/dp/web-large/DP860358.jpg" alt="Llanberis Lake, North Wales" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-wc">Watercolor</span>
+    <span class="tag tag-src">MET</span>
+    <div class="card-title">"Llanberis Lake, North Wales"</div>
+    <div class="card-artist">Samuel Jackson</div>
+    <div class="card-meta"><b>1820–30</b><br>Monochrome watercolor, heightened with white and scratching out<br></div>
+    <div class="dims">Physical: 21.0 × 30.0 cm (ratio 1.43)<br>Resolution: not checked</div>
+    <div class="card-links"><a href="https://images.metmuseum.org/CRDImages/dp/original/DP860358.jpg" target="_blank">Full image ↗</a><a href="https://www.metmuseum.org/art/collection/search/712078" target="_blank">The Met page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://images.metmuseum.org/CRDImages/dp/web-large/DP804201.jpg" alt="Lakeland Landscape" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-wc">Watercolor</span>
+    <span class="tag tag-src">MET</span>
+    <div class="card-title">"Lakeland Landscape"</div>
+    <div class="card-artist">Copley Fielding</div>
+    <div class="card-meta"><b>early 19th century</b><br>Watercolor over graphite<br></div>
+    <div class="dims">Physical: 17.8 × 24.8 cm (ratio 1.39)<br>Resolution: not checked</div>
+    <div class="card-links"><a href="https://images.metmuseum.org/CRDImages/dp/original/DP804201.jpg" target="_blank">Full image ↗</a><a href="https://www.metmuseum.org/art/collection/search/363587" target="_blank">The Met page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://images.metmuseum.org/CRDImages/dp/web-large/DP-20677-001.jpg" alt="Study of trees by a mountain stream" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-wc">Watercolor</span>
+    <span class="tag tag-src">MET</span>
+    <div class="card-title">"Study of trees by a mountain stream"</div>
+    <div class="card-artist">William James Müller</div>
+    <div class="card-meta"><b>1833–45</b><br>Watercolor and gouache (bodycolor) over graphite, with reductive techniques, sto…<br></div>
+    <div class="dims">Physical: 14.5 × 21.7 cm (ratio 1.50)<br>Resolution: not checked</div>
+    <div class="card-links"><a href="https://images.metmuseum.org/CRDImages/dp/original/DP-20677-001.jpg" target="_blank">Full image ↗</a><a href="https://www.metmuseum.org/art/collection/search/729401" target="_blank">The Met page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://images.metmuseum.org/CRDImages/dp/web-large/DP812349.jpg" alt="Mountainous Landscape with Hermits" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-wc">Watercolor</span>
+    <span class="tag tag-src">MET</span>
+    <div class="card-title">"Mountainous Landscape with Hermits"</div>
+    <div class="card-artist">Marco Ricci</div>
+    <div class="card-meta"><b>1676–1730</b><br>Gouache on kidskin<br></div>
+    <div class="dims">Physical: 29.9 × 43.9 cm (ratio 1.47)<br>Resolution: not checked</div>
+    <div class="card-links"><a href="https://images.metmuseum.org/CRDImages/dp/original/DP812349.jpg" target="_blank">Full image ↗</a><a href="https://www.metmuseum.org/art/collection/search/335594" target="_blank">The Met page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://images.metmuseum.org/CRDImages/dp/web-large/DP801097.jpg" alt="Mountainous Landscape" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-wc">Watercolor</span>
+    <span class="tag tag-src">MET</span>
+    <div class="card-title">"Mountainous Landscape"</div>
+    <div class="card-artist">Denijs van Alsloot</div>
+    <div class="card-meta"><b>ca. 1608–11 (?)</b><br>Pen and brown ink, brush and brown wash, with touches of blue, pink, and green w…<br></div>
+    <div class="dims">Physical: 22.9 × 35.4 cm (ratio 1.55)<br>Resolution: not checked</div>
+    <div class="card-links"><a href="https://images.metmuseum.org/CRDImages/dp/original/DP801097.jpg" target="_blank">Full image ↗</a><a href="https://www.metmuseum.org/art/collection/search/350972" target="_blank">The Met page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://images.metmuseum.org/CRDImages/dp/web-large/DP266309.jpg" alt="The Labro Falls" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-wc">Watercolor</span>
+    <span class="tag tag-src">MET</span>
+    <div class="card-title">"The Labro Falls"</div>
+    <div class="card-artist">Thomas Fearnley</div>
+    <div class="card-meta"><b>1824–42</b><br>Watercolor, wash and brush and pen and ink<br></div>
+    <div class="dims">Physical: 54.0 × 75.5 cm (ratio 1.40)<br>Resolution: not checked</div>
+    <div class="card-links"><a href="https://images.metmuseum.org/CRDImages/dp/original/DP266309.jpg" target="_blank">Full image ↗</a><a href="https://www.metmuseum.org/art/collection/search/373902" target="_blank">The Met page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://images.metmuseum.org/CRDImages/dp/web-large/DP804187.jpg" alt="Hunters in an Outlook on a Mountain" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-wc">Watercolor</span>
+    <span class="tag tag-src">MET</span>
+    <div class="card-title">"Hunters in an Outlook on a Mountain"</div>
+    <div class="card-artist">August Leopold Venus</div>
+    <div class="card-meta"><b>ca. 1870</b><br>Pen and brown ink, brush and brown ink, brush and blue watercolor<br></div>
+    <div class="dims">Physical: 39.4 × 30.1 cm (ratio 1.31)<br>Resolution: not checked</div>
+    <div class="card-links"><a href="https://images.metmuseum.org/CRDImages/dp/original/DP804187.jpg" target="_blank">Full image ↗</a><a href="https://www.metmuseum.org/art/collection/search/366226" target="_blank">The Met page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://images.metmuseum.org/CRDImages/dp/web-large/DP804016.jpg" alt="Mountain Path with a Tree" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-wc">Watercolor</span>
+    <span class="tag tag-src">MET</span>
+    <div class="card-title">"Mountain Path with a Tree"</div>
+    <div class="card-artist">Friedrich Nerly</div>
+    <div class="card-meta"><b>1825–35</b><br>Graphite, watercolor, and gouache on blue paper<br></div>
+    <div class="dims">Physical: 46.8 × 33.4 cm (ratio 1.40)<br>Resolution: not checked</div>
+    <div class="card-links"><a href="https://images.metmuseum.org/CRDImages/dp/original/DP804016.jpg" target="_blank">Full image ↗</a><a href="https://www.metmuseum.org/art/collection/search/383951" target="_blank">The Met page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://images.metmuseum.org/CRDImages/dp/web-large/DP805136.jpg" alt="Lion Resting" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-wc">Watercolor</span>
+    <span class="tag tag-src">MET</span>
+    <div class="card-title">"Lion Resting"</div>
+    <div class="card-artist">Antoine-Louis Barye</div>
+    <div class="card-meta"><b>1810–75</b><br>Watercolor on wove paper, lined<br></div>
+    <div class="dims">Physical: 14.6 × 23.4 cm (ratio 1.60)<br>Resolution: not checked</div>
+    <div class="card-links"><a href="https://images.metmuseum.org/CRDImages/dp/original/DP805136.jpg" target="_blank">Full image ↗</a><a href="https://www.metmuseum.org/art/collection/search/333923" target="_blank">The Met page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://images.metmuseum.org/CRDImages/dp/web-large/DP805920.jpg" alt="Carmarthen Castle, Wales" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-wc">Watercolor</span>
+    <span class="tag tag-src">MET</span>
+    <div class="card-title">"Carmarthen Castle, Wales"</div>
+    <div class="card-artist">Thomas Rowlandson</div>
+    <div class="card-meta"><b>1797</b><br>Watercolor, pen and ink<br></div>
+    <div class="dims">Physical: 14.3 × 43.2 cm (ratio 3.02)<br>Resolution: not checked</div>
+    <div class="card-links"><a href="https://images.metmuseum.org/CRDImages/dp/original/DP805920.jpg" target="_blank">Full image ↗</a><a href="https://www.metmuseum.org/art/collection/search/363986" target="_blank">The Met page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://images.metmuseum.org/CRDImages/dp/web-large/DP820950.jpg" alt="On the Gulf of Salerno near Vietri" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-wc">Watercolor</span>
+    <span class="tag tag-src">MET</span>
+    <div class="card-title">"On the Gulf of Salerno near Vietri"</div>
+    <div class="card-artist">John Robert Cozens</div>
+    <div class="card-meta"><b>September 1782 or later</b><br>Brush and watercolor over faint traces of graphite<br></div>
+    <div class="dims">Physical: 36.7 × 53.0 cm (ratio 1.44)<br>Resolution: not checked</div>
+    <div class="card-links"><a href="https://images.metmuseum.org/CRDImages/dp/original/DP820950.jpg" target="_blank">Full image ↗</a><a href="https://www.metmuseum.org/art/collection/search/341195" target="_blank">The Met page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://images.metmuseum.org/CRDImages/dp/web-large/DP801835.jpg" alt="Landscape with a Road Leading Towards a Settlement on a Hill" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-wc">Watercolor</span>
+    <span class="tag tag-src">MET</span>
+    <div class="card-title">"Landscape with a Road Leading Towards a Settlement on a Hill"</div>
+    <div class="card-artist">Joos de Momper the Younger</div>
+    <div class="card-meta"><b>late 16th–mid 17th century</b><br>Pen and brown ink, blue watercolour<br></div>
+    <div class="dims">Physical: 27.3 × 42.2 cm (ratio 1.55)<br>Resolution: not checked</div>
+    <div class="card-links"><a href="https://images.metmuseum.org/CRDImages/dp/original/DP801835.jpg" target="_blank">Full image ↗</a><a href="https://www.metmuseum.org/art/collection/search/347549" target="_blank">The Met page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://images.metmuseum.org/CRDImages/dp/web-large/DP803728.jpg" alt="Mountain Valley" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-wc">Watercolor</span>
+    <span class="tag tag-src">MET</span>
+    <div class="card-title">"Mountain Valley"</div>
+    <div class="card-artist">Thomas Ender</div>
+    <div class="card-meta"><b>early 19th–mid 19th century</b><br>Watercolor over graphite<br></div>
+    <div class="dims">Physical: 21.0 × 28.5 cm (ratio 1.36)<br>Resolution: not checked</div>
+    <div class="card-links"><a href="https://images.metmuseum.org/CRDImages/dp/original/DP803728.jpg" target="_blank">Full image ↗</a><a href="https://www.metmuseum.org/art/collection/search/372683" target="_blank">The Met page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://images.metmuseum.org/CRDImages/dp/web-large/DP224762.jpg" alt="Snowdon from Llyn Nantlle, North Wales" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-wc">Watercolor</span>
+    <span class="tag tag-src">MET</span>
+    <div class="card-title">"Snowdon from Llyn Nantlle, North Wales"</div>
+    <div class="card-artist">George Fennel Robson</div>
+    <div class="card-meta"><b>1832</b><br>Graphite and watercolor with gum<br></div>
+    <div class="dims">Physical: 20.0 × 29.8 cm (ratio 1.49)<br>Resolution: not checked</div>
+    <div class="card-links"><a href="https://images.metmuseum.org/CRDImages/dp/original/DP224762.jpg" target="_blank">Full image ↗</a><a href="https://www.metmuseum.org/art/collection/search/385073" target="_blank">The Met page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://images.metmuseum.org/CRDImages/dp/web-large/DP114136.jpg" alt="View of Clovelly, Devon" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-wc">Watercolor</span>
+    <span class="tag tag-src">MET</span>
+    <div class="card-title">"View of Clovelly, Devon"</div>
+    <div class="card-artist">Samuel Palmer</div>
+    <div class="card-meta"><b>ca. 1848–49</b><br>Watercolor and gouache (bodycolor), black chalk and graphite<br></div>
+    <div class="dims">Physical: 27.0 × 38.0 cm (ratio 1.41)<br>Resolution: not checked</div>
+    <div class="card-links"><a href="https://images.metmuseum.org/CRDImages/dp/original/DP114136.jpg" target="_blank">Full image ↗</a><a href="https://www.metmuseum.org/art/collection/search/355582" target="_blank">The Met page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://images.metmuseum.org/CRDImages/dp/web-large/DP821057.jpg" alt="The Lake of Zug" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-wc">Watercolor</span>
+    <span class="tag tag-src">MET</span>
+    <div class="card-title">"The Lake of Zug"</div>
+    <div class="card-artist">Joseph Mallord William Turner</div>
+    <div class="card-meta"><b>1843</b><br>Watercolor and bodycolor (gouache) with reductive techniques over graphite<br></div>
+    <div class="dims">Physical: 29.8 × 46.6 cm (ratio 1.56)<br>Resolution: not checked</div>
+    <div class="card-links"><a href="https://images.metmuseum.org/CRDImages/dp/original/DP821057.jpg" target="_blank">Full image ↗</a><a href="https://www.metmuseum.org/art/collection/search/337499" target="_blank">The Met page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://images.metmuseum.org/CRDImages/dp/web-large/DP223342.jpg" alt="View of Vietri with Young Country Women Dancing for Shepherds in the Foreground" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-wc">Watercolor</span>
+    <span class="tag tag-src">MET</span>
+    <div class="card-title">"View of Vietri with Young Country Women Dancing for Shepherds in the Foreground"</div>
+    <div class="card-artist">Joseph Anton Koch</div>
+    <div class="card-meta"><b>1800</b><br>Dark gray ink, watercolor, gouache, black chalk, black ink<br></div>
+    <div class="dims">Physical: 61.7 × 95.0 cm (ratio 1.54)<br>Resolution: not checked</div>
+    <div class="card-links"><a href="https://images.metmuseum.org/CRDImages/dp/original/DP223342.jpg" target="_blank">Full image ↗</a><a href="https://www.metmuseum.org/art/collection/search/390833" target="_blank">The Met page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://images.metmuseum.org/CRDImages/dp/web-large/63.76.6.jpg" alt="Village in an Alpine Valley" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-wc">Watercolor</span>
+    <span class="tag tag-src">MET</span>
+    <div class="card-title">"Village in an Alpine Valley"</div>
+    <div class="card-artist">Victor Jean Nicolle</div>
+    <div class="card-meta"><b>n.d.</b><br>Pen and brown ink, brush and brown and red-brown wash, pale blue gouache, height…<br></div>
+    <div class="dims">Physical: 30.6 × 43.0 cm (ratio 1.41)<br>Resolution: not checked</div>
+    <div class="card-links"><a href="https://images.metmuseum.org/CRDImages/dp/original/63.76.6.jpg" target="_blank">Full image ↗</a><a href="https://www.metmuseum.org/art/collection/search/337899" target="_blank">The Met page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://images.metmuseum.org/CRDImages/dp/web-large/DP806736.jpg" alt="Mountain View at Oisans (Isère)" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-wc">Watercolor</span>
+    <span class="tag tag-src">MET</span>
+    <div class="card-title">"Mountain View at Oisans (Isère)"</div>
+    <div class="card-artist">Paul Huet</div>
+    <div class="card-meta"><b>1858</b><br>Watercolor<br></div>
+    <div class="dims">Physical: 17.5 × 25.7 cm (ratio 1.47)<br>Resolution: not checked</div>
+    <div class="card-links"><a href="https://images.metmuseum.org/CRDImages/dp/original/DP806736.jpg" target="_blank">Full image ↗</a><a href="https://www.metmuseum.org/art/collection/search/337323" target="_blank">The Met page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://images.metmuseum.org/CRDImages/dp/web-large/DT9828.jpg" alt="In the Oise Valley" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-wc">Watercolor</span>
+    <span class="tag tag-src">MET</span>
+    <div class="card-title">"In the Oise Valley"</div>
+    <div class="card-artist">Paul Cézanne</div>
+    <div class="card-meta"><b>1878–80</b><br>Graphite, gouache, and watercolor<br></div>
+    <div class="dims">Physical: 32.4 × 50.0 cm (ratio 1.54)<br>Resolution: not checked</div>
+    <div class="card-links"><a href="https://images.metmuseum.org/CRDImages/dp/original/DT9828.jpg" target="_blank">Full image ↗</a><a href="https://www.metmuseum.org/art/collection/search/334350" target="_blank">The Met page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://images.metmuseum.org/CRDImages/dp/web-large/DP804920.jpg" alt="The Valley of Lauterbrunnen, Switzerland" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-wc">Watercolor</span>
+    <span class="tag tag-src">MET</span>
+    <div class="card-title">"The Valley of Lauterbrunnen, Switzerland"</div>
+    <div class="card-artist">John Ruskin</div>
+    <div class="card-meta"><b>ca. 1866</b><br>Watercolor, gouache (bodycolor), pen and brown ink, over graphite<br></div>
+    <div class="dims">Physical: 19.4 × 25.4 cm (ratio 1.31)<br>Resolution: not checked</div>
+    <div class="card-links"><a href="https://images.metmuseum.org/CRDImages/dp/original/DP804920.jpg" target="_blank">Full image ↗</a><a href="https://www.metmuseum.org/art/collection/search/359021" target="_blank">The Met page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://images.metmuseum.org/CRDImages/dp/web-large/DP811953.jpg" alt="Town in an Alpine Valley" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-wc">Watercolor</span>
+    <span class="tag tag-src">MET</span>
+    <div class="card-title">"Town in an Alpine Valley"</div>
+    <div class="card-artist">Victor Jean Nicolle</div>
+    <div class="card-meta"><b>n.d.</b><br>Pen and brown ink, brush and brown, blue-gray and reddish washes, heightened wit…<br></div>
+    <div class="dims">Physical: 30.9 × 43.1 cm (ratio 1.39)<br>Resolution: not checked</div>
+    <div class="card-links"><a href="https://images.metmuseum.org/CRDImages/dp/original/DP811953.jpg" target="_blank">Full image ↗</a><a href="https://www.metmuseum.org/art/collection/search/337898" target="_blank">The Met page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://images.metmuseum.org/CRDImages/dp/web-large/DP805909.jpg" alt="Cattle at a watering hole in a valley" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-wc">Watercolor</span>
+    <span class="tag tag-src">MET</span>
+    <div class="card-title">"Cattle at a watering hole in a valley"</div>
+    <div class="card-artist">John Henry Mole</div>
+    <div class="card-meta"><b>1846–86</b><br>Watercolor over graphite with gouache (bodycolor) and reductive techniques<br></div>
+    <div class="dims">Physical: 33.0 × 49.4 cm (ratio 1.50)<br>Resolution: not checked</div>
+    <div class="card-links"><a href="https://images.metmuseum.org/CRDImages/dp/original/DP805909.jpg" target="_blank">Full image ↗</a><a href="https://www.metmuseum.org/art/collection/search/375871" target="_blank">The Met page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://images.metmuseum.org/CRDImages/dp/web-large/DP819617.jpg" alt="View of Kynsburg over the Weistritz River Valley in Silesia" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-wc">Watercolor</span>
+    <span class="tag tag-src">MET</span>
+    <div class="card-title">"View of Kynsburg over the Weistritz River Valley in Silesia"</div>
+    <div class="card-artist">Johann Heinrich Bleuler</div>
+    <div class="card-meta"><b>late 18th–19th century</b><br>Gouache over graphite<br></div>
+    <div class="dims">Physical: 47.5 × 65.5 cm (ratio 1.38)<br>Resolution: not checked</div>
+    <div class="card-links"><a href="https://images.metmuseum.org/CRDImages/dp/original/DP819617.jpg" target="_blank">Full image ↗</a><a href="https://www.metmuseum.org/art/collection/search/372749" target="_blank">The Met page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://images.metmuseum.org/CRDImages/dp/web-large/DP805109.jpg" alt="The Fort of L'Esseillon, Val de la Maurienne, France" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-wc">Watercolor</span>
+    <span class="tag tag-src">MET</span>
+    <div class="card-title">"The Fort of L'Esseillon, Val de la Maurienne, France"</div>
+    <div class="card-artist">Joseph Mallord William Turner</div>
+    <div class="card-meta"><b>1835–36</b><br>Watercolor<br></div>
+    <div class="dims">Physical: 19.7 × 28.0 cm (ratio 1.42)<br>Resolution: not checked</div>
+    <div class="card-links"><a href="https://images.metmuseum.org/CRDImages/dp/original/DP805109.jpg" target="_blank">Full image ↗</a><a href="https://www.metmuseum.org/art/collection/search/343384" target="_blank">The Met page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://images.metmuseum.org/CRDImages/dp/web-large/DP812982.jpg" alt="Sketchbook with views of Tours, France and its environs" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-wc">Watercolor</span>
+    <span class="tag tag-src">MET</span>
+    <div class="card-title">"Sketchbook with views of Tours, France and its environs"</div>
+    <div class="card-artist">Eugène Delacroix</div>
+    <div class="card-meta"><b>1828–29</b><br>Graphite and watercolor on wove paper<br></div>
+    <div class="dims">Physical: 12.5 × 19.5 cm (ratio 1.56)<br>Resolution: not checked</div>
+    <div class="card-links"><a href="https://images.metmuseum.org/CRDImages/dp/original/DP812982.jpg" target="_blank">Full image ↗</a><a href="https://www.metmuseum.org/art/collection/search/334287" target="_blank">The Met page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://images.metmuseum.org/CRDImages/dp/web-large/DP860298.jpg" alt="Driving sheep in a rocky landscape" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-wc">Watercolor</span>
+    <span class="tag tag-src">MET</span>
+    <div class="card-title">"Driving sheep in a rocky landscape"</div>
+    <div class="card-artist">David Cox</div>
+    <div class="card-meta"><b>ca. 1846</b><br>Black chalk and watercolor, heightened with white gouache (bodycolor) and gum ar…<br></div>
+    <div class="dims">Physical: 25.9 × 36.3 cm (ratio 1.40)<br>Resolution: not checked</div>
+    <div class="card-links"><a href="https://images.metmuseum.org/CRDImages/dp/original/DP860298.jpg" target="_blank">Full image ↗</a><a href="https://www.metmuseum.org/art/collection/search/709059" target="_blank">The Met page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://images.metmuseum.org/CRDImages/dp/web-large/DP-30274-001.jpg" alt="The Cuillin Hills, Isle of Skye" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-wc">Watercolor</span>
+    <span class="tag tag-src">MET</span>
+    <div class="card-title">"The Cuillin Hills, Isle of Skye"</div>
+    <div class="card-artist">Paul Jacob Naftel</div>
+    <div class="card-meta"><b>1865–71</b><br>Watercolor and gouache (bodycolor) over graphite<br></div>
+    <div class="dims">Physical: 23.7 × 49.9 cm (ratio 2.11)<br>Resolution: not checked</div>
+    <div class="card-links"><a href="https://images.metmuseum.org/CRDImages/dp/original/DP-30274-001.jpg" target="_blank">Full image ↗</a><a href="https://www.metmuseum.org/art/collection/search/857566" target="_blank">The Met page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://images.metmuseum.org/CRDImages/dp/web-large/DP801096.jpg" alt="Wooded Landscape with a River, Castle, and Town Beyond" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-wc">Watercolor</span>
+    <span class="tag tag-src">MET</span>
+    <div class="card-title">"Wooded Landscape with a River, Castle, and Town Beyond"</div>
+    <div class="card-artist">Denijs van Alsloot</div>
+    <div class="card-meta"><b>1611</b><br>Pen and brown ink, brush and brown wash, and some yellow, pink, and blue waterco…<br></div>
+    <div class="dims">Physical: 24.0 × 35.4 cm (ratio 1.47)<br>Resolution: not checked</div>
+    <div class="card-links"><a href="https://images.metmuseum.org/CRDImages/dp/original/DP801096.jpg" target="_blank">Full image ↗</a><a href="https://www.metmuseum.org/art/collection/search/335045" target="_blank">The Met page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://images.metmuseum.org/CRDImages/dp/web-large/DP801541.jpg" alt="Landscape with Figures Trimming Trees, an Allegory of the Month of March; Verso: Mountainous Landscape with Two Men Crossing a Bridge" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-wc">Watercolor</span>
+    <span class="tag tag-src">MET</span>
+    <div class="card-title">"Landscape with Figures Trimming Trees, an Allegory of the Month of March; Verso:"</div>
+    <div class="card-artist">Anonymous</div>
+    <div class="card-meta"><b>16th century (?)</b><br>Pen and brown ink, brush and gray wash, over traces of black chalk
+
+Verso: pen…<br></div>
+    <div class="dims">Physical: 16.2 × 27.1 cm (ratio 1.67)<br>Resolution: not checked</div>
+    <div class="card-links"><a href="https://images.metmuseum.org/CRDImages/dp/original/DP801541.jpg" target="_blank">Full image ↗</a><a href="https://www.metmuseum.org/art/collection/search/348215" target="_blank">The Met page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://images.metmuseum.org/CRDImages/dp/web-large/DP829487.jpg" alt="View on the Nile near Cairo" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-wc">Watercolor</span>
+    <span class="tag tag-src">MET</span>
+    <div class="card-title">"View on the Nile near Cairo"</div>
+    <div class="card-artist">Thomas Seddon</div>
+    <div class="card-meta"><b>ca. 1855</b><br>Watercolor over graphite with stopping out, heightened with gouache (bodycolor)<br></div>
+    <div class="dims">Physical: 19.2 × 35.7 cm (ratio 1.86)<br>Resolution: not checked</div>
+    <div class="card-links"><a href="https://images.metmuseum.org/CRDImages/dp/original/DP829487.jpg" target="_blank">Full image ↗</a><a href="https://www.metmuseum.org/art/collection/search/420448" target="_blank">The Met page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://images.metmuseum.org/CRDImages/dp/web-large/DP805338.jpg" alt="Genzano and Lake Nemi" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-wc">Watercolor</span>
+    <span class="tag tag-src">MET</span>
+    <div class="card-title">"Genzano and Lake Nemi"</div>
+    <div class="card-artist">Josephus Augustus Knip</div>
+    <div class="card-meta"><b>early 19th century</b><br>Watercolor over graphite<br></div>
+    <div class="dims">Physical: 35.3 × 50.2 cm (ratio 1.42)<br>Resolution: not checked</div>
+    <div class="card-links"><a href="https://images.metmuseum.org/CRDImages/dp/original/DP805338.jpg" target="_blank">Full image ↗</a><a href="https://www.metmuseum.org/art/collection/search/335688" target="_blank">The Met page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://images.metmuseum.org/CRDImages/dp/web-large/DP-35089-001.jpg" alt="View of Vevey on Lake Geneva" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-wc">Watercolor</span>
+    <span class="tag tag-src">MET</span>
+    <div class="card-title">"View of Vevey on Lake Geneva"</div>
+    <div class="card-artist">Anonymous, British, 19th century</div>
+    <div class="card-meta"><b>19th century</b><br>Watercolor<br></div>
+    <div class="dims">Physical: 8.8 × 12.4 cm (ratio 1.41)<br>Resolution: not checked</div>
+    <div class="card-links"><a href="https://images.metmuseum.org/CRDImages/dp/original/DP-35089-001.jpg" target="_blank">Full image ↗</a><a href="https://www.metmuseum.org/art/collection/search/395618" target="_blank">The Met page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://images.metmuseum.org/CRDImages/dp/web-large/DP808566.jpg" alt="Landscape with Classical Architecture by a Lake" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-wc">Watercolor</span>
+    <span class="tag tag-src">MET</span>
+    <div class="card-title">"Landscape with Classical Architecture by a Lake"</div>
+    <div class="card-artist">Anonymous, French, 17th century</div>
+    <div class="card-meta"><b>17th century</b><br>Pen and brown ink, brush and brown wash and a little gray wash, traces of graphi…<br></div>
+    <div class="dims">Physical: 24.8 × 32.7 cm (ratio 1.32)<br>Resolution: not checked</div>
+    <div class="card-links"><a href="https://images.metmuseum.org/CRDImages/dp/original/DP808566.jpg" target="_blank">Full image ↗</a><a href="https://www.metmuseum.org/art/collection/search/339951" target="_blank">The Met page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://images.metmuseum.org/CRDImages/dp/web-large/DP-19933-001.jpg" alt="Umbrella pines in the Villa Borghese, Rome" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-wc">Watercolor</span>
+    <span class="tag tag-src">MET</span>
+    <div class="card-title">"Umbrella pines in the Villa Borghese, Rome"</div>
+    <div class="card-artist">William James Müller</div>
+    <div class="card-meta"><b>1839</b><br>Watercolor over graphite underdrawing, with stippling, washes and reductive tech…<br></div>
+    <div class="dims">Physical: 41.9 × 28.8 cm (ratio 1.45)<br>Resolution: not checked</div>
+    <div class="card-links"><a href="https://images.metmuseum.org/CRDImages/dp/original/DP-19933-001.jpg" target="_blank">Full image ↗</a><a href="https://www.metmuseum.org/art/collection/search/841585" target="_blank">The Met page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://images.metmuseum.org/CRDImages/dp/web-large/DP822607.jpg" alt="A View of Lower Rydal Falls, Cumbria" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-wc">Watercolor</span>
+    <span class="tag tag-src">MET</span>
+    <div class="card-title">"A View of Lower Rydal Falls, Cumbria"</div>
+    <div class="card-artist">Thomas Fearnley</div>
+    <div class="card-meta"><b>1837</b><br>Watercolor, pen and ink, gray and white heightening, on beige paper<br></div>
+    <div class="dims">Physical: 52.3 × 37.1 cm (ratio 1.41)<br>Resolution: not checked</div>
+    <div class="card-links"><a href="https://images.metmuseum.org/CRDImages/dp/original/DP822607.jpg" target="_blank">Full image ↗</a><a href="https://www.metmuseum.org/art/collection/search/401276" target="_blank">The Met page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://images.metmuseum.org/CRDImages/dp/web-large/DP162181.jpg" alt="Arcadian Landscape with Three Figures at a Lake" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-wc">Watercolor</span>
+    <span class="tag tag-src">MET</span>
+    <div class="card-title">"Arcadian Landscape with Three Figures at a Lake"</div>
+    <div class="card-artist">Johann Christian Reinhart</div>
+    <div class="card-meta"><b>1792</b><br>Black chalk and white gouache on brown paper<br></div>
+    <div class="dims">Physical: 58.4 × 86.0 cm (ratio 1.47)<br>Resolution: not checked</div>
+    <div class="card-links"><a href="https://images.metmuseum.org/CRDImages/dp/original/DP162181.jpg" target="_blank">Full image ↗</a><a href="https://www.metmuseum.org/art/collection/search/377597" target="_blank">The Met page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://images.metmuseum.org/CRDImages/dp/web-large/DP842161.jpg" alt="The Honister Pass from Gatesgarth Farm, Gatesgarthdale, Lake District" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-wc">Watercolor</span>
+    <span class="tag tag-src">MET</span>
+    <div class="card-title">"The Honister Pass from Gatesgarth Farm, Gatesgarthdale, Lake District"</div>
+    <div class="card-artist">Edward Dayes</div>
+    <div class="card-meta"><b>1789–1804</b><br>Watercolour over graphite, heightened with reductive techniques<br></div>
+    <div class="dims">Physical: 32.1 × 45.2 cm (ratio 1.41)<br>Resolution: not checked</div>
+    <div class="card-links"><a href="https://images.metmuseum.org/CRDImages/dp/original/DP842161.jpg" target="_blank">Full image ↗</a><a href="https://www.metmuseum.org/art/collection/search/662613" target="_blank">The Met page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://images.metmuseum.org/CRDImages/dp/web-large/DP873523.jpg" alt="View of Lake Como with Monte Legnone" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-wc">Watercolor</span>
+    <span class="tag tag-src">MET</span>
+    <div class="card-title">"View of Lake Como with Monte Legnone"</div>
+    <div class="card-artist">Francis Towne</div>
+    <div class="card-meta"><b>August 27, 1781</b><br>Pen and brown ink and watercolor<br></div>
+    <div class="dims">Physical: 15.6 × 21.0 cm (ratio 1.35)<br>Resolution: not checked</div>
+    <div class="card-links"><a href="https://images.metmuseum.org/CRDImages/dp/original/DP873523.jpg" target="_blank">Full image ↗</a><a href="https://www.metmuseum.org/art/collection/search/727697" target="_blank">The Met page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://images.metmuseum.org/CRDImages/dp/web-large/DP805101.jpg" alt="Trees by the lake, Peamore Park, near Exeter, Devon" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-wc">Watercolor</span>
+    <span class="tag tag-src">MET</span>
+    <div class="card-title">"Trees by the lake, Peamore Park, near Exeter, Devon"</div>
+    <div class="card-artist">Francis Towne</div>
+    <div class="card-meta"><b>1790–1810</b><br>Watercolor over traces of graphite; laid down on original mount<br></div>
+    <div class="dims">Physical: 14.5 × 19.0 cm (ratio 1.31)<br>Resolution: not checked</div>
+    <div class="card-links"><a href="https://images.metmuseum.org/CRDImages/dp/original/DP805101.jpg" target="_blank">Full image ↗</a><a href="https://www.metmuseum.org/art/collection/search/387582" target="_blank">The Met page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://images.metmuseum.org/CRDImages/dp/web-large/DP801130.jpg" alt="Study for &quot;The Ferry&quot;–Snowdon from Lyyn Padran, North Wales" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-wc">Watercolor</span>
+    <span class="tag tag-src">MET</span>
+    <div class="card-title">"Study for "The Ferry"–Snowdon from Lyyn Padran, North Wales"</div>
+    <div class="card-artist">Peter De Wint</div>
+    <div class="card-meta"><b>after 1829</b><br>Watercolor and graphite<br></div>
+    <div class="dims">Physical: 9.5 × 12.7 cm (ratio 1.34)<br>Resolution: not checked</div>
+    <div class="card-links"><a href="https://images.metmuseum.org/CRDImages/dp/original/DP801130.jpg" target="_blank">Full image ↗</a><a href="https://www.metmuseum.org/art/collection/search/359579" target="_blank">The Met page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://images.metmuseum.org/CRDImages/dp/web-large/DP805964.jpg" alt="The Bouquet" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-wc">Watercolor</span>
+    <span class="tag tag-src">MET</span>
+    <div class="card-title">"The Bouquet"</div>
+    <div class="card-artist">Ernest-Ange Duez</div>
+    <div class="card-meta">Watercolor<br></div>
+    <div class="dims">Physical: 32.4 × 21.3 cm (ratio 1.52)<br>Resolution: not checked</div>
+    <div class="card-links"><a href="https://images.metmuseum.org/CRDImages/dp/original/DP805964.jpg" target="_blank">Full image ↗</a><a href="https://www.metmuseum.org/art/collection/search/333769" target="_blank">The Met page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://images.metmuseum.org/CRDImages/dp/web-large/DP842160.jpg" alt="Hunting Still Life in a Forest" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-wc">Watercolor</span>
+    <span class="tag tag-src">MET</span>
+    <div class="card-title">"Hunting Still Life in a Forest"</div>
+    <div class="card-artist">Wybrand Hendriks</div>
+    <div class="card-meta"><b>1784</b><br>Watercolor; framing line in pen and brown ink<br></div>
+    <div class="dims">Physical: 34.9 × 45.7 cm (ratio 1.31)<br>Resolution: not checked</div>
+    <div class="card-links"><a href="https://images.metmuseum.org/CRDImages/dp/original/DP842160.jpg" target="_blank">Full image ↗</a><a href="https://www.metmuseum.org/art/collection/search/625440" target="_blank">The Met page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://images.metmuseum.org/CRDImages/dp/web-large/DP803972.jpg" alt="Genoveva" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-wc">Watercolor</span>
+    <span class="tag tag-src">MET</span>
+    <div class="card-title">"Genoveva"</div>
+    <div class="card-artist">Adrian Ludwig Richter</div>
+    <div class="card-meta"><b>1872</b><br>Watercolor on paper<br></div>
+    <div class="dims">Physical: 31.1 × 18.4 cm (ratio 1.69)<br>Resolution: not checked</div>
+    <div class="card-links"><a href="https://images.metmuseum.org/CRDImages/dp/original/DP803972.jpg" target="_blank">Full image ↗</a><a href="https://www.metmuseum.org/art/collection/search/334962" target="_blank">The Met page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://images.metmuseum.org/CRDImages/dp/web-large/DP805055.jpg" alt="Windsor Great Park" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-wc">Watercolor</span>
+    <span class="tag tag-src">MET</span>
+    <div class="card-title">"Windsor Great Park"</div>
+    <div class="card-artist">Paul Sandby</div>
+    <div class="card-meta"><b>1790–99</b><br>Watercolor and gouache (bodycolor) with gum arabic<br></div>
+    <div class="dims">Physical: 22.8 × 30.5 cm (ratio 1.34)<br>Resolution: not checked</div>
+    <div class="card-links"><a href="https://images.metmuseum.org/CRDImages/dp/original/DP805055.jpg" target="_blank">Full image ↗</a><a href="https://www.metmuseum.org/art/collection/search/359037" target="_blank">The Met page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://images.metmuseum.org/CRDImages/dp/web-large/DP-22218-001.jpg" alt="Horses and pigs in a landscape, Windsor" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-wc">Watercolor</span>
+    <span class="tag tag-src">MET</span>
+    <div class="card-title">"Horses and pigs in a landscape, Windsor"</div>
+    <div class="card-artist">Thomas Girtin</div>
+    <div class="card-meta"><b>1793–94</b><br>Watercolor and graphite<br></div>
+    <div class="dims">Physical: 19.2 × 13.4 cm (ratio 1.43)<br>Resolution: not checked</div>
+    <div class="card-links"><a href="https://images.metmuseum.org/CRDImages/dp/original/DP-22218-001.jpg" target="_blank">Full image ↗</a><a href="https://www.metmuseum.org/art/collection/search/843572" target="_blank">The Met page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://images.metmuseum.org/CRDImages/dp/web-large/DP800748.jpg" alt="View of Chepstow, Wales" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-wc">Watercolor</span>
+    <span class="tag tag-src">MET</span>
+    <div class="card-title">"View of Chepstow, Wales"</div>
+    <div class="card-artist">John Scarlett Davis</div>
+    <div class="card-meta"><b>1834</b><br>Watercolor over graphite with stopping out and gum arabic<br></div>
+    <div class="dims">Physical: 20.0 × 33.0 cm (ratio 1.65)<br>Resolution: not checked</div>
+    <div class="card-links"><a href="https://images.metmuseum.org/CRDImages/dp/original/DP800748.jpg" target="_blank">Full image ↗</a><a href="https://www.metmuseum.org/art/collection/search/383131" target="_blank">The Met page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://images.metmuseum.org/CRDImages/dp/web-large/DP805026.jpg" alt="Fairlop Fair, Essex" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-wc">Watercolor</span>
+    <span class="tag tag-src">MET</span>
+    <div class="card-title">"Fairlop Fair, Essex"</div>
+    <div class="card-artist">Thomas Rowlandson</div>
+    <div class="card-meta"><b>ca. 1816</b><br>Pen and brown and gray inks, with watercolor<br></div>
+    <div class="dims">Physical: 21.1 × 36.0 cm (ratio 1.71)<br>Resolution: not checked</div>
+    <div class="card-links"><a href="https://images.metmuseum.org/CRDImages/dp/original/DP805026.jpg" target="_blank">Full image ↗</a><a href="https://www.metmuseum.org/art/collection/search/358458" target="_blank">The Met page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://images.metmuseum.org/CRDImages/dp/web-large/DP801477.jpg" alt="Huntsmen and Company Observing Dogs Retrieving Ducks in a Pond (The Month of April)" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-wc">Watercolor</span>
+    <span class="tag tag-src">MET</span>
+    <div class="card-title">"Huntsmen and Company Observing Dogs Retrieving Ducks in a Pond (The Month of Apr"</div>
+    <div class="card-artist">Pieter Stevens</div>
+    <div class="card-meta"><b>ca. 1610–20</b><br>Pen and brown and black ink, brown wash, watercolor and gouache, over black chal…<br></div>
+    <div class="dims">Physical: 22.2 × 31.5 cm (ratio 1.42)<br>Resolution: not checked</div>
+    <div class="card-links"><a href="https://images.metmuseum.org/CRDImages/dp/original/DP801477.jpg" target="_blank">Full image ↗</a><a href="https://www.metmuseum.org/art/collection/search/352002" target="_blank">The Met page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://images.metmuseum.org/CRDImages/dp/web-large/DP812348.jpg" alt="Extensive Pastoral Landscape" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-wc">Watercolor</span>
+    <span class="tag tag-src">MET</span>
+    <div class="card-title">"Extensive Pastoral Landscape"</div>
+    <div class="card-artist">Marco Ricci</div>
+    <div class="card-meta"><b>1676–1730</b><br>Gouache on kidskin<br></div>
+    <div class="dims">Physical: 30.8 × 45.7 cm (ratio 1.48)<br>Resolution: not checked</div>
+    <div class="card-links"><a href="https://images.metmuseum.org/CRDImages/dp/original/DP812348.jpg" target="_blank">Full image ↗</a><a href="https://www.metmuseum.org/art/collection/search/339947" target="_blank">The Met page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://images.metmuseum.org/CRDImages/dp/web-large/DP802234.jpg" alt="Silvio Approaches Dorinda whom He Has Wounded with an Arrow (Il Pastor Fido, act IV, scene 8)" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-wc">Watercolor</span>
+    <span class="tag tag-src">MET</span>
+    <div class="card-title">"Silvio Approaches Dorinda whom He Has Wounded with an Arrow (Il Pastor Fido, act"</div>
+    <div class="card-artist">Richard van Orley</div>
+    <div class="card-meta"><b>ca. 1700</b><br>Pen and brown ink, gray wash, heightened with white gouache; framing line in pen…<br></div>
+    <div class="dims">Physical: 26.4 × 20.1 cm (ratio 1.31)<br>Resolution: not checked</div>
+    <div class="card-links"><a href="https://images.metmuseum.org/CRDImages/dp/original/DP802234.jpg" target="_blank">Full image ↗</a><a href="https://www.metmuseum.org/art/collection/search/371793" target="_blank">The Met page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://images.metmuseum.org/CRDImages/dp/web-large/DP860288.jpg" alt="View from the Ramparts at Chartres" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-wc">Watercolor</span>
+    <span class="tag tag-src">MET</span>
+    <div class="card-title">"View from the Ramparts at Chartres"</div>
+    <div class="card-artist">Henri-Joseph Harpignies</div>
+    <div class="card-meta"><b>1893</b><br>Watercolor<br></div>
+    <div class="dims">Physical: 30.5 × 22.6 cm (ratio 1.35)<br>Resolution: not checked</div>
+    <div class="card-links"><a href="https://images.metmuseum.org/CRDImages/dp/original/DP860288.jpg" target="_blank">Full image ↗</a><a href="https://www.metmuseum.org/art/collection/search/337308" target="_blank">The Met page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://images.metmuseum.org/CRDImages/dp/web-large/DP800935.jpg" alt="Girl in the Dunes" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-wc">Watercolor</span>
+    <span class="tag tag-src">MET</span>
+    <div class="card-title">"Girl in the Dunes"</div>
+    <div class="card-artist">Jozef Israëls</div>
+    <div class="card-meta"><b>mid-19th–early 20th century</b><br>Watercolor and touches of black chalk<br></div>
+    <div class="dims">Physical: 32.1 × 45.1 cm (ratio 1.40)<br>Resolution: not checked</div>
+    <div class="card-links"><a href="https://images.metmuseum.org/CRDImages/dp/original/DP800935.jpg" target="_blank">Full image ↗</a><a href="https://www.metmuseum.org/art/collection/search/335604" target="_blank">The Met page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://images.metmuseum.org/CRDImages/dp/web-large/DP807726.jpg" alt="Landscape, Vichy" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-wc">Watercolor</span>
+    <span class="tag tag-src">MET</span>
+    <div class="card-title">"Landscape, Vichy"</div>
+    <div class="card-artist">Jean-François Millet</div>
+    <div class="card-meta"><b>ca. 1866–67</b><br>Pen and brown (iron gall) ink, brush and brown and green wash, over graphite<br></div>
+    <div class="dims">Physical: 11.3 × 15.5 cm (ratio 1.37)<br>Resolution: not checked</div>
+    <div class="card-links"><a href="https://images.metmuseum.org/CRDImages/dp/original/DP807726.jpg" target="_blank">Full image ↗</a><a href="https://www.metmuseum.org/art/collection/search/337803" target="_blank">The Met page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://images.metmuseum.org/CRDImages/dp/web-large/DP-22658-001.jpg" alt="View of Rome (recto); A Woman's Head In Profile (verso)" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-wc">Watercolor</span>
+    <span class="tag tag-src">MET</span>
+    <div class="card-title">"View of Rome (recto); A Woman's Head In Profile (verso)"</div>
+    <div class="card-artist">baron François Gérard</div>
+    <div class="card-meta"><b>ca. 1790–91</b><br>Black chalk, brush and gray wash (recto); pen and iron gall ink (verso)<br></div>
+    <div class="dims">Physical: 21.3 × 32.8 cm (ratio 1.54)<br>Resolution: not checked</div>
+    <div class="card-links"><a href="https://images.metmuseum.org/CRDImages/dp/original/DP-22658-001.jpg" target="_blank">Full image ↗</a><a href="https://www.metmuseum.org/art/collection/search/853821" target="_blank">The Met page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://api.europeana.eu/thumbnail/v2/url.json?uri=http%3A%2F%2Fcollection.nationalmuseum.se%2FeMuseumPlus%3Fservice%3DImageAsset%26module%3Dcollection%26objectId%3D26222%26viewType%3DdetailView%26resolution%3DsuperImageResolution&type=IMAGE" alt="Landscape" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-wc">Watercolor</span>
+    <span class="tag tag-src">EUROPEANA</span>
+    <div class="card-title">"Landscape"</div>
+    <div class="card-artist">Peter Adolf Hall</div>
+    <div class="card-meta">watercolor<br></div>
+    <div class="dims">Resolution: not checked</div>
+    <div class="card-links"><a href="http://collection.nationalmuseum.se/eMuseumPlus?service=ImageAsset&module=collection&objectId=26222&viewType=detailView&resolution=superImageResolution" target="_blank">Full image ↗</a><a href="http://collection.nationalmuseum.se/eMuseumPlus?service=ExternalInterface&module=collection&objectId=26222&viewType=detailView" target="_blank">Europeana page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://api.europeana.eu/thumbnail/v2/url.json?uri=https%3A%2F%2Fsammlungenonline.albertina.at%2Fcc%2Fimageproxy.ashx%3Fserver%3Dlocalhost%26port%3D15001%26filename%3Dimages%2F6179.jpg%26cache%3Dyes%26maxwidth%3D400&type=IMAGE" alt="Aule Landscape" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-wc">Watercolor</span>
+    <span class="tag tag-src">EUROPEANA</span>
+    <div class="card-title">"Aule Landscape"</div>
+    <div class="card-artist">Ignaz Raffalt (artist)</div>
+    <div class="card-meta">watercolor<br></div>
+    <div class="dims">Resolution: not checked</div>
+    <div class="card-links"><a href="https://sammlungenonline.albertina.at/cc/imageproxy.ashx?server=localhost&port=15001&filename=images/6179.jpg&cache=yes" target="_blank">Full image ↗</a><a href="https://sammlungenonline.albertina.at/?query=search=/record/objectnumbersearch=[6179]&showtype=record" target="_blank">Europeana page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://api.europeana.eu/thumbnail/v2/url.json?uri=https%3A%2F%2Fsammlungenonline.albertina.at%2Fcc%2Fimageproxy.ashx%3Fserver%3Dlocalhost%26port%3D15001%26filename%3Dimages%2F19289.jpg%26cache%3Dyes%26maxwidth%3D400&type=IMAGE" alt="River Landscape" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-wc">Watercolor</span>
+    <span class="tag tag-src">EUROPEANA</span>
+    <div class="card-title">"River Landscape"</div>
+    <div class="card-artist">Rudolf Konopa (artist)</div>
+    <div class="card-meta">watercolor<br></div>
+    <div class="dims">Resolution: not checked</div>
+    <div class="card-links"><a href="https://sammlungenonline.albertina.at/cc/imageproxy.ashx?server=localhost&port=15001&filename=images/19289.jpg&cache=yes" target="_blank">Full image ↗</a><a href="https://sammlungenonline.albertina.at/?query=search=/record/objectnumbersearch=[19289]&showtype=record" target="_blank">Europeana page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://api.europeana.eu/thumbnail/v2/url.json?uri=https%3A%2F%2Fsammlungenonline.albertina.at%2Fcc%2Fimageproxy.ashx%3Fserver%3Dlocalhost%26port%3D15001%26filename%3Dimages%2F6289.jpg%26cache%3Dyes%26maxwidth%3D400&type=IMAGE" alt="Village Landscape" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-wc">Watercolor</span>
+    <span class="tag tag-src">EUROPEANA</span>
+    <div class="card-title">"Village Landscape"</div>
+    <div class="card-artist">Franz Reinhold (Künstler_in)</div>
+    <div class="card-meta">watercolor<br></div>
+    <div class="dims">Resolution: not checked</div>
+    <div class="card-links"><a href="https://sammlungenonline.albertina.at/cc/imageproxy.ashx?server=localhost&port=15001&filename=images/6289.jpg&cache=yes" target="_blank">Full image ↗</a><a href="https://sammlungenonline.albertina.at/?query=search=/record/objectnumbersearch=[6289]&showtype=record" target="_blank">Europeana page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://api.europeana.eu/thumbnail/v2/url.json?uri=https%3A%2F%2Fsammlungenonline.albertina.at%2Fcc%2Fimageproxy.ashx%3Fserver%3Dlocalhost%26port%3D15001%26filename%3Dimages%2F19118r.jpg%26cache%3Dyes%26maxwidth%3D400&type=IMAGE" alt="Snow Landscape" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-wc">Watercolor</span>
+    <span class="tag tag-src">EUROPEANA</span>
+    <div class="card-title">"Snow Landscape"</div>
+    <div class="card-artist">Sigmund Walter Hampel (artist)</div>
+    <div class="card-meta">watercolor<br></div>
+    <div class="dims">Resolution: not checked</div>
+    <div class="card-links"><a href="https://sammlungenonline.albertina.at/cc/imageproxy.ashx?server=localhost&port=15001&filename=images/19118r.jpg&cache=yes" target="_blank">Full image ↗</a><a href="https://sammlungenonline.albertina.at/?query=search=/record/objectnumbersearch=[19118r]&showtype=record" target="_blank">Europeana page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://api.europeana.eu/thumbnail/v2/url.json?uri=https%3A%2F%2Fsammlungenonline.albertina.at%2Fcc%2Fimageproxy.ashx%3Fserver%3Dlocalhost%26port%3D15001%26filename%3Dimages%2F25400.jpg%26cache%3Dyes%26maxwidth%3D400&type=IMAGE" alt="Landscape Study" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-wc">Watercolor</span>
+    <span class="tag tag-src">EUROPEANA</span>
+    <div class="card-title">"Landscape Study"</div>
+    <div class="card-artist">Joseph Gerstmaier (artist)</div>
+    <div class="card-meta"><b>1825</b><br>watercolor<br></div>
+    <div class="dims">Resolution: not checked</div>
+    <div class="card-links"><a href="https://sammlungenonline.albertina.at/cc/imageproxy.ashx?server=localhost&port=15001&filename=images/25400.jpg&cache=yes" target="_blank">Full image ↗</a><a href="https://sammlungenonline.albertina.at/?query=search=/record/objectnumbersearch=[25400]&showtype=record" target="_blank">Europeana page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://api.europeana.eu/thumbnail/v2/url.json?uri=https%3A%2F%2Fsammlungenonline.albertina.at%2Fcc%2Fimageproxy.ashx%3Fserver%3Dlocalhost%26port%3D15001%26filename%3Dimages%2F26887.jpg%26cache%3Dyes%26maxwidth%3D400&type=IMAGE" alt="River landscape" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-wc">Watercolor</span>
+    <span class="tag tag-src">EUROPEANA</span>
+    <div class="card-title">"River landscape"</div>
+    <div class="card-artist">Hugo Charlemont (artist)</div>
+    <div class="card-meta">watercolor<br></div>
+    <div class="dims">Resolution: not checked</div>
+    <div class="card-links"><a href="https://sammlungenonline.albertina.at/cc/imageproxy.ashx?server=localhost&port=15001&filename=images/26887.jpg&cache=yes" target="_blank">Full image ↗</a><a href="https://sammlungenonline.albertina.at/?query=search=/record/objectnumbersearch=[26887]&showtype=record" target="_blank">Europeana page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://api.europeana.eu/thumbnail/v2/url.json?uri=https%3A%2F%2Fsammlungenonline.albertina.at%2Fcc%2Fimageproxy.ashx%3Fserver%3Dlocalhost%26port%3D15001%26filename%3Dimages%2F30292.jpg%26cache%3Dyes%26maxwidth%3D400&type=IMAGE" alt="Mountain landscape" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-wc">Watercolor</span>
+    <span class="tag tag-src">EUROPEANA</span>
+    <div class="card-title">"Mountain landscape"</div>
+    <div class="card-artist">Thomas Ender (Künstler_in)</div>
+    <div class="card-meta">watercolor<br></div>
+    <div class="dims">Resolution: not checked</div>
+    <div class="card-links"><a href="https://sammlungenonline.albertina.at/cc/imageproxy.ashx?server=localhost&port=15001&filename=images/30292.jpg&cache=yes" target="_blank">Full image ↗</a><a href="https://sammlungenonline.albertina.at/?query=search=/record/objectnumbersearch=[30292]&showtype=record" target="_blank">Europeana page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://api.europeana.eu/thumbnail/v2/url.json?uri=https%3A%2F%2Fsammlungenonline.albertina.at%2Fcc%2Fimageproxy.ashx%3Fserver%3Dlocalhost%26port%3D15001%26filename%3Dimages%2F36921_30v.jpg%26cache%3Dyes%26maxwidth%3D400&type=IMAGE" alt="Landscape Study" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-wc">Watercolor</span>
+    <span class="tag tag-src">EUROPEANA</span>
+    <div class="card-title">"Landscape Study"</div>
+    <div class="card-artist">Johann Nepomuk Passini (artist)</div>
+    <div class="card-meta">watercolor<br></div>
+    <div class="dims">Resolution: not checked</div>
+    <div class="card-links"><a href="https://sammlungenonline.albertina.at/cc/imageproxy.ashx?server=localhost&port=15001&filename=images/36921_30v.jpg&cache=yes" target="_blank">Full image ↗</a><a href="https://sammlungenonline.albertina.at/?query=search=/record/objectnumbersearch=[36921/30]&showtype=record" target="_blank">Europeana page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://api.europeana.eu/thumbnail/v2/url.json?uri=https%3A%2F%2Fsammlungenonline.albertina.at%2Fcc%2Fimageproxy.ashx%3Fserver%3Dlocalhost%26port%3D15001%26filename%3Dimages%2F6499.jpg%26cache%3Dyes%26maxwidth%3D400&type=IMAGE" alt="Meadow landscape" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-wc">Watercolor</span>
+    <span class="tag tag-src">EUROPEANA</span>
+    <div class="card-title">"Meadow landscape"</div>
+    <div class="card-artist">Hanuš Johann Peter Paul Schwaiger (artist)</div>
+    <div class="card-meta"><b>1874</b><br>watercolor<br></div>
+    <div class="dims">Resolution: not checked</div>
+    <div class="card-links"><a href="https://sammlungenonline.albertina.at/cc/imageproxy.ashx?server=localhost&port=15001&filename=images/6499.jpg&cache=yes" target="_blank">Full image ↗</a><a href="https://sammlungenonline.albertina.at/?query=search=/record/objectnumbersearch=[6499]&showtype=record" target="_blank">Europeana page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://api.europeana.eu/thumbnail/v2/url.json?uri=https%3A%2F%2Fsammlungenonline.albertina.at%2Fcc%2Fimageproxy.ashx%3Fserver%3Dlocalhost%26port%3D15001%26filename%3Dimages%2F23010.jpg%26cache%3Dyes%26maxwidth%3D400&type=IMAGE" alt="Snow Landscape" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-wc">Watercolor</span>
+    <span class="tag tag-src">EUROPEANA</span>
+    <div class="card-title">"Snow Landscape"</div>
+    <div class="card-artist">Otto Lange (Künstler_in)</div>
+    <div class="card-meta">watercolor<br></div>
+    <div class="dims">Resolution: not checked</div>
+    <div class="card-links"><a href="https://sammlungenonline.albertina.at/cc/imageproxy.ashx?server=localhost&port=15001&filename=images/23010.jpg&cache=yes" target="_blank">Full image ↗</a><a href="https://sammlungenonline.albertina.at/?query=search=/record/objectnumbersearch=[23010]&showtype=record" target="_blank">Europeana page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://api.europeana.eu/thumbnail/v2/url.json?uri=https%3A%2F%2Fsammlungenonline.albertina.at%2Fcc%2Fimageproxy.ashx%3Fserver%3Dlocalhost%26port%3D15001%26filename%3Dimages%2F24112.jpg%26cache%3Dyes%26maxwidth%3D400&type=IMAGE" alt="River Landscape" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-wc">Watercolor</span>
+    <span class="tag tag-src">EUROPEANA</span>
+    <div class="card-title">"River Landscape"</div>
+    <div class="card-artist">Pierre-Auguste Renoir (artist)</div>
+    <div class="card-meta"><b>1890</b><br>watercolor<br></div>
+    <div class="dims">Resolution: not checked</div>
+    <div class="card-links"><a href="https://sammlungenonline.albertina.at/cc/imageproxy.ashx?server=localhost&port=15001&filename=images/24112.jpg&cache=yes" target="_blank">Full image ↗</a><a href="https://sammlungenonline.albertina.at/?query=search=/record/objectnumbersearch=[24112]&showtype=record" target="_blank">Europeana page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://api.europeana.eu/thumbnail/v2/url.json?uri=https%3A%2F%2Fsammlungenonline.albertina.at%2Fcc%2Fimageproxy.ashx%3Fserver%3Dlocalhost%26port%3D15001%26filename%3Dimages%2F45284.jpg%26cache%3Dyes%26maxwidth%3D400&type=IMAGE" alt="River Landscape" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-wc">Watercolor</span>
+    <span class="tag tag-src">EUROPEANA</span>
+    <div class="card-title">"River Landscape"</div>
+    <div class="card-artist">Jules Dupré (artist)</div>
+    <div class="card-meta">watercolor<br></div>
+    <div class="dims">Resolution: not checked</div>
+    <div class="card-links"><a href="https://sammlungenonline.albertina.at/cc/imageproxy.ashx?server=localhost&port=15001&filename=images/45284.jpg&cache=yes" target="_blank">Full image ↗</a><a href="https://sammlungenonline.albertina.at/?query=search=/record/objectnumbersearch=[45284]&showtype=record" target="_blank">Europeana page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://api.europeana.eu/thumbnail/v2/url.json?uri=https%3A%2F%2Fsammlungenonline.albertina.at%2Fcc%2Fimageproxy.ashx%3Fserver%3Dlocalhost%26port%3D15001%26filename%3Dimages%2F36979.jpg%26cache%3Dyes%26maxwidth%3D400&type=IMAGE" alt="Landscape - Stusliz" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-wc">Watercolor</span>
+    <span class="tag tag-src">EUROPEANA</span>
+    <div class="card-title">"Landscape - Stusliz"</div>
+    <div class="card-artist">Carl von Kratzer (Edler)</div>
+    <div class="card-meta"><b>1858</b><br>watercolor<br></div>
+    <div class="dims">Resolution: not checked</div>
+    <div class="card-links"><a href="https://sammlungenonline.albertina.at/cc/imageproxy.ashx?server=localhost&port=15001&filename=images/36979.jpg&cache=yes" target="_blank">Full image ↗</a><a href="https://sammlungenonline.albertina.at/?query=search=/record/objectnumbersearch=[36979]&showtype=record" target="_blank">Europeana page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://api.europeana.eu/thumbnail/v2/url.json?uri=https%3A%2F%2Fsammlungenonline.albertina.at%2Fcc%2Fimageproxy.ashx%3Fserver%3Dlocalhost%26port%3D15001%26filename%3Dimages%2F19669.jpg%26cache%3Dyes%26maxwidth%3D400&type=IMAGE" alt="Landscape: Lake" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-wc">Watercolor</span>
+    <span class="tag tag-src">EUROPEANA</span>
+    <div class="card-title">"Landscape: Lake"</div>
+    <div class="card-artist">Leopold Stolba (artist)</div>
+    <div class="card-meta">watercolor<br></div>
+    <div class="dims">Resolution: not checked</div>
+    <div class="card-links"><a href="https://sammlungenonline.albertina.at/cc/imageproxy.ashx?server=localhost&port=15001&filename=images/19669.jpg&cache=yes" target="_blank">Full image ↗</a><a href="https://sammlungenonline.albertina.at/?query=search=/record/objectnumbersearch=[19669]&showtype=record" target="_blank">Europeana page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://api.europeana.eu/thumbnail/v2/url.json?uri=https%3A%2F%2Fsammlungenonline.albertina.at%2Fcc%2Fimageproxy.ashx%3Fserver%3Dlocalhost%26port%3D15001%26filename%3Dimages%2F19668.jpg%26cache%3Dyes%26maxwidth%3D400&type=IMAGE" alt="Landscape: Canal" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-wc">Watercolor</span>
+    <span class="tag tag-src">EUROPEANA</span>
+    <div class="card-title">"Landscape: Canal"</div>
+    <div class="card-artist">Leopold Stolba (artist)</div>
+    <div class="card-meta">watercolor<br></div>
+    <div class="dims">Resolution: not checked</div>
+    <div class="card-links"><a href="https://sammlungenonline.albertina.at/cc/imageproxy.ashx?server=localhost&port=15001&filename=images/19668.jpg&cache=yes" target="_blank">Full image ↗</a><a href="https://sammlungenonline.albertina.at/?query=search=/record/objectnumbersearch=[19668]&showtype=record" target="_blank">Europeana page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://api.europeana.eu/thumbnail/v2/url.json?uri=https%3A%2F%2Fsammlungenonline.albertina.at%2Fcc%2Fimageproxy.ashx%3Fserver%3Dlocalhost%26port%3D15001%26filename%3Dimages%2F29232.jpg%26cache%3Dyes%26maxwidth%3D400&type=IMAGE" alt="Italian Landscape" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-wc">Watercolor</span>
+    <span class="tag tag-src">EUROPEANA</span>
+    <div class="card-title">"Italian Landscape"</div>
+    <div class="card-artist">Thomas Ender (Künstler_in)</div>
+    <div class="card-meta">watercolor<br></div>
+    <div class="dims">Resolution: not checked</div>
+    <div class="card-links"><a href="https://sammlungenonline.albertina.at/cc/imageproxy.ashx?server=localhost&port=15001&filename=images/29232.jpg&cache=yes" target="_blank">Full image ↗</a><a href="https://sammlungenonline.albertina.at/?query=search=/record/objectnumbersearch=[29232]&showtype=record" target="_blank">Europeana page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://api.europeana.eu/thumbnail/v2/url.json?uri=https%3A%2F%2Fsammlungenonline.albertina.at%2Fcc%2Fimageproxy.ashx%3Fserver%3Dlocalhost%26port%3D15001%26filename%3Dimages%2F23946.jpg%26cache%3Dyes%26maxwidth%3D400&type=IMAGE" alt="Southern Landscape" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-wc">Watercolor</span>
+    <span class="tag tag-src">EUROPEANA</span>
+    <div class="card-title">"Southern Landscape"</div>
+    <div class="card-artist">Josef Eberz (artist)</div>
+    <div class="card-meta">watercolor<br></div>
+    <div class="dims">Resolution: not checked</div>
+    <div class="card-links"><a href="https://sammlungenonline.albertina.at/cc/imageproxy.ashx?server=localhost&port=15001&filename=images/23946.jpg&cache=yes" target="_blank">Full image ↗</a><a href="https://sammlungenonline.albertina.at/?query=search=/record/objectnumbersearch=[23946]&showtype=record" target="_blank">Europeana page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://api.europeana.eu/thumbnail/v2/url.json?uri=https%3A%2F%2Fjbc.bj.uj.edu.pl%2FContent%2F758150%2FNDIGGRAF050478.pdf&type=IMAGE" alt="Landscape with Castle" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-wc">Watercolor</span>
+    <span class="tag tag-src">EUROPEANA</span>
+    <div class="card-title">"Landscape with Castle"</div>
+    <div class="card-artist">#agentOf:nhXdkgv_1</div>
+    <div class="card-meta"><b>1837</b><br>watercolor<br></div>
+    <div class="dims">Resolution: not checked</div>
+    <div class="card-links"><a href="https://jbc.bj.uj.edu.pl/Content/758150/NDIGGRAF050478.pdf" target="_blank">Full image ↗</a><a href="http://fbc.pionier.net.pl/id/oai:jbc.bj.uj.edu.pl:758150" target="_blank">Europeana page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://api.europeana.eu/thumbnail/v2/url.json?uri=https%3A%2F%2Fsammlungenonline.albertina.at%2Fcc%2Fimageproxy.ashx%3Fserver%3Dlocalhost%26port%3D15001%26filename%3Dimages%2F30481.jpg%26cache%3Dyes%26maxwidth%3D400&type=IMAGE" alt="Landscape near Miesenbach" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-wc">Watercolor</span>
+    <span class="tag tag-src">EUROPEANA</span>
+    <div class="card-title">"Landscape near Miesenbach"</div>
+    <div class="card-artist">Friedrich Gauermann (artist)</div>
+    <div class="card-meta">watercolor<br></div>
+    <div class="dims">Resolution: not checked</div>
+    <div class="card-links"><a href="https://sammlungenonline.albertina.at/cc/imageproxy.ashx?server=localhost&port=15001&filename=images/30481.jpg&cache=yes" target="_blank">Full image ↗</a><a href="https://sammlungenonline.albertina.at/?query=search=/record/objectnumbersearch=[30481]&showtype=record" target="_blank">Europeana page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://api.europeana.eu/thumbnail/v2/url.json?uri=https%3A%2F%2Fsammlungenonline.albertina.at%2Fcc%2Fimageproxy.ashx%3Fserver%3Dlocalhost%26port%3D15001%26filename%3Dimages%2F7771.jpg%26cache%3Dyes%26maxwidth%3D400&type=IMAGE" alt="Landscape with pond" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-wc">Watercolor</span>
+    <span class="tag tag-src">EUROPEANA</span>
+    <div class="card-title">"Landscape with pond"</div>
+    <div class="card-artist">Carl Pischinger (artist)</div>
+    <div class="card-meta">watercolor<br></div>
+    <div class="dims">Resolution: not checked</div>
+    <div class="card-links"><a href="https://sammlungenonline.albertina.at/cc/imageproxy.ashx?server=localhost&port=15001&filename=images/7771.jpg&cache=yes" target="_blank">Full image ↗</a><a href="https://sammlungenonline.albertina.at/?query=search=/record/objectnumbersearch=[7771]&showtype=record" target="_blank">Europeana page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://api.europeana.eu/thumbnail/v2/url.json?uri=https%3A%2F%2Fsammlungenonline.albertina.at%2Fcc%2Fimageproxy.ashx%3Fserver%3Dlocalhost%26port%3D15001%26filename%3Dimages%2F19154.jpg%26cache%3Dyes%26maxwidth%3D400&type=IMAGE" alt="River landscape; moon night" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-wc">Watercolor</span>
+    <span class="tag tag-src">EUROPEANA</span>
+    <div class="card-title">"River landscape; moon night"</div>
+    <div class="card-artist">Georg Holub (artist)</div>
+    <div class="card-meta">watercolor<br></div>
+    <div class="dims">Resolution: not checked</div>
+    <div class="card-links"><a href="https://sammlungenonline.albertina.at/cc/imageproxy.ashx?server=localhost&port=15001&filename=images/19154.jpg&cache=yes" target="_blank">Full image ↗</a><a href="https://sammlungenonline.albertina.at/?query=search=/record/objectnumbersearch=[19154]&showtype=record" target="_blank">Europeana page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://api.europeana.eu/thumbnail/v2/url.json?uri=https%3A%2F%2Fwww.muis.ee%2Fdigitaalhoidla%2Fapi%2Fmeedia%2Foriginaal%3Fid%3De7cdde8b-f992-4af4-868e-58ee9bbee7fc&type=IMAGE" alt="Crimean landscape. Gursuff" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-wc">Watercolor</span>
+    <span class="tag tag-src">EUROPEANA</span>
+    <div class="card-title">"Crimean landscape. Gursuff"</div>
+    <div class="card-artist">Hall, John (author)</div>
+    <div class="card-meta"><b>1951</b><br>watercolor<br></div>
+    <div class="dims">Resolution: not checked</div>
+    <div class="card-links"><a href="https://www.muis.ee/digitaalhoidla/api/meedia/originaal?id=e7cdde8b-f992-4af4-868e-58ee9bbee7fc" target="_blank">Full image ↗</a><a href="https://www.muis.ee/museaalView/1627844" target="_blank">Europeana page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://api.europeana.eu/thumbnail/v2/url.json?uri=https%3A%2F%2Fsammlungenonline.albertina.at%2Fcc%2Fimageproxy.ashx%3Fserver%3Dlocalhost%26port%3D15001%26filename%3Dimages%2F17321.jpg%26cache%3Dyes%26maxwidth%3D400&type=IMAGE" alt="Landscape with cattle" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-wc">Watercolor</span>
+    <span class="tag tag-src">EUROPEANA</span>
+    <div class="card-title">"Landscape with cattle"</div>
+    <div class="card-artist">Joseph Mössmer (artist)</div>
+    <div class="card-meta"><b>1829</b><br>watercolor<br></div>
+    <div class="dims">Resolution: not checked</div>
+    <div class="card-links"><a href="https://sammlungenonline.albertina.at/cc/imageproxy.ashx?server=localhost&port=15001&filename=images/17321.jpg&cache=yes" target="_blank">Full image ↗</a><a href="https://sammlungenonline.albertina.at/?query=search=/record/objectnumbersearch=[17321]&showtype=record" target="_blank">Europeana page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://api.europeana.eu/thumbnail/v2/url.json?uri=https%3A%2F%2Fsammlungenonline.albertina.at%2Fcc%2Fimageproxy.ashx%3Fserver%3Dlocalhost%26port%3D15001%26filename%3Dimages%2F17323.jpg%26cache%3Dyes%26maxwidth%3D400&type=IMAGE" alt="Landscape with torrent" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-wc">Watercolor</span>
+    <span class="tag tag-src">EUROPEANA</span>
+    <div class="card-title">"Landscape with torrent"</div>
+    <div class="card-artist">Joseph Mössmer (artist)</div>
+    <div class="card-meta"><b>1828</b><br>watercolor<br></div>
+    <div class="dims">Resolution: not checked</div>
+    <div class="card-links"><a href="https://sammlungenonline.albertina.at/cc/imageproxy.ashx?server=localhost&port=15001&filename=images/17323.jpg&cache=yes" target="_blank">Full image ↗</a><a href="https://sammlungenonline.albertina.at/?query=search=/record/objectnumbersearch=[17323]&showtype=record" target="_blank">Europeana page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://api.europeana.eu/thumbnail/v2/url.json?uri=https%3A%2F%2Fsammlungenonline.albertina.at%2Fcc%2Fimageproxy.ashx%3Fserver%3Dlocalhost%26port%3D15001%26filename%3Dimages%2F20630.jpg%26cache%3Dyes%26maxwidth%3D400&type=IMAGE" alt="Tree and Landscape" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-wc">Watercolor</span>
+    <span class="tag tag-src">EUROPEANA</span>
+    <div class="card-title">"Tree and Landscape"</div>
+    <div class="card-artist">Joseph Mössmer (artist)</div>
+    <div class="card-meta"><b>1836</b><br>watercolor<br></div>
+    <div class="dims">Resolution: not checked</div>
+    <div class="card-links"><a href="https://sammlungenonline.albertina.at/cc/imageproxy.ashx?server=localhost&port=15001&filename=images/20630.jpg&cache=yes" target="_blank">Full image ↗</a><a href="https://sammlungenonline.albertina.at/?query=search=/record/objectnumbersearch=[20630]&showtype=record" target="_blank">Europeana page ↗</a></div>
+  </div>
+</div>
+</div>
+
+<div class="section-header">Smooth-Technique Oils — 30 works</div>
+<div class="grid">
+<div class="card">
+  <img src="https://www.artic.edu/iiif/2/3826e366-e82a-e853-12e4-b303a1618103/full/700,/0/default.jpg" alt="Sawmill, Outskirts of Paris" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-oil">Smooth Oil</span>
+    <span class="tag tag-src">AIC</span>
+    <div class="card-title">"Sawmill, Outskirts of Paris"</div>
+    <div class="card-artist">Henri Rousseau</div>
+    <div class="card-meta"><b>c. 1893/95</b><br>Oil on canvas<br></div>
+    <div class="dims">Physical: 25.5 × 45.5 cm (ratio 1.78)<br>Image: 19601 × 10528px (490 DPI@40")</div>
+    <div class="card-links"><a href="https://www.artic.edu/iiif/2/3826e366-e82a-e853-12e4-b303a1618103/full/full/0/default.jpg" target="_blank">Full image ↗</a><a href="https://www.artic.edu/artworks/68433" target="_blank">Art Institute page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://www.artic.edu/iiif/2/e9ce5aca-4c34-c8dd-b8a1-91b3e3197211/full/700,/0/default.jpg" alt="The Races at Longchamp" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-oil">Smooth Oil</span>
+    <span class="tag tag-src">AIC</span>
+    <div class="card-title">"The Races at Longchamp"</div>
+    <div class="card-artist">Édouard Manet</div>
+    <div class="card-meta"><b>1866</b><br>Oil on canvas<br></div>
+    <div class="dims">Physical: 44.0 × 84.2 cm (ratio 1.91)<br>Image: 17784 × 9254px (445 DPI@40")</div>
+    <div class="card-links"><a href="https://www.artic.edu/iiif/2/e9ce5aca-4c34-c8dd-b8a1-91b3e3197211/full/full/0/default.jpg" target="_blank">Full image ↗</a><a href="https://www.artic.edu/artworks/81533" target="_blank">Art Institute page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://www.artic.edu/iiif/2/8a647e1c-d778-db71-6ba4-6456b800d6b9/full/700,/0/default.jpg" alt="Husking Bee, Island of Nantucket" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-oil">Smooth Oil</span>
+    <span class="tag tag-src">AIC</span>
+    <div class="card-title">"Husking Bee, Island of Nantucket"</div>
+    <div class="card-artist">Eastman Johnson</div>
+    <div class="card-meta"><b>1876</b><br>Oil on canvas<br></div>
+    <div class="dims">Physical: 69.6 × 138.2 cm (ratio 1.99)<br>Image: 16047 × 7906px (401 DPI@40")</div>
+    <div class="card-links"><a href="https://www.artic.edu/iiif/2/8a647e1c-d778-db71-6ba4-6456b800d6b9/full/full/0/default.jpg" target="_blank">Full image ↗</a><a href="https://www.artic.edu/artworks/81564" target="_blank">Art Institute page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://www.artic.edu/iiif/2/0eb5b4c2-517a-cd17-bca8-ff290e90059c/full/700,/0/default.jpg" alt="On the Nile" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-oil">Smooth Oil</span>
+    <span class="tag tag-src">AIC</span>
+    <div class="card-title">"On the Nile"</div>
+    <div class="card-artist">Eugène Fromentin</div>
+    <div class="card-meta"><b>1871</b><br>Oil on canvas<br></div>
+    <div class="dims">Physical: 63.8 × 110.6 cm (ratio 1.73)<br>Image: 15813 × 9047px (395 DPI@40")</div>
+    <div class="card-links"><a href="https://www.artic.edu/iiif/2/0eb5b4c2-517a-cd17-bca8-ff290e90059c/full/full/0/default.jpg" target="_blank">Full image ↗</a><a href="https://www.artic.edu/artworks/57191" target="_blank">Art Institute page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://www.artic.edu/iiif/2/ed7aa098-e5c9-04dd-b09c-3416d1c56854/full/700,/0/default.jpg" alt="Watering Place at Marly" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-oil">Smooth Oil</span>
+    <span class="tag tag-src">AIC</span>
+    <div class="card-title">"Watering Place at Marly"</div>
+    <div class="card-artist">Alfred Sisley</div>
+    <div class="card-meta"><b>1875</b><br>Oil on canvas<br></div>
+    <div class="dims">Physical: 39.5 × 56.2 cm (ratio 1.42)<br>Image: 14715 × 10303px (368 DPI@40")</div>
+    <div class="card-links"><a href="https://www.artic.edu/iiif/2/ed7aa098-e5c9-04dd-b09c-3416d1c56854/full/full/0/default.jpg" target="_blank">Full image ↗</a><a href="https://www.artic.edu/artworks/37741" target="_blank">Art Institute page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://www.artic.edu/iiif/2/5f663d6c-0121-a8ca-e875-896d9857a3f3/full/700,/0/default.jpg" alt="Violet and Silver—The Deep Sea" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-oil">Smooth Oil</span>
+    <span class="tag tag-src">AIC</span>
+    <div class="card-title">"Violet and Silver—The Deep Sea"</div>
+    <div class="card-artist">James McNeill Whistler</div>
+    <div class="card-meta"><b>1893</b><br>Oil on canvas<br></div>
+    <div class="dims">Physical: 50.2 × 73.3 cm (ratio 1.46)<br>Image: 12914 × 8780px (323 DPI@40")</div>
+    <div class="card-links"><a href="https://www.artic.edu/iiif/2/5f663d6c-0121-a8ca-e875-896d9857a3f3/full/full/0/default.jpg" target="_blank">Full image ↗</a><a href="https://www.artic.edu/artworks/84088" target="_blank">Art Institute page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://www.artic.edu/iiif/2/4493119c-7fca-5647-60e3-e96b0e242edc/full/700,/0/default.jpg" alt="Landscape" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-oil">Smooth Oil</span>
+    <span class="tag tag-src">AIC</span>
+    <div class="card-title">"Landscape"</div>
+    <div class="card-artist">William Keith</div>
+    <div class="card-meta"><b>1868-1900</b><br>Oil on panel<br></div>
+    <div class="dims">Physical: 12.8 × 20.5 cm (ratio 1.60)<br>Image: 11600 × 8700px (290 DPI@40")</div>
+    <div class="card-links"><a href="https://www.artic.edu/iiif/2/4493119c-7fca-5647-60e3-e96b0e242edc/full/full/0/default.jpg" target="_blank">Full image ↗</a><a href="https://www.artic.edu/artworks/74884" target="_blank">Art Institute page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://www.artic.edu/iiif/2/31f0a9a3-8a0d-44ed-6de8-66142b75c4c0/full/700,/0/default.jpg" alt="The Bathers" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-oil">Smooth Oil</span>
+    <span class="tag tag-src">AIC</span>
+    <div class="card-title">"The Bathers"</div>
+    <div class="card-artist">William Adolphe Bouguereau</div>
+    <div class="card-meta"><b>1884</b><br>Oil on canvas<br></div>
+    <div class="dims">Physical: 200.7 × 128.9 cm (ratio 1.56)<br>Image: 11518 × 16798px (288 DPI@40")</div>
+    <div class="card-links"><a href="https://www.artic.edu/iiif/2/31f0a9a3-8a0d-44ed-6de8-66142b75c4c0/full/full/0/default.jpg" target="_blank">Full image ↗</a><a href="https://www.artic.edu/artworks/39560" target="_blank">Art Institute page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://www.artic.edu/iiif/2/37f802ca-7831-14d6-82c6-060d825baabd/full/700,/0/default.jpg" alt="Trouville (Grey and Green, the Silver Sea)" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-oil">Smooth Oil</span>
+    <span class="tag tag-src">AIC</span>
+    <div class="card-title">"Trouville (Grey and Green, the Silver Sea)"</div>
+    <div class="card-artist">James McNeill Whistler</div>
+    <div class="card-meta"><b>1865</b><br>Oil on canvas<br></div>
+    <div class="dims">Physical: 51.5 × 77.2 cm (ratio 1.50)<br>Image: 11146 × 7376px (279 DPI@40")</div>
+    <div class="card-links"><a href="https://www.artic.edu/iiif/2/37f802ca-7831-14d6-82c6-060d825baabd/full/full/0/default.jpg" target="_blank">Full image ↗</a><a href="https://www.artic.edu/artworks/81572" target="_blank">Art Institute page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://www.artic.edu/iiif/2/1db67905-d421-95bf-1e91-4b60dd776886/full/700,/0/default.jpg" alt="Final Study for &quot;Bathers at Asnières&quot;" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-oil">Smooth Oil</span>
+    <span class="tag tag-src">AIC</span>
+    <div class="card-title">"Final Study for "Bathers at Asnières""</div>
+    <div class="card-artist">Georges Seurat</div>
+    <div class="card-meta"><b>1883</b><br>Oil on panel<br></div>
+    <div class="dims">Physical: 15.8 × 25.1 cm (ratio 1.59)<br>Image: 10657 × 6653px (266 DPI@40")</div>
+    <div class="card-links"><a href="https://www.artic.edu/iiif/2/1db67905-d421-95bf-1e91-4b60dd776886/full/full/0/default.jpg" target="_blank">Full image ↗</a><a href="https://www.artic.edu/artworks/20199" target="_blank">Art Institute page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://www.artic.edu/iiif/2/5dca7347-c6dc-24dd-d073-d705b9cdc575/full/700,/0/default.jpg" alt="The Herring Net" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-oil">Smooth Oil</span>
+    <span class="tag tag-src">AIC</span>
+    <div class="card-title">"The Herring Net"</div>
+    <div class="card-artist">Winslow Homer</div>
+    <div class="card-meta"><b>1885</b><br>Oil on canvas<br></div>
+    <div class="dims">Physical: 76.5 × 122.9 cm (ratio 1.61)<br>Image: 9953 × 6124px (249 DPI@40")</div>
+    <div class="card-links"><a href="https://www.artic.edu/iiif/2/5dca7347-c6dc-24dd-d073-d705b9cdc575/full/full/0/default.jpg" target="_blank">Full image ↗</a><a href="https://www.artic.edu/artworks/25865" target="_blank">Art Institute page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://www.artic.edu/iiif/2/3b06a501-7b91-07b2-80f1-a683cbfeaad9/full/700,/0/default.jpg" alt="Landscape with Hunters" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-oil">Smooth Oil</span>
+    <span class="tag tag-src">AIC</span>
+    <div class="card-title">"Landscape with Hunters"</div>
+    <div class="card-artist">Paul Bril</div>
+    <div class="card-meta"><b>1619</b><br>Oil on canvas<br></div>
+    <div class="dims">Physical: 60.0 × 88.0 cm (ratio 1.47)<br>Image: 9805 × 6616px (245 DPI@40")</div>
+    <div class="card-links"><a href="https://www.artic.edu/iiif/2/3b06a501-7b91-07b2-80f1-a683cbfeaad9/full/full/0/default.jpg" target="_blank">Full image ↗</a><a href="https://www.artic.edu/artworks/209969" target="_blank">Art Institute page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://www.artic.edu/iiif/2/0f2d999d-0173-2935-a6d0-0175bb97b2a9/full/700,/0/default.jpg" alt="The Home of the Heron" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-oil">Smooth Oil</span>
+    <span class="tag tag-src">AIC</span>
+    <div class="card-title">"The Home of the Heron"</div>
+    <div class="card-artist">George Inness</div>
+    <div class="card-meta"><b>1893</b><br>Oil on canvas<br></div>
+    <div class="dims">Physical: 76.2 × 115.2 cm (ratio 1.51)<br>Image: 9100 × 5957px (228 DPI@40")</div>
+    <div class="card-links"><a href="https://www.artic.edu/iiif/2/0f2d999d-0173-2935-a6d0-0175bb97b2a9/full/full/0/default.jpg" target="_blank">Full image ↗</a><a href="https://www.artic.edu/artworks/64724" target="_blank">Art Institute page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://www.artic.edu/iiif/2/18dd28cc-ae57-b852-cbc4-d184c6f0555d/full/700,/0/default.jpg" alt="Cabin in the Cotton" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-oil">Smooth Oil</span>
+    <span class="tag tag-src">AIC</span>
+    <div class="card-title">"Cabin in the Cotton"</div>
+    <div class="card-artist">Horace Pippin</div>
+    <div class="card-meta"><b>c. 1931–37</b><br>Oil on cotton, mounted on Masonite<br></div>
+    <div class="dims">Physical: 51.0 × 85.0 cm (ratio 1.67)<br>Image: 8964 × 5305px (224 DPI@40")</div>
+    <div class="card-links"><a href="https://www.artic.edu/iiif/2/18dd28cc-ae57-b852-cbc4-d184c6f0555d/full/full/0/default.jpg" target="_blank">Full image ↗</a><a href="https://www.artic.edu/artworks/111617" target="_blank">Art Institute page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://www.artic.edu/iiif/2/6b80849d-e3ef-ee82-5432-12d5d62cdb55/full/700,/0/default.jpg" alt="Landscape with Sheep, Picardy" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-oil">Smooth Oil</span>
+    <span class="tag tag-src">AIC</span>
+    <div class="card-title">"Landscape with Sheep, Picardy"</div>
+    <div class="card-artist">Harry Thompson</div>
+    <div class="card-meta"><b>Late 19th century</b><br>Oil on canvas<br></div>
+    <div class="dims">Physical: 82.2 × 117.5 cm (ratio 1.43)<br>Image: 8848 × 5954px (221 DPI@40")</div>
+    <div class="card-links"><a href="https://www.artic.edu/iiif/2/6b80849d-e3ef-ee82-5432-12d5d62cdb55/full/full/0/default.jpg" target="_blank">Full image ↗</a><a href="https://www.artic.edu/artworks/111669" target="_blank">Art Institute page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://www.artic.edu/iiif/2/16e53257-ade2-4f5d-3521-2bc9666bc4cf/full/700,/0/default.jpg" alt="Beach at Cabasson (Baigne-Cul)" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-oil">Smooth Oil</span>
+    <span class="tag tag-src">AIC</span>
+    <div class="card-title">"Beach at Cabasson (Baigne-Cul)"</div>
+    <div class="card-artist">Henri Edmond Cross</div>
+    <div class="card-meta"><b>1891–92</b><br>Oil on canvas<br></div>
+    <div class="dims">Physical: 65.3 × 92.3 cm (ratio 1.41)<br>Image: 8802 × 6167px (220 DPI@40")</div>
+    <div class="card-links"><a href="https://www.artic.edu/iiif/2/16e53257-ade2-4f5d-3521-2bc9666bc4cf/full/full/0/default.jpg" target="_blank">Full image ↗</a><a href="https://www.artic.edu/artworks/100476" target="_blank">Art Institute page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://www.artic.edu/iiif/2/4ac46654-f276-369f-f2fe-dadb30838b30/full/700,/0/default.jpg" alt="Landscape with Tournament and Hunters" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-oil">Smooth Oil</span>
+    <span class="tag tag-src">AIC</span>
+    <div class="card-title">"Landscape with Tournament and Hunters"</div>
+    <div class="card-artist">Jan van Scorel</div>
+    <div class="card-meta"><b>1519–20</b><br>Oil on panel<br></div>
+    <div class="dims">Physical: 57.8 × 138.5 cm (ratio 2.40)<br>Image: 8684 × 3681px (217 DPI@40")</div>
+    <div class="card-links"><a href="https://www.artic.edu/iiif/2/4ac46654-f276-369f-f2fe-dadb30838b30/full/full/0/default.jpg" target="_blank">Full image ↗</a><a href="https://www.artic.edu/artworks/110527" target="_blank">Art Institute page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://www.artic.edu/iiif/2/72a76270-d6f4-e744-d47b-307873a8e8ff/full/700,/0/default.jpg" alt="A City Park" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-oil">Smooth Oil</span>
+    <span class="tag tag-src">AIC</span>
+    <div class="card-title">"A City Park"</div>
+    <div class="card-artist">William Merritt Chase</div>
+    <div class="card-meta"><b>c. 1887</b><br>Oil on canvas<br></div>
+    <div class="dims">Physical: 34.6 × 49.9 cm (ratio 1.44)<br>Image: 8555 × 5932px (214 DPI@40")</div>
+    <div class="card-links"><a href="https://www.artic.edu/iiif/2/72a76270-d6f4-e744-d47b-307873a8e8ff/full/full/0/default.jpg" target="_blank">Full image ↗</a><a href="https://www.artic.edu/artworks/28849" target="_blank">Art Institute page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://www.artic.edu/iiif/2/33fc29fc-097b-576b-c9e6-c3352d9d3f15/full/700,/0/default.jpg" alt="View of Cotopaxi" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-oil">Smooth Oil</span>
+    <span class="tag tag-src">AIC</span>
+    <div class="card-title">"View of Cotopaxi"</div>
+    <div class="card-artist">Frederic Edwin Church</div>
+    <div class="card-meta"><b>1857</b><br>Oil on canvas<br></div>
+    <div class="dims">Physical: 62.2 × 92.7 cm (ratio 1.49)<br>Image: 8511 × 5650px (213 DPI@40")</div>
+    <div class="card-links"><a href="https://www.artic.edu/iiif/2/33fc29fc-097b-576b-c9e6-c3352d9d3f15/full/full/0/default.jpg" target="_blank">Full image ↗</a><a href="https://www.artic.edu/artworks/76571" target="_blank">Art Institute page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://www.artic.edu/iiif/2/1bc44619-6b1d-5398-cf41-f4af38f6e17f/full/700,/0/default.jpg" alt="Tiger Resting" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-oil">Smooth Oil</span>
+    <span class="tag tag-src">AIC</span>
+    <div class="card-title">"Tiger Resting"</div>
+    <div class="card-artist">Pierre Andrieu</div>
+    <div class="card-meta"><b>c. 1845</b><br>Oil on canvas<br></div>
+    <div class="dims">Physical: 20.3 × 38.1 cm (ratio 1.88)<br>Image: 8180 × 4140px (204 DPI@40")</div>
+    <div class="card-links"><a href="https://www.artic.edu/iiif/2/1bc44619-6b1d-5398-cf41-f4af38f6e17f/full/full/0/default.jpg" target="_blank">Full image ↗</a><a href="https://www.artic.edu/artworks/884" target="_blank">Art Institute page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://images.metmuseum.org/CRDImages/dp/web-large/DP822499.jpg" alt="A wooded river landscape with cattle" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-oil">Smooth Oil</span>
+    <span class="tag tag-src">MET</span>
+    <div class="card-title">"A wooded river landscape with cattle"</div>
+    <div class="card-artist">Benjamin Barker, the younger</div>
+    <div class="card-meta"><b>1826</b><br>Oil on paper mounted on card<br></div>
+    <div class="dims">Physical: 14.0 × 19.1 cm (ratio 1.36)<br>Resolution: not checked</div>
+    <div class="card-links"><a href="https://images.metmuseum.org/CRDImages/dp/original/DP822499.jpg" target="_blank">Full image ↗</a><a href="https://www.metmuseum.org/art/collection/search/344847" target="_blank">The Met page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://images.metmuseum.org/CRDImages/ep/web-large/DT1859.jpg" alt="Jalais Hill, Pontoise" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-oil">Smooth Oil</span>
+    <span class="tag tag-src">MET</span>
+    <div class="card-title">"Jalais Hill, Pontoise"</div>
+    <div class="card-artist">Camille Pissarro</div>
+    <div class="card-meta"><b>1867</b><br>Oil on canvas<br></div>
+    <div class="dims">Physical: 87.0 × 114.9 cm (ratio 1.32)<br>Resolution: not checked</div>
+    <div class="card-links"><a href="https://images.metmuseum.org/CRDImages/ep/original/DT1859.jpg" target="_blank">Full image ↗</a><a href="https://www.metmuseum.org/art/collection/search/437299" target="_blank">The Met page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://images.metmuseum.org/CRDImages/ep/web-large/DT5338.jpg" alt="View from the Quai d'Orsay" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-oil">Smooth Oil</span>
+    <span class="tag tag-src">MET</span>
+    <div class="card-title">"View from the Quai d'Orsay"</div>
+    <div class="card-artist">Johan Barthold Jongkind</div>
+    <div class="card-meta"><b>1854</b><br>Oil on canvas, mounted on wood<br></div>
+    <div class="dims">Physical: 43.8 × 66.0 cm (ratio 1.51)<br>Resolution: not checked</div>
+    <div class="card-links"><a href="https://images.metmuseum.org/CRDImages/ep/original/DT5338.jpg" target="_blank">Full image ↗</a><a href="https://www.metmuseum.org/art/collection/search/438381" target="_blank">The Met page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://images.metmuseum.org/CRDImages/ep/web-large/DP169645.jpg" alt="Catania and Mount Etna" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-oil">Smooth Oil</span>
+    <span class="tag tag-src">MET</span>
+    <div class="card-title">"Catania and Mount Etna"</div>
+    <div class="card-artist">Edward Lear</div>
+    <div class="card-meta"><b>1847</b><br>Oil on board<br></div>
+    <div class="dims">Physical: 31.1 × 48.3 cm (ratio 1.55)<br>Resolution: not checked</div>
+    <div class="card-links"><a href="https://images.metmuseum.org/CRDImages/ep/original/DP169645.jpg" target="_blank">Full image ↗</a><a href="https://www.metmuseum.org/art/collection/search/436859" target="_blank">The Met page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://images.metmuseum.org/CRDImages/ep/web-large/77J_045R2M.jpg" alt="Mont Sainte-Victoire" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-oil">Smooth Oil</span>
+    <span class="tag tag-src">MET</span>
+    <div class="card-title">"Mont Sainte-Victoire"</div>
+    <div class="card-artist">Paul Cézanne</div>
+    <div class="card-meta"><b>ca. 1902–6</b><br>Oil on canvas<br></div>
+    <div class="dims">Physical: 57.2 × 97.2 cm (ratio 1.70)<br>Resolution: not checked</div>
+    <div class="card-links"><a href="https://images.metmuseum.org/CRDImages/ep/original/77J_045R2M.jpg" target="_blank">Full image ↗</a><a href="https://www.metmuseum.org/art/collection/search/435878" target="_blank">The Met page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://images.metmuseum.org/CRDImages/ep/web-large/DT313144.jpg" alt="A Village in a Valley" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-oil">Smooth Oil</span>
+    <span class="tag tag-src">MET</span>
+    <div class="card-title">"A Village in a Valley"</div>
+    <div class="card-artist">Théodore Rousseau</div>
+    <div class="card-meta"><b>late 1820s</b><br>Oil on paper, mounted on canvas<br></div>
+    <div class="dims">Physical: 23.2 × 40.6 cm (ratio 1.75)<br>Resolution: not checked</div>
+    <div class="card-links"><a href="https://images.metmuseum.org/CRDImages/ep/original/DT313144.jpg" target="_blank">Full image ↗</a><a href="https://www.metmuseum.org/art/collection/search/437521" target="_blank">The Met page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://images.metmuseum.org/CRDImages/ep/web-large/DP-25466-001.jpg" alt="Boating" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-oil">Smooth Oil</span>
+    <span class="tag tag-src">MET</span>
+    <div class="card-title">"Boating"</div>
+    <div class="card-artist">Edouard Manet</div>
+    <div class="card-meta"><b>1874</b><br>Oil on canvas<br></div>
+    <div class="dims">Physical: 97.2 × 130.2 cm (ratio 1.34)<br>Resolution: not checked</div>
+    <div class="card-links"><a href="https://images.metmuseum.org/CRDImages/ep/original/DP-25466-001.jpg" target="_blank">Full image ↗</a><a href="https://www.metmuseum.org/art/collection/search/436947" target="_blank">The Met page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://images.metmuseum.org/CRDImages/ep/web-large/DP348637.jpg" alt="Tiger in Repose" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-oil">Smooth Oil</span>
+    <span class="tag tag-src">MET</span>
+    <div class="card-title">"Tiger in Repose"</div>
+    <div class="card-artist">Antoine-Louis Barye</div>
+    <div class="card-meta"><b>ca. 1850–65</b><br>Oil on canvas<br></div>
+    <div class="dims">Physical: 27.3 × 35.6 cm (ratio 1.30)<br>Resolution: not checked</div>
+    <div class="card-links"><a href="https://images.metmuseum.org/CRDImages/ep/original/DP348637.jpg" target="_blank">Full image ↗</a><a href="https://www.metmuseum.org/art/collection/search/678013" target="_blank">The Met page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://images.metmuseum.org/CRDImages/ep/web-large/DP169566.jpg" alt="Saltash with the Water Ferry, Cornwall" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-oil">Smooth Oil</span>
+    <span class="tag tag-src">MET</span>
+    <div class="card-title">"Saltash with the Water Ferry, Cornwall"</div>
+    <div class="card-artist">Joseph Mallord William Turner</div>
+    <div class="card-meta"><b>1811</b><br>Oil on canvas<br></div>
+    <div class="dims">Physical: 89.9 × 120.7 cm (ratio 1.34)<br>Resolution: not checked</div>
+    <div class="card-links"><a href="https://images.metmuseum.org/CRDImages/ep/original/DP169566.jpg" target="_blank">Full image ↗</a><a href="https://www.metmuseum.org/art/collection/search/437852" target="_blank">The Met page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://images.metmuseum.org/CRDImages/ep/web-large/DT2557.jpg" alt="Red Sunset" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-oil">Smooth Oil</span>
+    <span class="tag tag-src">MET</span>
+    <div class="card-title">"Red Sunset"</div>
+    <div class="card-artist">Arkhyp Kuindzhi (Arkhip Ivanovich Kuindzhi)</div>
+    <div class="card-meta"><b>1905–8</b><br>Oil on canvas<br></div>
+    <div class="dims">Physical: 134.6 × 188.0 cm (ratio 1.40)<br>Resolution: not checked</div>
+    <div class="card-links"><a href="https://images.metmuseum.org/CRDImages/ep/original/DT2557.jpg" target="_blank">Full image ↗</a><a href="https://www.metmuseum.org/art/collection/search/436833" target="_blank">The Met page ↗</a></div>
+  </div>
+</div>
+</div>
+
+</body>
+</html>
