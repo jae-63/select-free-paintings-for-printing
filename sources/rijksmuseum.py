@@ -138,12 +138,17 @@ def _extract_text(node) -> str:
 
 
 def _extract_classified_labels(items: list) -> list:
-    """Extract all _label strings from a list of classified_as or similar."""
+    """Extract all _label strings from a list of classified_as or similar.
+    Items may be dicts or plain strings."""
     labels = []
     for item in (items or []):
-        label = _extract_text(item.get("_label") or item.get("label") or "")
-        if label:
-            labels.append(label.lower())
+        if isinstance(item, str):
+            if item:
+                labels.append(item.lower())
+        elif isinstance(item, dict):
+            label = _extract_text(item.get("_label") or item.get("label") or "")
+            if label:
+                labels.append(label.lower())
     return labels
 
 
