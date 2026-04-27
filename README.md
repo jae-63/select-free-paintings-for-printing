@@ -153,6 +153,11 @@ infrastructure; this tool does not redistribute or cache artwork.
 
 **The Met:** Uses controlled vocabulary for medium — the search `medium` parameter
 requires exact Met terms (e.g. `"Watercolors"` plural, not `"Watercolor"`).
+Without the medium filter, queries return a very broad mix including Islamic
+manuscripts and Asian art that pass watercolor classification by medium string
+but are illuminated manuscripts, not landscape paintings. Department filtering
+(depts 9, 11, 21) is applied to constrain results to Western paintings and
+works on paper.
 
 **Europeana:** Many records omit the `dcFormat` (medium) field entirely. The tool
 infers medium from three fallback locations in priority order: multilingual concept
@@ -160,6 +165,27 @@ tags (`edmConceptPrefLabelLangAware`), the title string (many institutions prefi
 titles with the medium, e.g. `"Watercolor, Landscape"`), and the description text.
 Medium prefixes are stripped from titles in the output. Watercolor and oil
 candidates are fetched in separate passes so neither medium starves the other.
+
+### Sources investigated but not currently supported
+
+**Rijksmuseum** — The Rijksmuseum migrated to a new Linked Art Search API
+(`data.rijksmuseum.nl/search/collection`) in 2024, deprecating their previous
+collection API (which now returns 410 Gone). The new API returns Linked Art
+identifiers that must be resolved individually for metadata, requiring 2–3 HTTP
+calls per object. More critically, image URLs are not embedded in the Linked Art
+object responses — they are accessible only via a separate IIIF manifest, but the
+manifest endpoint (`rijksmuseum.nl/api/iiif/{id}/manifest`) also appears to have
+moved and returns 404 for tested object numbers. A partial implementation exists
+in the `experimental/rijksmuseum-getty` branch for reference.
+
+**J. Paul Getty Museum** — The Getty's collection API (`data.getty.edu`) is built
+on a Linked Open Data gateway and returns Linked Art format similar to
+Rijksmuseum. The API documentation is a JavaScript single-page application and
+not easily machine-readable. Like Rijksmuseum, the architecture requires multiple
+roundtrips per object and image URL resolution is non-trivial. A stub
+implementation exists in the `experimental/rijksmuseum-getty` branch. The Getty's
+IIIF image quality is reportedly excellent (often 20,000px+) and would be worth
+revisiting if their API stabilises with better documentation.
 
 ## Oil painting smoothness — how it works
 
