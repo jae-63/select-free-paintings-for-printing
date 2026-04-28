@@ -231,7 +231,8 @@ def apply_filters(
 
         if check_resolution and (px_w == 0 or px_h == 0):
             image_id = rec.get("_image_id")
-            if image_id:
+            source   = rec.get("source", "")
+            if image_id and source == "aic":
                 px_w, px_h = probe_iiif_dimensions(image_id)
                 rec["pixel_width"]  = px_w
                 rec["pixel_height"] = px_h
@@ -290,7 +291,7 @@ def parse_args():
     )
     p.add_argument("--sources", nargs="+",
                    default=config.DEFAULT_SOURCES,
-                   choices=["met", "aic", "europeana"],
+                   choices=["met", "aic", "europeana", "smithsonian", "getty"],
                    help="Which museum APIs to query")
     p.add_argument("--watercolor-target", type=int,
                    default=config.WATERCOLOR_TARGET,
@@ -376,6 +377,32 @@ def main():
         if args.oil_target > 0:
             print("[Europeana] Fetching oil candidates...")
             all_records += fetch_all_candidates(limit=args.limit, queries=OIL_QUERIES)
+
+    if "smithsonian" in args.sources:
+        from sources.smithsonian import (
+            fetch_all_candidates as smi_fetch,
+            WATERCOLOR_SEARCHES as SMI_WC_Q,
+            OIL_SEARCHES        as SMI_OIL_Q,
+        )
+        if args.watercolor_target > 0:
+            print("[Smithsonian] Fetching watercolor candidates...")
+            all_records += smi_fetch(queries=SMI_WC_Q, limit=args.limit)
+        if args.oil_target > 0:
+            print("[Smithsonian] Fetching oil candidates...")
+            all_records += smi_fetch(queries=SMI_OIL_Q, limit=args.limit)
+
+    if "getty" in args.sources:
+        from sources.getty import (
+            fetch_all_candidates as getty_fetch,
+            WATERCOLOR_QUERIES   as GETTY_WC_Q,
+            OIL_QUERIES          as GETTY_OIL_Q,
+        )
+        if args.watercolor_target > 0:
+            print("[Getty] Fetching watercolor candidates...")
+            all_records += getty_fetch(queries=GETTY_WC_Q, limit=args.limit)
+        if args.oil_target > 0:
+            print("[Getty] Fetching oil candidates...")
+            all_records += getty_fetch(queries=GETTY_OIL_Q, limit=args.limit)
 
     print(f"\nTotal raw records fetched: {len(all_records)}")
 

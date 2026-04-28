@@ -31,6 +31,9 @@ if _env_path.exists():
 # Europeana: free key at https://apis.europeana.eu/api/apikey-form
 EUROPEANA_API_KEY = os.environ.get("EUROPEANA_API_KEY", "")
 
+# Smithsonian: free key at https://api.data.gov/signup/
+SMITHSONIAN_API_KEY = os.environ.get("SMITHSONIAN_API_KEY", "")
+
 # Anthropic: for Claude vision oil-smoothness classification
 # Free at https://console.anthropic.com — but see note below on key reuse.
 # If blank, the oil classifier falls back to heuristics only.
@@ -68,9 +71,10 @@ MAX_CANDIDATES_PER_SOURCE = 4000  # raised from 2000; AIC needs more to hit wate
 DEFAULT_SOURCES = ["met", "aic"]
 
 # Politeness delay between API requests, in seconds, per source
-MET_REQUEST_DELAY    = 0.35   # ~3 req/s; Met 403s at higher rates without a key
-AIC_REQUEST_DELAY    = 0.20   # AIC asks for reasonable use
-EUROPEANA_REQUEST_DELAY = 0.30
+MET_REQUEST_DELAY          = 0.35   # ~3 req/s; Met 403s at higher rates without a key
+AIC_REQUEST_DELAY          = 0.20   # AIC asks for reasonable use
+EUROPEANA_REQUEST_DELAY    = 0.30
+SMITHSONIAN_REQUEST_DELAY  = 0.25
 
 # Max pages to fetch per query per source (each page = up to 100 results)
 AIC_MAX_PAGES_PER_QUERY = 10
