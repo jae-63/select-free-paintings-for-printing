@@ -75,6 +75,8 @@ MET_REQUEST_DELAY          = 0.35   # ~3 req/s; Met 403s at higher rates without
 AIC_REQUEST_DELAY          = 0.20   # AIC asks for reasonable use
 EUROPEANA_REQUEST_DELAY    = 0.30
 SMITHSONIAN_REQUEST_DELAY  = 0.25
+CLEVELAND_REQUEST_DELAY    = 0.20
+LOC_REQUEST_DELAY          = 0.35   # two requests per item (search + resource)
 
 # Max pages to fetch per query per source (each page = up to 100 results)
 AIC_MAX_PAGES_PER_QUERY = 10
@@ -184,9 +186,12 @@ WATERCOLOR_MEDIUM_TERMS = [
 ]
 
 # Any of these terms in the medium field → candidate oil painting
+# "photograph" is included so LoC and similar photo sources pass this filter;
+# photographs are flat / smooth and print well on canvas.
 OIL_MEDIUM_TERMS = [
     "oil on canvas", "oil on panel", "oil on board", "oil on wood",
     "oil on copper", "oil on paper", "huile sur toile",
+    "photograph",
 ]
 
 # If any of these terms appear in medium or description → reject as impasto
@@ -215,14 +220,14 @@ EXCLUDE_MEDIUM_TERMS = [
     "chromolithograph",
     "reproduction",
     "printed",
-    "photograph",
-    "photography",
     "daguerreotype",
 ]
 
 # If any of these appear in medium/description → heuristically flag as smooth oil
+# "photograph" is included so photos don't need Claude vision or artist matching
 SMOOTH_OIL_MEDIUM_HINT_TERMS = [
     "glazing", "glaze", "smooth", "detailed", "luminous", "academic", "trompe",
+    "photograph",
 ]
 
 # Artists whose oils are typically smooth/flat enough for canvas printing.

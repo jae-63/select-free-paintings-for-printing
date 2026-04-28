@@ -291,7 +291,8 @@ def parse_args():
     )
     p.add_argument("--sources", nargs="+",
                    default=config.DEFAULT_SOURCES,
-                   choices=["met", "aic", "europeana", "smithsonian", "getty"],
+                   choices=["met", "aic", "europeana", "smithsonian", "getty",
+                            "nga", "cleveland", "loc"],
                    help="Which museum APIs to query")
     p.add_argument("--watercolor-target", type=int,
                    default=config.WATERCOLOR_TARGET,
@@ -403,6 +404,45 @@ def main():
         if args.oil_target > 0:
             print("[Getty] Fetching oil candidates...")
             all_records += getty_fetch(queries=GETTY_OIL_Q, limit=args.limit)
+
+    if "nga" in args.sources:
+        from sources.nga import (
+            fetch_all_candidates as nga_fetch,
+            WATERCOLOR_QUERIES   as NGA_WC_Q,
+            OIL_QUERIES          as NGA_OIL_Q,
+        )
+        if args.watercolor_target > 0:
+            print("[NGA] Fetching watercolor candidates...")
+            all_records += nga_fetch(queries=NGA_WC_Q, limit=args.limit)
+        if args.oil_target > 0:
+            print("[NGA] Fetching oil candidates...")
+            all_records += nga_fetch(queries=NGA_OIL_Q, limit=args.limit)
+
+    if "cleveland" in args.sources:
+        from sources.cleveland import (
+            fetch_all_candidates as cle_fetch,
+            WATERCOLOR_QUERIES   as CLE_WC_Q,
+            OIL_QUERIES          as CLE_OIL_Q,
+        )
+        if args.watercolor_target > 0:
+            print("[Cleveland] Fetching watercolor candidates...")
+            all_records += cle_fetch(queries=CLE_WC_Q, limit=args.limit)
+        if args.oil_target > 0:
+            print("[Cleveland] Fetching oil candidates...")
+            all_records += cle_fetch(queries=CLE_OIL_Q, limit=args.limit)
+
+    if "loc" in args.sources:
+        from sources.loc import (
+            fetch_all_candidates as loc_fetch,
+            WATERCOLOR_QUERIES   as LOC_WC_Q,
+            OIL_QUERIES          as LOC_OIL_Q,
+        )
+        if args.watercolor_target > 0:
+            print("[LoC] Fetching watercolor candidates...")
+            all_records += loc_fetch(queries=LOC_WC_Q, limit=args.limit)
+        if args.oil_target > 0:
+            print("[LoC] Fetching oil (photograph) candidates...")
+            all_records += loc_fetch(queries=LOC_OIL_Q, limit=args.limit)
 
     print(f"\nTotal raw records fetched: {len(all_records)}")
 
