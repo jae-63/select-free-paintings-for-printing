@@ -7,7 +7,9 @@ browseable HTML gallery or a tarball of preview images for Mac Finder slideshow.
 ## What it does
 
 1. **Fetches** landscape paintings from open museum APIs (The Met, Art Institute
-   of Chicago, Europeana) — no scraping, all proper documented API access
+   of Chicago, National Gallery of Art, Cleveland Museum of Art, Yale Center for
+   British Art, Library of Congress, Europeana) — no scraping, all proper
+   documented API access
 2. **Filters** by:
    - Medium: watercolors/gouache first, then smooth-technique oils
    - Aspect ratio: wider than it is tall (configurable, default ≥ 1.4:1)
@@ -23,7 +25,7 @@ browseable HTML gallery or a tarball of preview images for Mac Finder slideshow.
 ## Default targets
 
 - **80 watercolors** (watercolor, gouache, aquarelle, and multilingual equivalents)
-- **20 smooth oils** (Luminist, Barbizon, Hague School, Dutch Golden Age, etc.)
+- **20 smooth oils** (Luminist, Barbizon, Hague School, Dutch Golden Age, British landscapes, etc.)
 - All works fully public-domain (CC0 or equivalent) with downloadable high-res images
 
 ## Setup
@@ -36,10 +38,11 @@ pip install -r requirements.txt
 
 ### API keys
 
-The Met Museum and Art Institute of Chicago APIs need **no key**. Europeana
-requires a free personal key. Claude vision for oil classification requires an
-Anthropic API key (also free tier available); without it the tool falls back to
-artist-name heuristics.
+Most sources need **no key at all** — The Met, Art Institute of Chicago,
+National Gallery of Art, Cleveland Museum of Art, Yale Center for British Art,
+and Library of Congress are all keyless. Europeana requires a free personal key.
+Claude vision for oil classification requires an Anthropic API key (free tier
+available); without it the tool falls back to artist-name heuristics.
 
 ```bash
 cp config.example.env .env
@@ -62,11 +65,22 @@ independently. Each step writes its own output file.
 # The Met (no API key needed; slowest due to per-object fetching)
 python fetch_candidates.py --sources met --output candidates_met.json
 
-# Art Institute of Chicago (no API key needed; fast IIIF resolution lookup)
+# Art Institute of Chicago (no API key needed; fast IIIF dimension lookup)
 python fetch_candidates.py --sources aic --output candidates_aic.json
 
+# National Gallery of Art (no API key needed; streams GitHub CSV data)
+python fetch_candidates.py --sources nga --output candidates_nga.json
+
+# Cleveland Museum of Art (no API key needed; CC0 open access REST API)
+python fetch_candidates.py --sources cleveland --output candidates_cleveland.json
+
+# Yale Center for British Art (no API key needed; OAI-PMH + IIIF manifests)
+python fetch_candidates.py --sources ycba --output candidates_ycba.json
+
+# Library of Congress (no API key needed; targets the Highsmith Archive for 8k+ photos)
+python fetch_candidates.py --sources loc --output candidates_loc.json
+
 # Europeana (requires EUROPEANA_API_KEY in .env)
-# Automatically runs two passes: one for watercolors, one for oils
 python fetch_candidates.py --sources europeana --output candidates_europeana.json
 ```
 
@@ -79,7 +93,9 @@ python fetch_candidates.py --sources aic --no-resolution-check --output test.jso
 
 ```bash
 python merge_candidates.py \
-  --inputs candidates_met.json candidates_aic.json candidates_europeana.json \
+  --inputs candidates_met.json candidates_aic.json candidates_nga.json \
+           candidates_cleveland.json candidates_ycba.json candidates_loc.json \
+           candidates_europeana.json \
   --watercolor-target 80 \
   --oil-target 20 \
   --output candidates_final.json
@@ -144,7 +160,11 @@ CLI flags override config values for one-off runs (see `--help` on each script).
 |---|---|---|
 | [The Met](https://metmuseum.github.io/) | None | ~500k works; fetches one object at a time — slowest source |
 | [Art Institute of Chicago](https://api.artic.edu/docs/) | None | ~120k works; fast IIIF dimension lookup |
-| [Europeana](https://pro.europeana.eu/page/search) | Free (personal key sufficient) | Aggregates 800+ European institutions; medium often inferred from title or multilingual concept tags rather than a dedicated field |
+| [National Gallery of Art](https://github.com/NationalGalleryOfArt/opendata) | None | Streams two GitHub CSV files; pixel dimensions in the data |
+| [Cleveland Museum of Art](https://openaccess-api.clevelandart.org/) | None | CC0 open access; TIFF dimensions returned directly by the API |
+| [Yale Center for British Art](https://britishart.yale.edu/collections-data-sharing) | None | OAI-PMH identifier harvest + per-item IIIF v3 manifest; British oils and watercolors |
+| [Library of Congress](https://www.loc.gov/apis/json-and-yaml/) | None | Targets the Carol M. Highsmith Archive for 8000px+ photographs |
+| [Europeana](https://pro.europeana.eu/page/search) | Free (personal key sufficient) | Aggregates 800+ European institutions; medium often inferred from multilingual concept tags |
 
 All returned works are public domain. Images are served directly from museum
 infrastructure; this tool does not redistribute or cache artwork.
@@ -159,6 +179,32 @@ but are illuminated manuscripts, not landscape paintings. Department filtering
 (depts 9, 11, 21) is applied to constrain results to Western paintings and
 works on paper.
 
+**National Gallery of Art:** Fetches two CSV files from the NGA's GitHub open-data
+repository (`objects.csv` and `published_images.csv`), joins them on object ID,
+and filters by classification (Painting, Drawing). Pixel dimensions and IIIF URLs
+are available directly in the data — no per-item HTTP requests beyond the two
+initial CSV downloads.
+
+**Cleveland Museum of Art:** The CMA Open Access API returns a `full` image tier
+(TIFF) with pixel dimensions embedded in the response, so no header probing is
+needed. Watercolors are filed under the "Drawing" artwork type rather than a
+dedicated "Watercolor" type.
+
+**Yale Center for British Art:** Uses the OAI-PMH harvester
+(`harvester-bl.britishart.yale.edu`) to page through painting and drawing object
+IDs, then fetches each IIIF v3 manifest for metadata and image URLs. The OAI-PMH
+server is slow (allow 60s per page); this is handled automatically. Scan
+resolution varies by painting size — large oils (≥24" wide) reliably exceed
+8000px; smaller works often do not. Claude vision is strongly recommended for
+this source, as the no-vision heuristic knows too few British artists by name.
+
+**Library of Congress:** Queries the loc.gov JSON search API targeting the Carol
+M. Highsmith Archive, which provides 8000–14,000 px TIFF masters of American
+landscapes and landmarks. TIFF URLs are derived from the search result's
+`image_url` array (replacing the service path with the master path) — no
+per-item API calls are needed. The API can return 429 responses under heavy load;
+the source retries automatically with backoff.
+
 **Europeana:** Many records omit the `dcFormat` (medium) field entirely. The tool
 infers medium from three fallback locations in priority order: multilingual concept
 tags (`edmConceptPrefLabelLangAware`), the title string (many institutions prefix
@@ -170,22 +216,16 @@ candidates are fetched in separate passes so neither medium starves the other.
 
 **Rijksmuseum** — The Rijksmuseum migrated to a new Linked Art Search API
 (`data.rijksmuseum.nl/search/collection`) in 2024, deprecating their previous
-collection API (which now returns 410 Gone). The new API returns Linked Art
-identifiers that must be resolved individually for metadata, requiring 2–3 HTTP
-calls per object. More critically, image URLs are not embedded in the Linked Art
-object responses — they are accessible only via a separate IIIF manifest, but the
-manifest endpoint (`rijksmuseum.nl/api/iiif/{id}/manifest`) also appears to have
-moved and returns 404 for tested object numbers. A partial implementation exists
+collection API (which now returns 410 Gone). The new API requires 2–3 HTTP calls
+per object for metadata, plus a separate IIIF manifest fetch for image URLs —
+too many roundtrips for practical bulk harvesting. A partial implementation exists
 in the `experimental/rijksmuseum-getty` branch for reference.
 
-**J. Paul Getty Museum** — The Getty's collection API (`data.getty.edu`) is built
-on a Linked Open Data gateway and returns Linked Art format similar to
-Rijksmuseum. The API documentation is a JavaScript single-page application and
-not easily machine-readable. Like Rijksmuseum, the architecture requires multiple
-roundtrips per object and image URL resolution is non-trivial. A stub
-implementation exists in the `experimental/rijksmuseum-getty` branch. The Getty's
-IIIF image quality is reportedly excellent (often 20,000px+) and would be worth
-revisiting if their API stabilises with better documentation.
+**J. Paul Getty Museum** — The Getty's collection API (`data.getty.edu`) returns
+Linked Art format. Like Rijksmuseum, the architecture requires multiple roundtrips
+per object and image URL resolution is non-trivial. The Getty's IIIF image quality
+is reportedly excellent (often 20,000px+) and would be worth revisiting. A stub
+implementation exists in the `experimental/rijksmuseum-getty` branch.
 
 ## Oil painting smoothness — how it works
 
@@ -204,8 +244,9 @@ tuned without touching any other file.
 
 When vision is disabled or no API key is present, the tool falls back to matching
 the artist name against `SMOOTH_OIL_ARTISTS` in `config.py` — a curated list of
-~90 painters known for smooth, flat, or luminous technique (American Luminists,
-Barbizon School, Hague School, Spanish impressionists, Russian realists, etc.).
+~120 painters known for smooth, flat, or luminous technique (American Luminists,
+Barbizon School, Hague School, Dutch Golden Age, Spanish impressionists, Russian
+realists, British landscape painters, and more).
 
 ## Exclusions
 
@@ -232,6 +273,18 @@ Verify the dual-pass logic is present in `fetch_candidates.py` — there should 
 two separate `fetch_all_candidates()` calls when `--sources europeana` is used,
 one for `WATERCOLOR_QUERIES` and one for `OIL_QUERIES`.
 
+**YCBA yields 0 oils without Claude vision**
+The no-vision heuristic checks the artist name against `SMOOTH_OIL_ARTISTS`. The
+YCBA collection's early TMS records tend to be portraits and genre paintings; the
+heuristic will reject them if the artist isn't in the list. Either enable Claude
+vision (`USE_CLAUDE_VISION = True` with `ANTHROPIC_API_KEY` set) or increase
+`--limit` to sample more of the collection past the early portrait-heavy records.
+
+**LoC returns 0 results (rate-limited)**
+The Library of Congress API can temporarily block IPs that send too many requests
+in a short period. Wait a few hours and retry. The source retries automatically
+with backoff during a run, but repeated test runs can exhaust the grace period.
+
 **Falling short of watercolor target**
 Increase `MAX_CANDIDATES_PER_SOURCE` in `config.py` (default 4000), or add
 Europeana as a source. The AIC and Met both have high proportions of portrait-
@@ -243,6 +296,8 @@ Use `--no-resolution-check` for exploratory runs. Resolution probing downloads
 the first 64KB of each image to read its pixel dimensions — at ~0.5s per image
 across thousands of candidates this adds up. AIC is faster because IIIF provides
 dimensions via a lightweight `info.json` endpoint without image download.
+NGA and Cleveland return pixel dimensions directly from their data sources, so
+neither requires probing.
 
 **`ftp://` image URLs fail silently**
 Some Europeana records (particularly from Skokloster Castle) provide `ftp://`
@@ -252,10 +307,10 @@ and tarball download. They will be present in the JSON but produce no image file
 
 ## Live demo
 
-A sample report generated from the three supported sources is viewable at:
+A sample report generated from the supported sources is viewable at:
 https://jae-63.github.io/select-free-paintings-for-printing/
-That way visitors to the GitHub repo page can click straight through to see what the output looks like. It's a compelling selling point for the project — seeing actual paintings is much more persuasive than reading about the pipeline.
-For future report versions, just overwrite index.html on the gh-pages branch and push. You can also keep a reports/ folder there with dated versions (report_2025-04.html, etc.) if you want a history, while index.html always points to the latest.
+
+For future report versions, overwrite `index.html` on the `gh-pages` branch and push.
 
 ## Contributing
 
