@@ -1,0 +1,51 @@
+# ---------------------------------------------------------------------------
+# Secrets
+# ---------------------------------------------------------------------------
+.env
+
+# ---------------------------------------------------------------------------
+# Python
+# ---------------------------------------------------------------------------
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+*.egg-info/
+dist/
+build/
+.eggs/
+
+# ---------------------------------------------------------------------------
+# Project output — generated files, never source
+# ---------------------------------------------------------------------------
+# Candidate JSON files (produced by fetch_candidates.py and merge_candidates.py)
+candidates*.json
+
+# HTML reports (produced by make_report.py)
+report.html
+report*.html
+
+# Tarball and extracted preview images (produced by make_tarball.py)
+canvas_picks/
+canvas_picks*.tar.gz
+*.tar.gz
+
+# Backup / scratch copies
+*.SAV*
+*.DELME
+*.SAVE
+*.BAK
+
+# Test output files
+test_*.json
+
+# ---------------------------------------------------------------------------
+# OS and editor
+# ---------------------------------------------------------------------------
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+.vscode/
+.idea/
