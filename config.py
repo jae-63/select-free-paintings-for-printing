@@ -77,6 +77,8 @@ EUROPEANA_REQUEST_DELAY    = 0.30
 SMITHSONIAN_REQUEST_DELAY  = 0.25
 CLEVELAND_REQUEST_DELAY    = 0.20
 LOC_REQUEST_DELAY          = 0.35   # two requests per item (search + resource)
+YCBA_REQUEST_DELAY         = 0.25   # one manifest fetch per item
+YCBA_OAI_TIMEOUT           = 60     # OAI-PMH server is slow; 15s default times out
 
 # Max pages to fetch per query per source (each page = up to 100 results)
 AIC_MAX_PAGES_PER_QUERY = 10
@@ -293,6 +295,44 @@ SMOOTH_OIL_ARTISTS = [
     "albert bierstadt", "bierstadt",
     "frederic church",
     "thomas cole",
+    # British and Italian landscape/view painters (primary YCBA collection)
+    "canaletto",
+    "samuel scott",
+    "richard parkes bonington", "bonington",
+    "edward lear",
+    "richard wilson",
+    "thomas gainsborough",
+    "george morland",
+    "john constable", "constable",
+    "francis danby",
+    "james ward",
+    "patrick nasmyth",
+    "julius caesar ibbetson",
+    "william marlow",
+    "john crome",
+    "peter de wint",
+    "george vincent",
+    "james stark",
+    "john berney crome",
+    "thomas girtin", "girtin",
+    "john varley",
+    "david cox",
+    "peter de wint",
+    "william daniell",
+    "george fennel robson",
+    "clarkson stanfield",
+    "thomas creswick",
+    "benjamin williams leader",
+    "henry john boddington",
+    "george cole",
+    "john linnell",
+    "samuel palmer", "palmer",
+    "james holland",
+    "charles bentley",
+    "william henry hunt",
+    "william james muller",
+    "william james webb",
+    "john brett",
 ]
 
 # ---------------------------------------------------------------------------

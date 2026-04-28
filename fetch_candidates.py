@@ -292,7 +292,7 @@ def parse_args():
     p.add_argument("--sources", nargs="+",
                    default=config.DEFAULT_SOURCES,
                    choices=["met", "aic", "europeana", "smithsonian", "getty",
-                            "nga", "cleveland", "loc"],
+                            "nga", "cleveland", "loc", "ycba"],
                    help="Which museum APIs to query")
     p.add_argument("--watercolor-target", type=int,
                    default=config.WATERCOLOR_TARGET,
@@ -443,6 +443,19 @@ def main():
         if args.oil_target > 0:
             print("[LoC] Fetching oil (photograph) candidates...")
             all_records += loc_fetch(queries=LOC_OIL_Q, limit=args.limit)
+
+    if "ycba" in args.sources:
+        from sources.ycba import (
+            fetch_all_candidates as ycba_fetch,
+            WATERCOLOR_QUERIES   as YCBA_WC_Q,
+            OIL_QUERIES          as YCBA_OIL_Q,
+        )
+        if args.watercolor_target > 0:
+            print("[YCBA] Fetching watercolor candidates...")
+            all_records += ycba_fetch(queries=YCBA_WC_Q, limit=args.limit)
+        if args.oil_target > 0:
+            print("[YCBA] Fetching oil candidates...")
+            all_records += ycba_fetch(queries=YCBA_OIL_Q, limit=args.limit)
 
     print(f"\nTotal raw records fetched: {len(all_records)}")
 
