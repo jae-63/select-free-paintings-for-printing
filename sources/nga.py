@@ -48,6 +48,9 @@ _SKIP_MEDIUM_TERMS = {
 WATERCOLOR_QUERIES = ["Drawing"]
 OIL_QUERIES = ["Painting"]
 
+# Module-level cache so both watercolor and oil passes share one download
+_csv_cache: dict[str, list[dict]] = {}
+
 
 def _session() -> requests.Session:
     s = requests.Session()
@@ -56,13 +59,18 @@ def _session() -> requests.Session:
 
 
 def _load_csv(url: str, session: requests.Session) -> list[dict]:
-    """Download a CSV and return all rows as a list of dicts."""
+    """Download a CSV and return all rows as a list of dicts (cached)."""
+    if url in _csv_cache:
+        print(f"  [NGA] Using cached {url.split('/')[-1]} …")
+        return _csv_cache[url]
     print(f"  [NGA] Downloading {url.split('/')[-1]} …")
     resp = session.get(url, timeout=120)
     resp.raise_for_status()
     text = resp.content.decode("utf-8", errors="replace")
     reader = csv.DictReader(io.StringIO(text))
-    return list(reader)
+    rows = list(reader)
+    _csv_cache[url] = rows
+    return rows
 
 
 def _parse_dims(dims_text: str) -> tuple:
