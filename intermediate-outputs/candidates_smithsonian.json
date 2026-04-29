@@ -1,0 +1,111 @@
+{
+  "meta": {
+    "sources": [
+      "smithsonian"
+    ],
+    "watercolor_target": 80,
+    "oil_target": 20,
+    "min_ratio": 1.4,
+    "print_width_inches": 40,
+    "print_dpi": 200,
+    "min_width_px": 8000,
+    "total_fetched": 2062,
+    "rejected": {
+      "no_image": 0,
+      "excluded_famous": 42,
+      "religious_title": 0,
+      "non_painting": 55,
+      "wrong_medium": 240,
+      "wrong_aspect": 774,
+      "low_resolution": 948
+    },
+    "vision_status": "enabled (claude-sonnet-4-20250514, threshold=3/5)"
+  },
+  "watercolors": [
+    {
+      "source": "smithsonian",
+      "source_id": "chndm_1953-179-1",
+      "title": "Mackerel Cove",
+      "artist": "William Trost Richards, American",
+      "date": "1877",
+      "medium": "pen and black ink, brush and watercolor, gouache, crayon, traces of graphite on heavy gray wove paper",
+      "dimensions_raw": "",
+      "width_cm": null,
+      "height_cm": null,
+      "pixel_width": 9832,
+      "pixel_height": 6210,
+      "image_url_full": "https://ids.si.edu/ids/download?id=CHSDM-682DFB7DD11B2-000001.jpg",
+      "image_url_small": "https://ids.si.edu/ids/deliveryService?id=CHSDM-682DFB7DD11B2-000001",
+      "detail_url": "https://collection.cooperhewitt.org/view/objects/asitem/id/108264",
+      "public_url": "https://collection.cooperhewitt.org/view/objects/asitem/id/108264",
+      "department": "CHNDM",
+      "tags": [
+        "Landscapes"
+      ],
+      "country": "",
+      "period": "",
+      "credit_line": "Gift of the National Academy of Design from the Mrs. William T. Brewster Bequest",
+      "rights": "CC0 Public Domain",
+      "description": "",
+      "_image_id": "",
+      "_medium_class": "watercolor"
+    },
+    {
+      "source": "smithsonian",
+      "source_id": "chndm_1912-12-199",
+      "title": "Fragment of \"Trout Fishing, Lake St. John, Quebec\"",
+      "artist": "Winslow Homer, American",
+      "date": "1895",
+      "medium": "brush and black wash, gray wash and white gouache over graphite on gray wove paper",
+      "dimensions_raw": "",
+      "width_cm": null,
+      "height_cm": null,
+      "pixel_width": 8253,
+      "pixel_height": 1487,
+      "image_url_full": "https://ids.si.edu/ids/download?id=CHSDM-18927_02-000003.jpg",
+      "image_url_small": "https://ids.si.edu/ids/deliveryService?id=CHSDM-18927_02-000003",
+      "detail_url": "https://collection.cooperhewitt.org/view/objects/asitem/id/18927",
+      "public_url": "https://collection.cooperhewitt.org/view/objects/asitem/id/18927",
+      "department": "CHNDM",
+      "tags": [
+        "Landscapes"
+      ],
+      "country": "",
+      "period": "",
+      "credit_line": "Gift of Charles Savage Homer, Jr.",
+      "rights": "CC0 Public Domain",
+      "description": "",
+      "_image_id": "",
+      "_medium_class": "watercolor"
+    },
+    {
+      "source": "smithsonian",
+      "source_id": "chndm_1912-12-91",
+      "title": "Tree Roots on a Hillside, Prout's Neck",
+      "artist": "Winslow Homer, American",
+      "date": "1884",
+      "medium": "charcoal, brush and white gouache on laid paper",
+      "dimensions_raw": "",
+      "width_cm": null,
+      "height_cm": null,
+      "pixel_width": 8106,
+      "pixel_height": 4278,
+      "image_url_full": "https://ids.si.edu/ids/download?id=CHSDM-19098_01-000001.jpg",
+      "image_url_small": "https://ids.si.edu/ids/deliveryService?id=CHSDM-19098_01-000001",
+      "detail_url": "https://collection.cooperhewitt.org/view/objects/asitem/id/19098",
+      "public_url": "https://collection.cooperhewitt.org/view/objects/asitem/id/19098",
+      "department": "CHNDM",
+      "tags": [
+        "Landscapes"
+      ],
+      "country": "",
+      "period": "",
+      "credit_line": "Gift of Charles Savage Homer, Jr.",
+      "rights": "CC0 Public Domain",
+      "description": "",
+      "_image_id": "",
+      "_medium_class": "watercolor"
+    }
+  ],
+  "smooth_oils": []
+}
