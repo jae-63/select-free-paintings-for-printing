@@ -435,6 +435,21 @@ REPORT_ARTIST_TRUNCATE = 60
 REPORT_TITLE_TRUNCATE = 80
 
 # ---------------------------------------------------------------------------
+# MERGE FILTERING
+# ---------------------------------------------------------------------------
+
+# Exclude records whose mean brightness is below this fraction of the median
+# brightness across all candidates.  0.30 = reject if < 30% of median.
+BRIGHTNESS_FILTER_THRESHOLD = 0.30
+
+# Maximum images kept from the same (source, normalised-title) near-duplicate group
+MAX_NEAR_DUPLICATES = 3
+
+# Parallel workers for thumbnail downloads during brightness filter
+BRIGHTNESS_DOWNLOAD_WORKERS = 8
+
+
+# ---------------------------------------------------------------------------
 # MISC
 # ---------------------------------------------------------------------------
 
