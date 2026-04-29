@@ -172,6 +172,9 @@ def normalize_record(result: dict, tiff_url: str, large_url: str) -> dict | None
     title = str(title).strip()
     if not title:
         return None
+    # Reject records whose "title" is actually a webpage navigation string
+    if " | " in title and len(title) > 80:
+        return None
 
     # Derive medium: check online_format and any description for watercolor hints
     fmt = " ".join(result.get("online_format") or []).lower()
