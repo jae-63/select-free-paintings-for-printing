@@ -89,7 +89,8 @@ python fetch_candidates.py --sources europeana --output candidates_europeana.jso
 python fetch_candidates.py --sources getty --output candidates_getty.json
 
 # Smithsonian (requires SMITHSONIAN_API_KEY in .env)
-python fetch_candidates.py --sources smithsonian --output candidates_smithsonian.json
+# Commenting out this line, in this procedure, because the cost-benefit is so poor
+# python fetch_candidates.py --sources smithsonian --output candidates_smithsonian.json
 ```
 
 For a quick test without the slow resolution-probing step:
@@ -103,7 +104,7 @@ python fetch_candidates.py --sources aic --no-resolution-check --output test.jso
 python merge_candidates.py \
   --inputs candidates_met.json candidates_aic.json candidates_nga.json \
            candidates_cleveland.json candidates_ycba.json candidates_loc.json \
-           candidates_europeana.json candidates_getty.json candidates_smithsonian.json \
+           candidates_europeana.json candidates_getty.json \
   --watercolor-target 240 \
   --oil-target 60 \
   --output candidates_final.json
