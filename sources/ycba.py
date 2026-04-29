@@ -167,18 +167,36 @@ def normalize_record(manifest: dict, tms_id: str) -> dict | None:
     if not manifest or not manifest.get("items"):
         return None
 
-    title = _manifest_label(manifest).strip()
-    if not title:
-        return None
-
     meta   = _parse_metadata(manifest)
     rights = meta.get("Copyright Statement", "")
     if "public domain" not in rights.lower():
         return None
 
-    artist = re.sub(r";.*$", "", meta.get("Creator", "Unknown")).strip()
+    # Prefer the clean "Title" metadata field over the full manifest label,
+    # which encodes the entire attribution string (artist, dates, title, date).
+    title = meta.get("Title", "").strip() or _manifest_label(manifest).strip()
+    if not title:
+        return None
+
+    # Strip biographical suffixes: ", born in …", ", 1769–1847", ", active 1809"
+    raw_creator = meta.get("Creator", "Unknown")
+    artist = re.sub(r";.*$", "", raw_creator)
+    artist = re.sub(
+        r",\s*(born|died|active|ca\.|circa|\d{4})\b.*$", "", artist,
+        flags=re.IGNORECASE,
+    ).strip() or "Unknown"
+
     medium = meta.get("Medium", "").strip().lower()
-    date   = meta.get("Date", "") or meta.get("Creation Date", "")
+
+    # Date: try metadata first; fall back to the trailing year(s) in the label
+    date = meta.get("Date", "") or meta.get("Creation Date", "")
+    if not date:
+        label = _manifest_label(manifest)
+        dm = re.search(
+            r",\s*((?:ca\.\s*|between\s+)?\d{4}(?:\s*[-–]\s*\d{4})?(?:\s+and\s+\d{4})?)\s*$",
+            label,
+        )
+        date = dm.group(1).strip() if dm else ""
 
     desc_raw      = meta.get("Physical Description", "")
     w_cm, h_cm    = _parse_dims(desc_raw)
