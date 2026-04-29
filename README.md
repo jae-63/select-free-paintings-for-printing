@@ -59,7 +59,8 @@ cp config.example.env .env
 ## Recommended workflow
 
 Run each source separately so you can monitor progress and restart any source
-independently. Each step writes its own output file.
+independently. Each step writes its own output file.  You can run as many of
+these as you want in parallel, e.g. in separate Terminal tabs.
 
 ### Step 1 — Fetch from each source
 
