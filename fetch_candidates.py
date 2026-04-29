@@ -72,6 +72,7 @@ def probe_image_resolution_url(url: str) -> tuple:
     Returns (width, height) or (0, 0) on failure.
     """
     try:
+        import warnings
         from PIL import Image
         resp = requests.get(
             url, stream=True,
@@ -84,8 +85,10 @@ def probe_image_resolution_url(url: str) -> tuple:
             chunk += block
             break
         resp.close()
-        img = Image.open(io.BytesIO(chunk))
-        return img.size  # (width, height)
+        with warnings.catch_warnings():
+            warnings.simplefilter("ignore")  # suppress TIFF/EXIF warnings on partial reads
+            img = Image.open(io.BytesIO(chunk))
+            return img.size  # (width, height)
     except Exception:
         return (0, 0)
 
