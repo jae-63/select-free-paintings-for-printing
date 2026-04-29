@@ -244,8 +244,8 @@ score from 1 (heavy impasto, e.g. Van Gogh's Starry Night style) to 5 (very
 smooth/glazed, e.g. Dutch Golden Age). Works scoring ≥
 `CLAUDE_VISION_SMOOTHNESS_THRESHOLD` (default 3) are accepted.
 
-The full prompt text is in `config.py` under `CLAUDE_VISION_PROMPT` and can be
-tuned without touching any other file.   [Look here](./config.py#L31)
+[The full prompt text](./config.py#L31) is in `config.py` under `CLAUDE_VISION_PROMPT` and can be
+tuned without touching any other file.
 
 When vision is disabled or no API key is present, the tool falls back to matching
 the artist name against `SMOOTH_OIL_ARTISTS` in `config.py` — a curated list of
