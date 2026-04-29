@@ -344,7 +344,8 @@ SMOOTH_OIL_ARTISTS = [
 # return when searching for "watercolor". Applied unconditionally.
 NON_PAINTING_TITLE_TERMS = [
     # Decorative / applied arts
-    "design for", "design of",
+    "design for", "design of", "design drawing",
+    "stained glass",
     "wallpaper", "wall paper",
     "valance", "pelmet", "curtain",
     "rug ", " rug", "carpet",
@@ -358,7 +359,7 @@ NON_PAINTING_TITLE_TERMS = [
     # Vehicles
     "road coach", "coach #", "carriage",
     # Architectural / engineering
-    "floor plan", "elevation", "section drawing",
+    "floor plan", "site plan", "elevation", "section drawing",
     "plans and elevations",
     # Botanical / natural history (unless clearly landscape)
     "study of capers", "study of flowers", "study of leaves",

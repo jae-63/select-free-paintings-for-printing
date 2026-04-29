@@ -122,12 +122,23 @@ def _derive_tiff_url(image_urls: list) -> tuple:
 
 
 def _extract_creator(result: dict) -> str:
-    """Extract creator name from a loc.gov search result."""
+    """Extract and normalise creator name from a loc.gov search result.
+
+    LoC stores contributor names as inverted lowercase 'last, first' strings.
+    This converts them to 'First Last' title-case.
+    """
     contributors = result.get("contributor") or []
     if contributors:
         name = contributors[0] if isinstance(contributors[0], str) else ""
         name = re.sub(r",\s*(born|died|active)\b.*$", "", name, flags=re.IGNORECASE)
         name = re.sub(r",?\s*\d{4}-?\d*\s*$", "", name)
+        # Invert "Last, First" → "First Last"
+        if "," in name:
+            last, _, first = name.partition(",")
+            name = f"{first.strip()} {last.strip()}"
+        # Title-case only when the name is all-lowercase (LoC convention)
+        if name == name.lower():
+            name = name.title()
         return name.strip()
     return "Unknown"
 
