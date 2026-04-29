@@ -327,7 +327,7 @@ For future report versions, overwrite `index.html` on the `gh-pages` branch and 
 ## Contributing
 
 Pull requests welcome — especially:
-- Additional museum API sources (Rijksmuseum, Smithsonian, Wikimedia Commons, Musée d'Orsay)
+- Additional museum API sources (Rijksmuseum, Wikimedia Commons, Musée d'Orsay)
 - Improved medium-classification vocabulary for non-English museum metadata
 - Additions or corrections to the famous-paintings exclusion list
 - Improvements to the HTML report design
