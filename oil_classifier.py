@@ -137,10 +137,12 @@ def _ask_claude(image_b64: str, artist: str, title: str) -> int | None:
             ],
         )
         raw = message.content[0].text.strip()
-        # Expect a single digit
-        score = int(raw[0])
-        if 1 <= score <= 5:
-            return score
+        # Expect a single digit 1–5
+        if raw and raw[0].isdigit():
+            score = int(raw[0])
+            if 1 <= score <= 5:
+                return score
+        # Claude returned non-numeric text (e.g. refused, got a non-painting image)
         return None
     except Exception as e:
         print(f"  [vision] Claude API error: {e}")

@@ -437,9 +437,8 @@ def main():
             WATERCOLOR_QUERIES   as LOC_WC_Q,
             OIL_QUERIES          as LOC_OIL_Q,
         )
-        if args.watercolor_target > 0:
-            print("[LoC] Fetching watercolor candidates...")
-            all_records += loc_fetch(queries=LOC_WC_Q, limit=args.limit)
+        # LoC watercolor queries return too many book/catalog scans — skip.
+        # LoC is used exclusively for the Highsmith photograph archive.
         if args.oil_target > 0:
             print("[LoC] Fetching oil (photograph) candidates...")
             all_records += loc_fetch(queries=LOC_OIL_Q, limit=args.limit)
