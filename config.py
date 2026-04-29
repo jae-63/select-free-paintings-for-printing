@@ -24,6 +24,34 @@ if _env_path.exists():
             os.environ.setdefault(key.strip(), val.strip())
 
 
+# This CLAUDE_VISION_PROMPT configuration is intentionally placed at a fairly
+# stable line number, so it's easy to link to from the repo's README file
+#
+# Prompt sent to Claude for each oil painting thumbnail
+CLAUDE_VISION_PROMPT = """\
+You are selecting oil paintings for high-resolution canvas printing in a home.
+
+Rate this painting combining TWO criteria into a single 1-5 score:
+
+SUBJECT (does it suit a home?)
+- Landscapes, seascapes, coastal/river views, pastoral scenes = good
+- Portraits, figure studies, battle scenes, mythological scenes = bad
+- Still lifes, animal studies = neutral (only pass if also smooth)
+
+TECHNIQUE (will it print well flat?)
+- Smooth, flat, glazed, luminous brushwork = good
+- Heavy impasto / thick 3D texture = bad (texture disappears in a flat print)
+
+Scoring:
+  1 = Bad subject (portrait/battle) OR heavy impasto — reject
+  2 = Portrait or figure painting, or very textured — likely reject
+  3 = Borderline: acceptable subject with moderate texture, or good subject slightly textured
+  4 = Landscape/seascape with smooth or flat technique — good
+  5 = Ideal landscape/seascape, very smooth or glazed technique — excellent
+
+Reply with ONLY a single digit (1–5) and nothing else.
+"""
+
 # ===========================================================================
 # API KEYS  (read from environment — never hardcode)
 # ===========================================================================
@@ -151,30 +179,7 @@ CLAUDE_VISION_DELAY = 0.5
 # 3 = "moderate smoothness, probably fine"; 4 = "clearly smooth"
 CLAUDE_VISION_SMOOTHNESS_THRESHOLD = 3
 
-# Prompt sent to Claude for each oil painting thumbnail
-CLAUDE_VISION_PROMPT = """\
-You are selecting oil paintings for high-resolution canvas printing in a home.
-
-Rate this painting combining TWO criteria into a single 1-5 score:
-
-SUBJECT (does it suit a home?)
-- Landscapes, seascapes, coastal/river views, pastoral scenes = good
-- Portraits, figure studies, battle scenes, mythological scenes = bad
-- Still lifes, animal studies = neutral (only pass if also smooth)
-
-TECHNIQUE (will it print well flat?)
-- Smooth, flat, glazed, luminous brushwork = good
-- Heavy impasto / thick 3D texture = bad (texture disappears in a flat print)
-
-Scoring:
-  1 = Bad subject (portrait/battle) OR heavy impasto — reject
-  2 = Portrait or figure painting, or very textured — likely reject
-  3 = Borderline: acceptable subject with moderate texture, or good subject slightly textured
-  4 = Landscape/seascape with smooth or flat technique — good
-  5 = Ideal landscape/seascape, very smooth or glazed technique — excellent
-
-Reply with ONLY a single digit (1–5) and nothing else.
-"""
+# For CLAUDE_VISION_PROMPT look above, near the top of this file
 
 # ---------------------------------------------------------------------------
 # MEDIUM CLASSIFICATION VOCABULARY
