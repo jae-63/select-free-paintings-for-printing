@@ -8,8 +8,8 @@ browseable HTML gallery or a tarball of preview images for Mac Finder slideshow.
 
 1. **Fetches** landscape paintings from open museum APIs (The Met, Art Institute
    of Chicago, National Gallery of Art, Cleveland Museum of Art, Yale Center for
-   British Art, Library of Congress, Europeana) — no scraping, all proper
-   documented API access
+   British Art, Library of Congress, Europeana, J. Paul Getty Museum) —
+   no scraping, all proper documented API access
 2. **Filters** by:
    - Medium: watercolors/gouache first, then smooth-technique oils
    - Aspect ratio: wider than it is tall (configurable, default ≥ 1.4:1)
@@ -40,9 +40,10 @@ pip install -r requirements.txt
 
 Most sources need **no key at all** — The Met, Art Institute of Chicago,
 National Gallery of Art, Cleveland Museum of Art, Yale Center for British Art,
-and Library of Congress are all keyless. Europeana requires a free personal key.
-Claude vision for oil classification requires an Anthropic API key (free tier
-available); without it the tool falls back to artist-name heuristics.
+J. Paul Getty Museum, and Library of Congress are all keyless. Europeana
+requires a free personal key. Claude vision for oil classification requires an
+Anthropic API key (free tier available); without it the tool falls back to
+artist-name heuristics.
 
 ```bash
 cp config.example.env .env
@@ -82,6 +83,9 @@ python fetch_candidates.py --sources loc --output candidates_loc.json
 
 # Europeana (requires EUROPEANA_API_KEY in .env)
 python fetch_candidates.py --sources europeana --output candidates_europeana.json
+
+# J. Paul Getty Museum (no API key needed; Linked Art / SPARQL API)
+python fetch_candidates.py --sources getty --output candidates_getty.json
 ```
 
 For a quick test without the slow resolution-probing step:
@@ -95,9 +99,9 @@ python fetch_candidates.py --sources aic --no-resolution-check --output test.jso
 python merge_candidates.py \
   --inputs candidates_met.json candidates_aic.json candidates_nga.json \
            candidates_cleveland.json candidates_ycba.json candidates_loc.json \
-           candidates_europeana.json \
-  --watercolor-target 80 \
-  --oil-target 20 \
+           candidates_europeana.json candidates_getty.json \
+  --watercolor-target 240 \
+  --oil-target 60 \
   --output candidates_final.json
 ```
 
@@ -165,6 +169,7 @@ CLI flags override config values for one-off runs (see `--help` on each script).
 | [Yale Center for British Art](https://britishart.yale.edu/collections-data-sharing) | None | OAI-PMH identifier harvest + per-item IIIF v3 manifest; British oils and watercolors |
 | [Library of Congress](https://www.loc.gov/apis/json-and-yaml/) | None | Targets the Carol M. Highsmith Archive for 8000px+ photographs |
 | [Europeana](https://pro.europeana.eu/page/search) | Free (personal key sufficient) | Aggregates 800+ European institutions; medium often inferred from multilingual concept tags |
+| [J. Paul Getty Museum](https://data.getty.edu/museum/collection/) | None | Linked Art / SPARQL API; excellent scan quality (often 20 000px+) |
 
 All returned works are public domain. Images are served directly from museum
 infrastructure; this tool does not redistribute or cache artwork.
@@ -212,6 +217,12 @@ titles with the medium, e.g. `"Watercolor, Landscape"`), and the description tex
 Medium prefixes are stripped from titles in the output. Watercolor and oil
 candidates are fetched in separate passes so neither medium starves the other.
 
+**J. Paul Getty Museum:** Uses the Getty's Linked Art SPARQL endpoint to query for
+paintings with IIIF manifests. Image quality is excellent — scans are often
+20,000px or wider. Because the Getty collection skews toward old master paintings
+(many portraits and religious subjects), Claude vision is recommended to filter
+for landscapes and smooth-technique works.
+
 ### Sources investigated but not currently supported
 
 **Rijksmuseum** — The Rijksmuseum migrated to a new Linked Art Search API
@@ -220,12 +231,6 @@ collection API (which now returns 410 Gone). The new API requires 2–3 HTTP cal
 per object for metadata, plus a separate IIIF manifest fetch for image URLs —
 too many roundtrips for practical bulk harvesting. A partial implementation exists
 in the `experimental/rijksmuseum-getty` branch for reference.
-
-**J. Paul Getty Museum** — The Getty's collection API (`data.getty.edu`) returns
-Linked Art format. Like Rijksmuseum, the architecture requires multiple roundtrips
-per object and image URL resolution is non-trivial. The Getty's IIIF image quality
-is reportedly excellent (often 20,000px+) and would be worth revisiting. A stub
-implementation exists in the `experimental/rijksmuseum-getty` branch.
 
 ## Oil painting smoothness — how it works
 
@@ -315,7 +320,7 @@ For future report versions, overwrite `index.html` on the `gh-pages` branch and 
 ## Contributing
 
 Pull requests welcome — especially:
-- Additional museum API sources (Rijksmuseum, Smithsonian, Wikimedia Commons)
+- Additional museum API sources (Rijksmuseum, Smithsonian, Wikimedia Commons, Musée d'Orsay)
 - Improved medium-classification vocabulary for non-English museum metadata
 - Additions or corrections to the famous-paintings exclusion list
 - Improvements to the HTML report design
