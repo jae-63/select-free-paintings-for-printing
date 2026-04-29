@@ -37,6 +37,7 @@ Options:
     --output            PATH  output JSON file        (default: config.DEFAULT_CANDIDATES_FILE)
     --no-resolution-check     skip pixel-width probing (faster, for testing)
     --no-vision               disable Claude vision even if key is set
+    --exclude-religious       Exclude works whose titles suggest religious subject matter
     --verbose                 extra logging
 """
 
