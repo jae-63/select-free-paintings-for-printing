@@ -8,7 +8,7 @@ browseable HTML gallery or a tarball of preview images for Mac Finder slideshow.
 
 1. **Fetches** landscape paintings from open museum APIs (The Met, Art Institute
    of Chicago, National Gallery of Art, Cleveland Museum of Art, Yale Center for
-   British Art, Library of Congress, Europeana, J. Paul Getty Museum) —
+   British Art, Library of Congress, Europeana, J. Paul Getty Museum, Smithsonian) —
    no scraping, all proper documented API access
 2. **Filters** by:
    - Medium: watercolors/gouache first, then smooth-technique oils
@@ -40,16 +40,17 @@ pip install -r requirements.txt
 
 Most sources need **no key at all** — The Met, Art Institute of Chicago,
 National Gallery of Art, Cleveland Museum of Art, Yale Center for British Art,
-J. Paul Getty Museum, and Library of Congress are all keyless. Europeana
-requires a free personal key. Claude vision for oil classification requires an
-Anthropic API key (free tier available); without it the tool falls back to
-artist-name heuristics.
+J. Paul Getty Museum, and Library of Congress are all keyless. Europeana and
+Smithsonian each require a free personal key. Claude vision for oil classification
+requires an Anthropic API key (free tier available); without it the tool falls
+back to artist-name heuristics.
 
 ```bash
 cp config.example.env .env
 # Edit .env and add any keys you have:
-#   EUROPEANA_API_KEY   — free at https://apis.europeana.eu/api/apikey-form
-#   ANTHROPIC_API_KEY   — free tier at https://console.anthropic.com
+#   EUROPEANA_API_KEY    — free at https://apis.europeana.eu/api/apikey-form
+#   SMITHSONIAN_API_KEY  — free at https://api.data.gov/signup/
+#   ANTHROPIC_API_KEY    — free tier at https://console.anthropic.com
 ```
 
 > **Security:** `.env` is gitignored and never committed. `config.example.env`
@@ -86,6 +87,9 @@ python fetch_candidates.py --sources europeana --output candidates_europeana.jso
 
 # J. Paul Getty Museum (no API key needed; Linked Art / SPARQL API)
 python fetch_candidates.py --sources getty --output candidates_getty.json
+
+# Smithsonian (requires SMITHSONIAN_API_KEY in .env)
+python fetch_candidates.py --sources smithsonian --output candidates_smithsonian.json
 ```
 
 For a quick test without the slow resolution-probing step:
@@ -99,7 +103,7 @@ python fetch_candidates.py --sources aic --no-resolution-check --output test.jso
 python merge_candidates.py \
   --inputs candidates_met.json candidates_aic.json candidates_nga.json \
            candidates_cleveland.json candidates_ycba.json candidates_loc.json \
-           candidates_europeana.json candidates_getty.json \
+           candidates_europeana.json candidates_getty.json candidates_smithsonian.json \
   --watercolor-target 240 \
   --oil-target 60 \
   --output candidates_final.json
@@ -170,6 +174,7 @@ CLI flags override config values for one-off runs (see `--help` on each script).
 | [Library of Congress](https://www.loc.gov/apis/json-and-yaml/) | None | Targets the Carol M. Highsmith Archive for 8000px+ photographs |
 | [Europeana](https://pro.europeana.eu/page/search) | Free (personal key sufficient) | Aggregates 800+ European institutions; medium often inferred from multilingual concept tags |
 | [J. Paul Getty Museum](https://data.getty.edu/museum/collection/) | None | Linked Art / SPARQL API; excellent scan quality (often 20 000px+) |
+| [Smithsonian](https://edan.si.edu/openaccess/apidocs/) | Free (personal key sufficient) | Not much high resolution art |
 
 All returned works are public domain. Images are served directly from museum
 infrastructure; this tool does not redistribute or cache artwork.
@@ -222,6 +227,8 @@ paintings with IIIF manifests. Image quality is excellent — scans are often
 20,000px or wider. Because the Getty collection skews toward old master paintings
 (many portraits and religious subjects), Claude vision is recommended to filter
 for landscapes and smooth-technique works.
+
+**Smithsonian:** Included for completeness, but not much high-resolution art.
 
 ### Sources investigated but not currently supported
 
