@@ -323,7 +323,7 @@ def merge(
     print(f"\nTotal before dedup: {len(all_wc)} watercolors, {len(all_oil)} smooth oils, "
           f"{len(all_photo)} photographs")
 
-    # --- Deduplicate ---
+    # --- Deduplicate by source_id / URL ---
     def dedup(records: list) -> list:
         seen = set()
         out  = []
@@ -339,6 +339,49 @@ def merge(
     all_oil   = dedup(all_oil)
     all_photo = dedup(all_photo)
     print(f"After dedup:        {len(all_wc)} watercolors, {len(all_oil)} smooth oils, "
+          f"{len(all_photo)} photographs")
+
+    # --- Deduplicate by (title, artist, date) across sources ---
+    def _meta_key(rec: dict) -> tuple:
+        # Strip Wikimedia "label QS:…" trailers before comparing titles.
+        title = re.sub(r"\s+label\s+QS:.*$", "", rec.get("title", "") or "", flags=re.IGNORECASE)
+        title = re.sub(r"\s+", " ", title).strip().lower()
+
+        artist = re.sub(r"\s+", " ", rec.get("artist", "") or "").strip().lower()
+
+        # Normalise date to the leading 4-digit year so "1898/99" == "1898".
+        raw_date = rec.get("date", "") or ""
+        m = re.search(r"\d{4}", raw_date)
+        date = m.group() if m else raw_date.strip().lower()
+
+        return (title, artist, date)
+
+    def dedup_metadata(records: list) -> list:
+        # Keep the highest-scoring record for each (title, artist, date) triple.
+        # Records must already be sorted best-first for this to work correctly.
+        seen: set = set()
+        out = []
+        dropped = 0
+        for rec in records:
+            k = _meta_key(rec)
+            if k[0] and k in seen:   # only dedup when title is non-empty
+                dropped += 1
+            else:
+                if k[0]:
+                    seen.add(k)
+                out.append(rec)
+        if dropped:
+            print(f"Metadata dedup (title+artist+date): removed {dropped} records")
+        return out
+
+    # Sort first so the best copy survives the keep-first pass.
+    all_wc.sort(key=record_score, reverse=True)
+    all_oil.sort(key=record_score, reverse=True)
+    all_photo.sort(key=record_score, reverse=True)
+    all_wc    = dedup_metadata(all_wc)
+    all_oil   = dedup_metadata(all_oil)
+    all_photo = dedup_metadata(all_photo)
+    print(f"After meta dedup:   {len(all_wc)} watercolors, {len(all_oil)} smooth oils, "
           f"{len(all_photo)} photographs")
 
     # --- Quality filters: portrait orientation, missing resolution, non-paintings ---
