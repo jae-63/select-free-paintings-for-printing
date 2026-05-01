@@ -47,6 +47,7 @@ import sys
 import time
 import io
 import requests
+from collections import Counter
 from pathlib import Path
 
 import config
@@ -151,6 +152,7 @@ def apply_filters(
         "wrong_aspect":    0,
         "low_resolution":  0,
     }
+    rejected_medium_counts: Counter = Counter()
 
     for rec in records:
         title     = rec.get("title", "")
@@ -200,6 +202,7 @@ def apply_filters(
 
         if not is_wc and not is_oil and not is_photo:
             rejected["wrong_medium"] += 1
+            rejected_medium_counts[medium or "(blank)"] += 1
             continue
 
         # Skip if we don't need this category
@@ -216,6 +219,7 @@ def apply_filters(
             thumb = img_small or image_url
             if not is_smooth_oil(artist, title, medium, image_url=thumb, description=desc):
                 rejected["wrong_medium"] += 1
+                rejected_medium_counts["[textured oil] " + (medium or "(blank)")] += 1
                 if verbose:
                     print(f"  [textured oil] {artist} — {title}")
                 continue
@@ -288,10 +292,11 @@ def apply_filters(
             print(f"  ✓ photograph #{len(photographs):3d} | {artist} — {title}")
 
     return {
-        "watercolors":     watercolors,
-        "smooth_oils":     smooth_oils,
-        "photographs":     photographs,
-        "rejected_counts": rejected,
+        "watercolors":            watercolors,
+        "smooth_oils":            smooth_oils,
+        "photographs":            photographs,
+        "rejected_counts":        rejected,
+        "rejected_medium_counts": rejected_medium_counts,
     }
 
 
@@ -518,10 +523,11 @@ def main():
         verbose=args.verbose,
     )
 
-    watercolors = results["watercolors"]
-    smooth_oils = results["smooth_oils"]
-    photographs = results["photographs"]
-    rejected    = results["rejected_counts"]
+    watercolors           = results["watercolors"]
+    smooth_oils           = results["smooth_oils"]
+    photographs           = results["photographs"]
+    rejected              = results["rejected_counts"]
+    rejected_medium_counts = results["rejected_medium_counts"]
 
     # ── Summary
     print(f"\n{'=' * 60}")
@@ -532,6 +538,10 @@ def main():
     print(f"\nRejection breakdown:")
     for reason, count in rejected.items():
         print(f"  {reason:25s}: {count}")
+    if rejected_medium_counts:
+        print(f"\nWrong-medium detail (top 30 by count):")
+        for medium_str, count in rejected_medium_counts.most_common(30):
+            print(f"  {count:5d}  {medium_str}")
 
     # ── Save
     output = {
@@ -545,8 +555,9 @@ def main():
             "print_dpi":          args.print_dpi,
             "min_width_px":       min_width_px,
             "total_fetched":      len(all_records),
-            "rejected":           rejected,
-            "vision_status":      vision_status(),
+            "rejected":                rejected,
+            "rejected_medium_counts":  dict(rejected_medium_counts.most_common()),
+            "vision_status":           vision_status(),
         },
         "watercolors": watercolors,
         "smooth_oils": smooth_oils,

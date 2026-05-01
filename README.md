@@ -71,51 +71,64 @@ these as you want in parallel, e.g. in separate Terminal tabs.
 
 ### Step 1 — Fetch from each source
 
+Set `EXTRA_FETCH_FLAGS` in your shell to inject personal flags into every command
+without editing the examples — it defaults to empty if unset:
+
+```bash
+export EXTRA_FETCH_FLAGS="--exclude-religious"   # example; omit to use defaults
+```
+
 ```bash
 # The Met (no API key needed; slowest due to per-object fetching)
-python fetch_candidates.py --sources met --output candidates_met.json
+python fetch_candidates.py --sources met --output candidates_met.json $EXTRA_FETCH_FLAGS
 
 # Art Institute of Chicago (no API key needed; fast IIIF dimension lookup)
-python fetch_candidates.py --sources aic --output candidates_aic.json
+python fetch_candidates.py --sources aic --output candidates_aic.json $EXTRA_FETCH_FLAGS
 
 # National Gallery of Art (no API key needed; streams GitHub CSV data)
-python fetch_candidates.py --sources nga --output candidates_nga.json
+python fetch_candidates.py --sources nga --output candidates_nga.json $EXTRA_FETCH_FLAGS
 
 # Cleveland Museum of Art (no API key needed; CC0 open access REST API)
-python fetch_candidates.py --sources cleveland --output candidates_cleveland.json
+python fetch_candidates.py --sources cleveland --output candidates_cleveland.json $EXTRA_FETCH_FLAGS
 
 # Yale Center for British Art (no API key needed; OAI-PMH + IIIF manifests)
-python fetch_candidates.py --sources ycba --output candidates_ycba.json
+python fetch_candidates.py --sources ycba --output candidates_ycba.json $EXTRA_FETCH_FLAGS
 
 # Library of Congress (no API key needed; targets the Highsmith Archive for 8k+ photos)
-python fetch_candidates.py --sources loc --output candidates_loc.json
+python fetch_candidates.py --sources loc --output candidates_loc.json $EXTRA_FETCH_FLAGS
 
 # Europeana (requires EUROPEANA_API_KEY in .env)
-python fetch_candidates.py --sources europeana --output candidates_europeana.json
+python fetch_candidates.py --sources europeana --output candidates_europeana.json $EXTRA_FETCH_FLAGS
 
 # J. Paul Getty Museum (no API key needed; Linked Art / SPARQL API)
-python fetch_candidates.py --sources getty --output candidates_getty.json
+python fetch_candidates.py --sources getty --output candidates_getty.json $EXTRA_FETCH_FLAGS
 
 # Smithsonian (requires SMITHSONIAN_API_KEY in .env)
 # Commenting out this line, in this procedure, because the cost-benefit is so poor
-# python fetch_candidates.py --sources smithsonian --output candidates_smithsonian.json
+# python fetch_candidates.py --sources smithsonian --output candidates_smithsonian.json $EXTRA_FETCH_FLAGS
 
 # Wikimedia Commons (no API key needed; traverses painting/watercolor/photo categories)
 # Covers Musée d'Orsay, Louvre, Marmottan, Versailles, Hudson River School,
 # Impressionists, and public-domain landscape photography
 python fetch_candidates.py --sources wikimedia \
   --watercolor-target 20 --oil-target 10 --photo-target 10 \
-  --no-vision --output candidates_wikimedia.json
+  --no-vision --output candidates_wikimedia.json $EXTRA_FETCH_FLAGS
 
 # Paris Musées (requires PARIS_MUSEES_API_TOKEN in .env; 1 000 req/day limit)
 # Covers 14 municipal Paris museums: Petit Palais, Carnavalet, Vie Romantique, etc.
-python fetch_candidates.py --sources paris_musees --output candidates_paris_musees.json
+python fetch_candidates.py --sources paris_musees --output candidates_paris_musees.json $EXTRA_FETCH_FLAGS
 ```
 
 For a quick test without the slow resolution-probing step:
 ```bash
-python fetch_candidates.py --sources aic --no-resolution-check --output test.json
+python fetch_candidates.py --sources aic --no-resolution-check --output test.json $EXTRA_FETCH_FLAGS
 ```
+
+Optional flags:
+- `--exclude-religious` — skip works whose titles suggest religious subject matter (Madonna, Annunciation, Crucifixion, etc.); reduces noise significantly for Wikimedia and Europeana
+- `--no-vision` — disable Claude vision; use artist-name heuristics for oil smoothness instead
+- `--verbose` — print each rejection reason as it happens
+- `--no-resolution-check` — skip pixel-width probing (faster, for exploratory runs)
 
 ### Step 2 — Merge sources into final selection
 
