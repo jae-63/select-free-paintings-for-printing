@@ -306,6 +306,7 @@ def merge(
     remaining_oil = []
     for rec in all_oil:
         if classify_medium(rec.get("medium", "")) == "photograph":
+            rec["_medium_class"] = "photograph"
             all_photo.append(rec)
             reclassified += 1
         else:
@@ -313,6 +314,11 @@ def merge(
     all_oil = remaining_oil
     if reclassified:
         print(f"  Reclassified {reclassified} photograph record(s) from smooth_oils → photographs")
+
+    # Ensure every record in the photo bucket is correctly labelled (guards
+    # against old fetch output that pre-dates the photograph classification).
+    for rec in all_photo:
+        rec["_medium_class"] = "photograph"
 
     print(f"\nTotal before dedup: {len(all_wc)} watercolors, {len(all_oil)} smooth oils, "
           f"{len(all_photo)} photographs")

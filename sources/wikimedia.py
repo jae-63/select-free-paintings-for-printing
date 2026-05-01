@@ -80,13 +80,20 @@ OIL_CATEGORIES = [
     "Paintings by Johan Jongkind",
 ]
 
-# Categories for landscape photographs (public domain / open license).
+# Categories for landscape photographs.
+# All sources here are unambiguously public domain in the US:
+#   - Carol M. Highsmith: donated copyright to the Library of Congress
+#   - FSA/OWI: US federal government works (1930s–40s)
+#   - Detroit Publishing Co.: early 20th-century scenic views, copyright expired
+#   - USGS: US federal government works
+# Ansel Adams (d. 1984) is excluded — US copyright until ~2054.
+# NASA images are excluded — technically PD but mostly orbital/atmospheric,
+# not traditional landscape.
 PHOTO_CATEGORIES = [
-    "Landscape photographs by Ansel Adams",
     "Photographs by Carol M. Highsmith",
     "Farm Security Administration photographs",
+    "Detroit Publishing Company photographs",
     "United States Geological Survey photographs",
-    "Public domain photographs by NASA",
 ]
 
 # All painting categories (watercolors + oils combined) — used when fetching
