@@ -371,9 +371,9 @@ def normalize_record(file_title: str, info: dict,
     date = m.group(1) if m else date[:10]
 
     # Medium — fall back to caller-supplied hint when extmetadata is empty
-    medium = (_ext(meta, "Medium")
-              or _ext(meta, "Technique")
-              or medium_hint)
+    raw_medium = _ext(meta, "Medium") or _ext(meta, "Technique")
+    medium = raw_medium or medium_hint
+    medium_from_hint = not bool(raw_medium) and bool(medium_hint)
 
     # Description
     description = _ext(meta, "ImageDescription") or ""
@@ -395,7 +395,8 @@ def normalize_record(file_title: str, info: dict,
         "title":           title,
         "artist":          artist,
         "date":            date,
-        "medium":          medium,
+        "medium":            medium,
+        "_medium_from_hint": medium_from_hint,
         "dimensions_raw":  "",
         "width_cm":        None,
         "height_cm":       None,

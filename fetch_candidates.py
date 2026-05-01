@@ -202,7 +202,8 @@ def apply_filters(
 
         if not is_wc and not is_oil and not is_photo:
             rejected["wrong_medium"] += 1
-            rejected_medium_counts[medium or "(blank)"] += 1
+            med_key = (medium or "(blank)") + (" (inferred)" if rec.get("_medium_from_hint") else "")
+            rejected_medium_counts[med_key] += 1
             continue
 
         # Skip if we don't need this category
@@ -219,7 +220,8 @@ def apply_filters(
             thumb = img_small or image_url
             if not is_smooth_oil(artist, title, medium, image_url=thumb, description=desc):
                 rejected["wrong_medium"] += 1
-                rejected_medium_counts["[textured oil] " + (medium or "(blank)")] += 1
+                med_key = "[textured oil] " + (medium or "(blank)") + (" (inferred)" if rec.get("_medium_from_hint") else "")
+                rejected_medium_counts[med_key] += 1
                 if verbose:
                     print(f"  [textured oil] {artist} — {title}")
                 continue
