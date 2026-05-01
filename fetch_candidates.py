@@ -491,13 +491,16 @@ def main():
         )
         if args.watercolor_target > 0:
             print("[Wikimedia] Fetching watercolor candidates...")
-            all_records += wmc_fetch(categories=WMC_WC_CATS, limit=args.limit)
+            all_records += wmc_fetch(categories=WMC_WC_CATS, limit=args.limit,
+                                     medium_hint="watercolor on paper")
         if args.oil_target > 0:
             print("[Wikimedia] Fetching painting candidates (oils/mixed)...")
-            all_records += wmc_fetch(categories=WMC_OIL_CATS, limit=args.limit)
+            all_records += wmc_fetch(categories=WMC_OIL_CATS, limit=args.limit,
+                                     medium_hint="oil on canvas")
         if args.photo_target > 0:
             print("[Wikimedia] Fetching photograph candidates...")
-            all_records += wmc_fetch(categories=WMC_PHOTO_CATS, limit=args.limit)
+            all_records += wmc_fetch(categories=WMC_PHOTO_CATS, limit=args.limit,
+                                     medium_hint="photograph")
 
     print(f"\nTotal raw records fetched: {len(all_records)}")
 

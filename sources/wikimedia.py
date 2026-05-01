@@ -267,19 +267,20 @@ def _fetch_image_info_batch(titles: list, session: requests.Session) -> dict:
     Batch-fetch imageinfo for up to 50 file titles.
 
     Returns a dict mapping page title → imageinfo dict (or None on failure).
+    Uses POST to avoid 414 URI Too Long errors with long LCCN-style filenames.
     """
     if not titles:
         return {}
     params = {
-        "action":   "query",
-        "titles":   "|".join(titles),
-        "prop":     "imageinfo",
-        "iiprop":   "url|size|extmetadata",
+        "action":     "query",
+        "titles":     "|".join(titles),
+        "prop":       "imageinfo",
+        "iiprop":     "url|size|extmetadata",
         "iiurlwidth": 800,
-        "format":   "json",
+        "format":     "json",
     }
     try:
-        resp = session.get(_API_URL, params=params, timeout=config.HTTP_TIMEOUT)
+        resp = session.post(_API_URL, data=params, timeout=config.HTTP_TIMEOUT)
         resp.raise_for_status()
         data = resp.json()
     except Exception as e:
@@ -308,10 +309,14 @@ def _ext(meta: dict, key: str) -> str:
     return ""
 
 
-def normalize_record(file_title: str, info: dict) -> dict | None:
+def normalize_record(file_title: str, info: dict,
+                     medium_hint: str = "") -> dict | None:
     """
     Convert a Wikimedia imageinfo dict to the standard record schema.
     Returns None if the record should be skipped (bad license, no image, etc.).
+
+    medium_hint: fallback used when extmetadata has no Medium/Technique field
+                 (e.g. "watercolor on paper", "oil on canvas", "photograph").
     """
     meta = info.get("extmetadata") or {}
 
@@ -365,10 +370,10 @@ def normalize_record(file_title: str, info: dict) -> dict | None:
     m = re.search(r"\b(1[0-9]{3}|20[012][0-9])\b", date)
     date = m.group(1) if m else date[:10]
 
-    # Medium
+    # Medium — fall back to caller-supplied hint when extmetadata is empty
     medium = (_ext(meta, "Medium")
               or _ext(meta, "Technique")
-              or "")
+              or medium_hint)
 
     # Description
     description = _ext(meta, "ImageDescription") or ""
@@ -418,14 +423,18 @@ def normalize_record(file_title: str, info: dict) -> dict | None:
 def fetch_all_candidates(
     categories: list = None,
     limit: int = None,
+    medium_hint: str = "",
 ) -> list:
     """
     Browse Wikimedia Commons categories and return normalised records.
 
     Args:
-        categories: List of category names (without 'Category:' prefix).
-                    Defaults to ALL_PAINTING_CATEGORIES.
-        limit:      Max records to return. Defaults to MAX_CANDIDATES_PER_SOURCE.
+        categories:  List of category names (without 'Category:' prefix).
+                     Defaults to ALL_PAINTING_CATEGORIES.
+        limit:       Max records to return. Defaults to MAX_CANDIDATES_PER_SOURCE.
+        medium_hint: Medium string used as fallback when extmetadata has no
+                     Medium/Technique field (e.g. "watercolor on paper",
+                     "oil on canvas", "photograph").
     """
     if categories is None:
         categories = ALL_PAINTING_CATEGORIES
@@ -487,7 +496,8 @@ def fetch_all_candidates(
                     continue
                 seen_ids.add(file_title)
 
-                rec = normalize_record(file_title, info)
+                rec = normalize_record(file_title, info,
+                                      medium_hint=medium_hint)
                 if rec:
                     records.append(rec)
 
