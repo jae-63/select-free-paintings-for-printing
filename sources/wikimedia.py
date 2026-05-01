@@ -58,11 +58,20 @@ WATERCOLOR_CATEGORIES = [
 # Includes the primary Musée d'Orsay category and major landscape movements.
 # All category names verified against the live Wikimedia Commons API.
 OIL_CATEGORIES = [
-    # Paris / French museums — the primary focus
+    # Musée d'Orsay (French national, Impressionist/Post-Impressionist focus)
     "Landscape paintings in the Musée d'Orsay",    # verified: 5 direct + 4 subcats
     "Paintings in the Musée d'Orsay by artist",    # verified: 0 direct + 66 artist subcats
     "Paintings in the Musée d'Orsay",              # verified: 10 direct + 15 subcats
+    # Musée de l'Orangerie (French national; Monet Water Lilies + others)
     "Paintings in the Musée de l'Orangerie",
+    # Louvre (French national; old masters landscape collection)
+    "Landscape paintings in the Louvre",
+    "Paintings in the Louvre by Corot",
+    "Paintings in the Louvre by Poussin",
+    # Musée Marmottan Monet (private foundation; deep Monet/Impressionist holdings)
+    "Paintings in the Musée Marmottan Monet",
+    # Château de Versailles (French national; grand landscape and garden paintings)
+    "Paintings in the Palace of Versailles",
     # Impressionist landscape artists
     "Paintings by Claude Monet",                   # verified: 1 direct + 11 subcats
     "Paintings by Alfred Sisley",                  # verified: 5 direct + 9 subcats
@@ -70,14 +79,20 @@ OIL_CATEGORIES = [
     "Paintings by Gustave Courbet",
     "Paintings by Édouard Manet",
     "Paintings by Berthe Morisot",
+    "Paintings by Paul Cézanne",
+    "Paintings by Georges Seurat",
     # American landscape
     "Hudson River School paintings",               # verified: 10 direct + 4 subcats
     "Paintings by Winslow Homer",                  # verified: 3 direct + 14 subcats
     "Paintings by Albert Bierstadt",
     "Paintings by Frederic Edwin Church",
+    "Paintings by Thomas Cole",
     # Other European landscape masters
     "Paintings by John Constable",
     "Paintings by Johan Jongkind",
+    "Paintings by Jacob van Ruisdael",
+    "Paintings by Jan van Goyen",
+    "Paintings by Jean-Baptiste-Camille Corot",
 ]
 
 # Categories for landscape photographs.
