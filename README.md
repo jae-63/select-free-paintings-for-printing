@@ -6,19 +6,22 @@ browseable HTML gallery or a tarball of preview images for Mac Finder slideshow.
 
 ## What it does
 
-1. **Fetches** landscape paintings from open museum APIs (The Met, Art Institute
-   of Chicago, National Gallery of Art, Cleveland Museum of Art, Yale Center for
-   British Art, Library of Congress, Europeana, J. Paul Getty Museum, Smithsonian) —
+1. **Fetches** landscape paintings and photographs from open museum APIs (The Met,
+   Art Institute of Chicago, National Gallery of Art, Cleveland Museum of Art,
+   Yale Center for British Art, Library of Congress, Europeana, J. Paul Getty
+   Museum, Smithsonian, Wikimedia Commons, Paris Musées) —
    no scraping, all proper documented API access
 2. **Filters** by:
-   - Medium: watercolors/gouache first, then smooth-technique oils
+   - Medium: watercolors/gouache, smooth-technique oils, and landscape photographs
    - Aspect ratio: wider than it is tall (configurable, default ≥ 1.4:1)
    - Resolution: enough pixels for 200 DPI at 40" print width (configurable)
    - Excludes ~1,000 of the most famous paintings in history
 3. **Classifies oils** — uses Claude vision AI to assess whether an oil painting
    has smooth/flat brushwork (good for printing) vs heavy impasto texture (bad);
    falls back to artist-name heuristics if no API key is set
-4. **Merges** per-source results, deduplicates, and ranks by metadata quality
+4. **Merges** per-source results, deduplicates, applies quality filters (removes
+   portrait-orientation works, unverified resolutions, and non-painting titles
+   that slipped through), and ranks by metadata quality
 5. **Outputs** an HTML gallery with thumbnails, metadata, and museum links, and/or
    a tarball of quarter-megapixel preview images for slideshowing in Mac Finder
 
@@ -26,6 +29,7 @@ browseable HTML gallery or a tarball of preview images for Mac Finder slideshow.
 
 - **80 watercolors** (watercolor, gouache, aquarelle, and multilingual equivalents)
 - **20 smooth oils** (Luminist, Barbizon, Hague School, Dutch Golden Age, British landscapes, etc.)
+- **20 photographs** (public-domain landscape photography — Highsmith Archive, FSA/OWI, Detroit Publishing Co., USGS)
 - All works fully public-domain (CC0 or equivalent) with downloadable high-res images
 
 ## Setup
@@ -40,17 +44,20 @@ pip install -r requirements.txt
 
 Most sources need **no key at all** — The Met, Art Institute of Chicago,
 National Gallery of Art, Cleveland Museum of Art, Yale Center for British Art,
-J. Paul Getty Museum, and Library of Congress are all keyless. Europeana and
-Smithsonian each require a free personal key. Claude vision for oil classification
-requires an Anthropic API key (free tier available); without it the tool falls
-back to artist-name heuristics.
+J. Paul Getty Museum, Library of Congress, and Wikimedia Commons are all keyless.
+Europeana and Smithsonian each require a free personal key. Paris Musées requires
+a free registration token. Claude vision for oil classification requires an
+Anthropic API key (free tier available); without it the tool falls back to
+artist-name heuristics.
 
 ```bash
 cp config.example.env .env
 # Edit .env and add any keys you have:
-#   EUROPEANA_API_KEY    — free at https://apis.europeana.eu/api/apikey-form
-#   SMITHSONIAN_API_KEY  — free at https://api.data.gov/signup/
-#   ANTHROPIC_API_KEY    — free tier at https://console.anthropic.com
+#   EUROPEANA_API_KEY       — free at https://apis.europeana.eu/api/apikey-form
+#   SMITHSONIAN_API_KEY     — free at https://api.data.gov/signup/
+#   PARIS_MUSEES_API_TOKEN  — register at https://apicollections.parismusees.paris.fr/user/register
+#                             then: My Account → Auth Tokens → Create Auth Token
+#   ANTHROPIC_API_KEY       — free tier at https://console.anthropic.com
 ```
 
 > **Security:** `.env` is gitignored and never committed. `config.example.env`
@@ -64,40 +71,62 @@ these as you want in parallel, e.g. in separate Terminal tabs.
 
 ### Step 1 — Fetch from each source
 
+Set `EXTRA_FETCH_FLAGS` in your shell to inject personal flags into every command
+without editing the examples — it defaults to empty if unset:
+
+```bash
+export EXTRA_FETCH_FLAGS="--exclude-religious"   # example; omit to use defaults
+```
+
 ```bash
 # The Met (no API key needed; slowest due to per-object fetching)
-python fetch_candidates.py --sources met --output candidates_met.json
+python fetch_candidates.py --sources met --output candidates_met.json $EXTRA_FETCH_FLAGS
 
 # Art Institute of Chicago (no API key needed; fast IIIF dimension lookup)
-python fetch_candidates.py --sources aic --output candidates_aic.json
+python fetch_candidates.py --sources aic --output candidates_aic.json $EXTRA_FETCH_FLAGS
 
 # National Gallery of Art (no API key needed; streams GitHub CSV data)
-python fetch_candidates.py --sources nga --output candidates_nga.json
+python fetch_candidates.py --sources nga --output candidates_nga.json $EXTRA_FETCH_FLAGS
 
 # Cleveland Museum of Art (no API key needed; CC0 open access REST API)
-python fetch_candidates.py --sources cleveland --output candidates_cleveland.json
+python fetch_candidates.py --sources cleveland --output candidates_cleveland.json $EXTRA_FETCH_FLAGS
 
 # Yale Center for British Art (no API key needed; OAI-PMH + IIIF manifests)
-python fetch_candidates.py --sources ycba --output candidates_ycba.json
+python fetch_candidates.py --sources ycba --output candidates_ycba.json $EXTRA_FETCH_FLAGS
 
 # Library of Congress (no API key needed; targets the Highsmith Archive for 8k+ photos)
-python fetch_candidates.py --sources loc --output candidates_loc.json
+python fetch_candidates.py --sources loc --output candidates_loc.json $EXTRA_FETCH_FLAGS
 
 # Europeana (requires EUROPEANA_API_KEY in .env)
-python fetch_candidates.py --sources europeana --output candidates_europeana.json
+python fetch_candidates.py --sources europeana --output candidates_europeana.json $EXTRA_FETCH_FLAGS
 
 # J. Paul Getty Museum (no API key needed; Linked Art / SPARQL API)
-python fetch_candidates.py --sources getty --output candidates_getty.json
+python fetch_candidates.py --sources getty --output candidates_getty.json $EXTRA_FETCH_FLAGS
 
 # Smithsonian (requires SMITHSONIAN_API_KEY in .env)
 # Commenting out this line, in this procedure, because the cost-benefit is so poor
-# python fetch_candidates.py --sources smithsonian --output candidates_smithsonian.json
+# python fetch_candidates.py --sources smithsonian --output candidates_smithsonian.json $EXTRA_FETCH_FLAGS
+
+# Wikimedia Commons (no API key needed; traverses painting/watercolor/photo categories)
+# Covers Musée d'Orsay, Louvre, Marmottan, Versailles, Hudson River School,
+# Impressionists, and public-domain landscape photography
+python fetch_candidates.py --sources wikimedia --output candidates_wikimedia.json $EXTRA_FETCH_FLAGS
+
+# Paris Musées (requires PARIS_MUSEES_API_TOKEN in .env; 1 000 req/day limit)
+# Covers 14 municipal Paris museums: Petit Palais, Carnavalet, Vie Romantique, etc.
+python fetch_candidates.py --sources paris_musees --output candidates_paris_musees.json $EXTRA_FETCH_FLAGS
 ```
 
 For a quick test without the slow resolution-probing step:
 ```bash
-python fetch_candidates.py --sources aic --no-resolution-check --output test.json
+python fetch_candidates.py --sources aic --no-resolution-check --output test.json $EXTRA_FETCH_FLAGS
 ```
+
+Optional flags:
+- `--exclude-religious` — skip works whose titles suggest religious subject matter (Madonna, Annunciation, Crucifixion, etc.); reduces noise significantly for Wikimedia and Europeana
+- `--no-vision` — disable Claude vision; use artist-name heuristics for oil smoothness instead
+- `--verbose` — print each rejection reason as it happens
+- `--no-resolution-check` — skip pixel-width probing (faster, for exploratory runs)
 
 ### Step 2 — Merge sources into final selection
 
@@ -106,15 +135,22 @@ python merge_candidates.py \
   --inputs candidates_met.json candidates_aic.json candidates_nga.json \
            candidates_cleveland.json candidates_ycba.json candidates_loc.json \
            candidates_europeana.json candidates_getty.json \
+           candidates_wikimedia.json candidates_paris_musees.json \
   --watercolor-target 240 \
   --oil-target 60 \
+  --photo-target 20 \
   --output candidates_final.json
 ```
+
+The merge step applies quality filters automatically: portrait-orientation images,
+records with unverified resolution, and non-painting titles (framed photos, verso
+views, scrolls, fan paintings, etc.) are dropped before the target trim.
 
 Optional flags:
 - `--require-artist` — exclude works where the artist is listed as "Unknown"
 - `--shuffle` — randomise order within sources before trimming (adds variety)
 - `--verbose` — print every selected work
+- `--photo-target N` — include up to N public-domain landscape photographs (default 20)
 
 ### Step 3a — HTML gallery
 
@@ -150,6 +186,7 @@ CLI flags override config values for one-off runs (see `--help` on each script).
 |---|---|---|
 | `WATERCOLOR_TARGET` | 80 | Target watercolor count |
 | `OIL_TARGET` | 20 | Target smooth-oil count |
+| `PHOTOGRAPH_TARGET` | 20 | Target landscape photograph count |
 | `MIN_ASPECT_RATIO` | 1.4 | Minimum width/height ratio (landscape orientation) |
 | `PRINT_WIDTH_INCHES` | 40 | Print width in inches |
 | `PRINT_DPI` | 200 | Required DPI at print width |
@@ -177,6 +214,8 @@ CLI flags override config values for one-off runs (see `--help` on each script).
 | [Europeana](https://pro.europeana.eu/page/search) | Free (personal key sufficient) | Aggregates 800+ European institutions; medium often inferred from multilingual concept tags |
 | [J. Paul Getty Museum](https://data.getty.edu/museum/collection/) | None | Linked Art / SPARQL API; excellent scan quality (often 20 000px+) |
 | [Smithsonian](https://edan.si.edu/openaccess/apidocs/) | Free (personal key sufficient) | Not much high resolution art |
+| [Wikimedia Commons](https://commons.wikimedia.org/wiki/Commons:API) | None | Browses painting/watercolor/photo categories; covers Musée d'Orsay, Louvre, Marmottan, Versailles, Hudson River School, Impressionists, and public-domain photography |
+| [Paris Musées](https://apicollections.parismusees.paris.fr/) | Free (registration token) | 14 municipal Paris museums including Petit Palais and Carnavalet; GraphQL API; CC0; 1 000 req/day |
 
 All returned works are public domain. Images are served directly from museum
 infrastructure; this tool does not redistribute or cache artwork.
@@ -231,6 +270,31 @@ paintings with IIIF manifests. Image quality is excellent — scans are often
 for landscapes and smooth-technique works.
 
 **Smithsonian:** Included for completeness, but not much high-resolution art.
+
+**Wikimedia Commons:** Browses named categories (depth-1 subcategory expansion)
+rather than a search API. The category list in `sources/wikimedia.py` is curated
+for landscape paintings and covers: three Musée d'Orsay category trees, Louvre
+landscape and artist subcategories, Musée Marmottan Monet, Château de Versailles,
+key Impressionist and Post-Impressionist artist pages (Monet, Sisley, Pissarro,
+Cézanne, Seurat, Courbet, Corot, Jongkind), Hudson River School and American
+landscape artists (Bierstadt, Church, Homer, Cole), and Dutch landscape masters
+(Ruisdael, van Goyen). For photographs, public-domain-verified categories are
+used: Carol M. Highsmith (donated copyright), FSA/OWI (US government works),
+Detroit Publishing Company (copyright expired), and USGS (US government works).
+Ansel Adams is explicitly excluded — his work is under US copyright until ~2054.
+Pixel dimensions are returned directly by the imageinfo API, so no resolution
+probing is needed.
+
+**Paris Musées:** Covers the 14 municipal museums of the City of Paris (distinct
+from the national museums — Musée d'Orsay is national and covered by Wikimedia).
+The strongest collection for landscape printing is the Petit Palais (19th-century
+French painting). Uses a GraphQL API with `auth-token` header authentication.
+A free registration token is required (1 000 requests/day quota). Records are
+pre-filtered locally for landscape themes (`fieldOeuvreThemeRepresente`) and
+painting media (`fieldMateriau`/`fieldTechnique`) to avoid scanning non-relevant
+works against the daily quota. Field names follow Drupal 8 GraphQL module v3
+conventions; if the API schema changes, errors are printed with the raw GraphQL
+error details for diagnosis.
 
 ### Sources investigated but not currently supported
 
@@ -329,7 +393,7 @@ For future report versions, overwrite `index.html` on the `gh-pages` branch and 
 ## Contributing
 
 Pull requests welcome — especially:
-- Additional museum API sources (Rijksmuseum, Wikimedia Commons, Musée d'Orsay)
+- Additional museum API sources (Rijksmuseum, Joconde/French national museums)
 - Improved medium-classification vocabulary for non-English museum metadata
 - Additions or corrections to the famous-paintings exclusion list
 - Improvements to the HTML report design

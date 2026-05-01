@@ -45,6 +45,7 @@ from pathlib import Path
 import requests
 
 import config
+from filters import classify_medium, is_non_painting
 
 
 # ---------------------------------------------------------------------------
@@ -115,6 +116,59 @@ def apply_near_dup_cap(records: list, max_per_group: int) -> list:
             dropped += 1
     if dropped:
         print(f"Near-dup cap ({max_per_group}/group): removed {dropped} records")
+    return out
+
+
+# ---------------------------------------------------------------------------
+# Merge-time quality filters
+# ---------------------------------------------------------------------------
+
+def apply_quality_filters(records: list, verbose: bool = False) -> list:
+    """
+    Drop records that should have been caught during fetch but weren't:
+      - Portrait orientation  (pixel_height > pixel_width)
+      - Resolution not checked (pixel_width is None or 0)
+      - Non-painting titles that slipped through fetch (framed photos, etc.)
+      - Records reclassified from smooth_oils into photographs bucket are
+        handled by the caller, not here.
+    """
+    out = []
+    n_portrait   = 0
+    n_no_res     = 0
+    n_non_paint  = 0
+
+    for rec in records:
+        px_w = rec.get("pixel_width") or 0
+        px_h = rec.get("pixel_height") or 0
+
+        # Drop unprobed records (resolution "not checked")
+        if not px_w:
+            n_no_res += 1
+            if verbose:
+                print(f"  [no-res] {rec.get('artist','?')} — {rec.get('title','?')}")
+            continue
+
+        # Drop portrait-orientation images (taller than wide)
+        if px_h and px_h > px_w:
+            n_portrait += 1
+            if verbose:
+                print(f"  [portrait {px_w}×{px_h}] {rec.get('artist','?')} — {rec.get('title','?')}")
+            continue
+
+        # Drop non-painting titles that fetch may have missed
+        if is_non_painting(rec.get("title", "")):
+            n_non_paint += 1
+            if verbose:
+                print(f"  [non-painting] {rec.get('artist','?')} — {rec.get('title','?')}")
+            continue
+
+        out.append(rec)
+
+    dropped = n_no_res + n_portrait + n_non_paint
+    if dropped:
+        print(f"Quality filter: dropped {n_no_res} no-resolution, "
+              f"{n_portrait} portrait, {n_non_paint} non-painting  "
+              f"({len(out)} remain)")
     return out
 
 
@@ -212,11 +266,15 @@ def load_file(path: str) -> dict:
     p = Path(path)
     if not p.exists():
         print(f"  WARNING: {path} not found — skipping.")
-        return {"watercolors": [], "smooth_oils": [], "meta": {}}
+        return {"watercolors": [], "smooth_oils": [], "photographs": [], "meta": {}}
     data = json.loads(p.read_text(encoding="utf-8"))
-    wc  = len(data.get("watercolors", []))
-    oil = len(data.get("smooth_oils", []))
-    print(f"  Loaded {path}: {wc} watercolors, {oil} smooth oils")
+    wc    = len(data.get("watercolors", []))
+    oil   = len(data.get("smooth_oils", []))
+    photo = len(data.get("photographs", []))
+    msg   = f"  Loaded {path}: {wc} watercolors, {oil} smooth oils"
+    if photo:
+        msg += f", {photo} photographs"
+    print(msg)
     return data
 
 
@@ -224,6 +282,7 @@ def merge(
     input_files: list,
     watercolor_target: int,
     oil_target: int,
+    photo_target: int = 0,
     require_artist: bool = False,
     shuffle: bool = False,
     max_near_duplicates: int = 3,
@@ -231,15 +290,38 @@ def merge(
     brightness_threshold: float = 0.30,
     verbose: bool = False,
 ) -> dict:
-    all_wc  = []
-    all_oil = []
+    all_wc    = []
+    all_oil   = []
+    all_photo = []
 
     for path in input_files:
         data = load_file(path)
         all_wc.extend(data.get("watercolors", []))
         all_oil.extend(data.get("smooth_oils", []))
+        all_photo.extend(data.get("photographs", []))
 
-    print(f"\nTotal before dedup: {len(all_wc)} watercolors, {len(all_oil)} smooth oils")
+    # Reclassify records that were bucketed as smooth_oils in older JSON files
+    # but whose medium field is photographic (before PHOTOGRAPH_MEDIUM_TERMS existed).
+    reclassified = 0
+    remaining_oil = []
+    for rec in all_oil:
+        if classify_medium(rec.get("medium", "")) == "photograph":
+            rec["_medium_class"] = "photograph"
+            all_photo.append(rec)
+            reclassified += 1
+        else:
+            remaining_oil.append(rec)
+    all_oil = remaining_oil
+    if reclassified:
+        print(f"  Reclassified {reclassified} photograph record(s) from smooth_oils → photographs")
+
+    # Ensure every record in the photo bucket is correctly labelled (guards
+    # against old fetch output that pre-dates the photograph classification).
+    for rec in all_photo:
+        rec["_medium_class"] = "photograph"
+
+    print(f"\nTotal before dedup: {len(all_wc)} watercolors, {len(all_oil)} smooth oils, "
+          f"{len(all_photo)} photographs")
 
     # --- Deduplicate ---
     def dedup(records: list) -> list:
@@ -253,43 +335,64 @@ def merge(
             out.append(rec)
         return out
 
-    all_wc  = dedup(all_wc)
-    all_oil = dedup(all_oil)
-    print(f"After dedup:        {len(all_wc)} watercolors, {len(all_oil)} smooth oils")
+    all_wc    = dedup(all_wc)
+    all_oil   = dedup(all_oil)
+    all_photo = dedup(all_photo)
+    print(f"After dedup:        {len(all_wc)} watercolors, {len(all_oil)} smooth oils, "
+          f"{len(all_photo)} photographs")
+
+    # --- Quality filters: portrait orientation, missing resolution, non-paintings ---
+    all_wc    = apply_quality_filters(all_wc,    verbose)
+    all_oil   = apply_quality_filters(all_oil,   verbose)
+    all_photo = apply_quality_filters(all_photo, verbose)
+    print(f"After quality:      {len(all_wc)} watercolors, {len(all_oil)} smooth oils, "
+          f"{len(all_photo)} photographs")
 
     # --- Optional artist filter ---
     if require_artist:
-        before_wc  = len(all_wc)
-        before_oil = len(all_oil)
-        all_wc  = [r for r in all_wc  if r.get("artist","").strip().lower() not in ("unknown","","unknown artist")]
-        all_oil = [r for r in all_oil if r.get("artist","").strip().lower() not in ("unknown","","unknown artist")]
+        def _has_artist(r):
+            return r.get("artist","").strip().lower() not in ("unknown","","unknown artist")
+        before_wc    = len(all_wc)
+        before_oil   = len(all_oil)
+        before_photo = len(all_photo)
+        all_wc    = [r for r in all_wc    if _has_artist(r)]
+        all_oil   = [r for r in all_oil   if _has_artist(r)]
+        all_photo = [r for r in all_photo if _has_artist(r)]
         print(f"After artist filter:{len(all_wc)} watercolors (-{before_wc-len(all_wc)}), "
-              f"{len(all_oil)} smooth oils (-{before_oil-len(all_oil)})")
+              f"{len(all_oil)} smooth oils (-{before_oil-len(all_oil)}), "
+              f"{len(all_photo)} photographs (-{before_photo-len(all_photo)})")
 
     # --- Sort by quality score ---
     if shuffle:
         random.shuffle(all_wc)
         random.shuffle(all_oil)
+        random.shuffle(all_photo)
     else:
         all_wc.sort(key=record_score, reverse=True)
         all_oil.sort(key=record_score, reverse=True)
+        all_photo.sort(key=record_score, reverse=True)
 
     # --- Near-duplicate cap (applied after sorting so best copies are kept) ---
     if max_near_duplicates > 0:
-        all_wc  = apply_near_dup_cap(all_wc,  max_near_duplicates)
-        all_oil = apply_near_dup_cap(all_oil, max_near_duplicates)
-        print(f"After near-dup cap: {len(all_wc)} watercolors, {len(all_oil)} smooth oils")
+        all_wc    = apply_near_dup_cap(all_wc,    max_near_duplicates)
+        all_oil   = apply_near_dup_cap(all_oil,   max_near_duplicates)
+        all_photo = apply_near_dup_cap(all_photo, max_near_duplicates)
+        print(f"After near-dup cap: {len(all_wc)} watercolors, {len(all_oil)} smooth oils, "
+              f"{len(all_photo)} photographs")
 
     # --- Brightness filter ---
     if brightness_filter:
         workers = getattr(config, "BRIGHTNESS_DOWNLOAD_WORKERS", 8)
-        all_wc  = apply_brightness_filter(all_wc,  brightness_threshold, workers, verbose)
-        all_oil = apply_brightness_filter(all_oil, brightness_threshold, workers, verbose)
-        print(f"After brightness:   {len(all_wc)} watercolors, {len(all_oil)} smooth oils")
+        all_wc    = apply_brightness_filter(all_wc,    brightness_threshold, workers, verbose)
+        all_oil   = apply_brightness_filter(all_oil,   brightness_threshold, workers, verbose)
+        all_photo = apply_brightness_filter(all_photo, brightness_threshold, workers, verbose)
+        print(f"After brightness:   {len(all_wc)} watercolors, {len(all_oil)} smooth oils, "
+              f"{len(all_photo)} photographs")
 
     # --- Trim to targets ---
-    final_wc  = all_wc[:watercolor_target]
-    final_oil = all_oil[:oil_target]
+    final_wc    = all_wc[:watercolor_target]
+    final_oil   = all_oil[:oil_target]
+    final_photo = all_photo[:photo_target] if photo_target > 0 else []
 
     if verbose:
         print("\nWatercolors selected:")
@@ -298,6 +401,10 @@ def merge(
         print("\nSmooth oils selected:")
         for r in final_oil:
             print(f"  [{r.get('source','?').upper()}] {r.get('artist','?')} — {r.get('title','?')}")
+        if final_photo:
+            print("\nPhotographs selected:")
+            for r in final_photo:
+                print(f"  [{r.get('source','?').upper()}] {r.get('artist','?')} — {r.get('title','?')}")
 
     # --- Source breakdown ---
     def source_counts(records):
@@ -307,39 +414,46 @@ def merge(
             counts[s] = counts.get(s, 0) + 1
         return counts
 
-    wc_sources  = source_counts(final_wc)
-    oil_sources = source_counts(final_oil)
+    all_final = final_wc + final_oil + final_photo
 
     print(f"\nFinal watercolors:  {len(final_wc)} / {watercolor_target} target")
-    print(f"  By source: {wc_sources}")
+    print(f"  By source: {source_counts(final_wc)}")
     print(f"Final smooth oils:  {len(final_oil)} / {oil_target} target")
-    print(f"  By source: {oil_sources}")
+    print(f"  By source: {source_counts(final_oil)}")
+    if photo_target > 0:
+        print(f"Final photographs:  {len(final_photo)} / {photo_target} target")
+        print(f"  By source: {source_counts(final_photo)}")
 
     if len(final_wc) < watercolor_target:
         print(f"\n  Only {len(final_wc)} watercolors available (target {watercolor_target}).")
         print(f"   Try: --limit 5000 in fetch_candidates.py, or add more sources.")
     if len(final_oil) < oil_target:
         print(f"\n  Only {len(final_oil)} smooth oils available (target {oil_target}).")
+    if photo_target > 0 and len(final_photo) < photo_target:
+        print(f"\n  Only {len(final_photo)} photographs available (target {photo_target}).")
 
     return {
         "meta": {
-            "sources":                      list({r.get("source") for r in final_wc + final_oil}),
-            "input_files":                  input_files,
-            "watercolor_target":            watercolor_target,
-            "oil_target":                   oil_target,
-            "min_ratio":                    config.MIN_ASPECT_RATIO,
-            "print_width_inches":           config.PRINT_WIDTH_INCHES,
-            "print_dpi":                    config.PRINT_DPI,
-            "min_width_px":                 config.MIN_PIXEL_WIDTH,
-            "require_artist":               require_artist,
-            "max_near_duplicates":          max_near_duplicates,
-            "brightness_filter":            brightness_filter,
-            "brightness_threshold":         brightness_threshold,
-            "total_watercolors_available":  len(all_wc),
-            "total_oils_available":         len(all_oil),
+            "sources":                        list({r.get("source") for r in all_final}),
+            "input_files":                    input_files,
+            "watercolor_target":              watercolor_target,
+            "oil_target":                     oil_target,
+            "photo_target":                   photo_target,
+            "min_ratio":                      config.MIN_ASPECT_RATIO,
+            "print_width_inches":             config.PRINT_WIDTH_INCHES,
+            "print_dpi":                      config.PRINT_DPI,
+            "min_width_px":                   config.MIN_PIXEL_WIDTH,
+            "require_artist":                 require_artist,
+            "max_near_duplicates":            max_near_duplicates,
+            "brightness_filter":              brightness_filter,
+            "brightness_threshold":           brightness_threshold,
+            "total_watercolors_available":    len(all_wc),
+            "total_oils_available":           len(all_oil),
+            "total_photographs_available":    len(all_photo),
         },
         "watercolors": final_wc,
         "smooth_oils": final_oil,
+        "photographs": final_photo,
     }
 
 
@@ -361,6 +475,10 @@ def main():
     p.add_argument("--oil-target", type=int,
                    default=config.OIL_TARGET,
                    metavar="N")
+    p.add_argument("--photo-target", type=int,
+                   default=getattr(config, "PHOTOGRAPH_TARGET", 0),
+                   metavar="N",
+                   help="Target number of photographs (0 = disabled)")
     p.add_argument("--output", default=config.DEFAULT_CANDIDATES_FILE,
                    metavar="PATH")
     p.add_argument("--require-artist", action="store_true",
@@ -385,7 +503,8 @@ def main():
     print("Canvas Print Finder — Merge")
     print("=" * 60)
     print(f"Inputs:  {', '.join(args.inputs)}")
-    print(f"Targets: {args.watercolor_target} watercolors, {args.oil_target} smooth oils")
+    print(f"Targets: {args.watercolor_target} watercolors, {args.oil_target} smooth oils, "
+          f"{args.photo_target} photographs")
     print(f"Require known artist: {args.require_artist}")
     print(f"Near-dup cap: {args.max_near_duplicates} per group")
     print(f"Brightness filter: {'off' if args.no_brightness_filter else f'on (threshold {args.brightness_threshold:.0%} of median)'}")
@@ -395,6 +514,7 @@ def main():
         input_files          = args.inputs,
         watercolor_target    = args.watercolor_target,
         oil_target           = args.oil_target,
+        photo_target         = args.photo_target,
         require_artist       = args.require_artist,
         shuffle              = args.shuffle,
         max_near_duplicates  = args.max_near_duplicates,
@@ -405,7 +525,8 @@ def main():
 
     out_path = Path(args.output)
     out_path.write_text(json.dumps(result, indent=2, ensure_ascii=False))
-    total = len(result["watercolors"]) + len(result["smooth_oils"])
+    total = (len(result["watercolors"]) + len(result["smooth_oils"])
+             + len(result.get("photographs", [])))
     print(f"\nSaved {total} candidates to: {out_path}")
 
 

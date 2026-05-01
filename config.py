@@ -67,6 +67,11 @@ SMITHSONIAN_API_KEY = os.environ.get("SMITHSONIAN_API_KEY", "")
 # If blank, the oil classifier falls back to heuristics only.
 ANTHROPIC_API_KEY = os.environ.get("ANTHROPIC_API_KEY", "")
 
+# Paris Musées Collections API (municipal museums of Paris — Petit Palais, etc.)
+# Register at https://apicollections.parismusees.paris.fr/user/register
+# Optional — only needed if you use --sources paris_musees
+PARIS_MUSEES_API_TOKEN = os.environ.get("PARIS_MUSEES_API_TOKEN", "")
+
 
 # ===========================================================================
 # SEARCH & FILTERING TARGETS
@@ -75,6 +80,7 @@ ANTHROPIC_API_KEY = os.environ.get("ANTHROPIC_API_KEY", "")
 # Number of qualifying works to find in each category
 WATERCOLOR_TARGET = 80
 OIL_TARGET = 20
+PHOTOGRAPH_TARGET = 20  # high-quality landscape photographs
 
 # Minimum width/height aspect ratio (landscape orientation)
 # 1.4 means width must be at least 40% greater than height
@@ -107,6 +113,10 @@ CLEVELAND_REQUEST_DELAY    = 0.20
 LOC_REQUEST_DELAY          = 0.35   # two requests per item (search + resource)
 YCBA_REQUEST_DELAY         = 0.25   # one manifest fetch per item
 YCBA_OAI_TIMEOUT           = 60     # OAI-PMH server is slow; 15s default times out
+WIKIMEDIA_REQUEST_DELAY    = 0.25   # Wikimedia Commons / Wikidata polite rate
+WIKIMEDIA_BATCH_SIZE       = 50     # imageinfo requests per API call (max 50)
+PARIS_MUSEES_REQUEST_DELAY = 1.0    # conservative; quota is 1 000 req/day
+PARIS_MUSEES_PAGE_SIZE     = 100    # artworks per GraphQL request
 
 # Max pages to fetch per query per source (each page = up to 100 results)
 AIC_MAX_PAGES_PER_QUERY = 10
@@ -193,12 +203,24 @@ WATERCOLOR_MEDIUM_TERMS = [
 ]
 
 # Any of these terms in the medium field → candidate oil painting
-# "photograph" is included so LoC and similar photo sources pass this filter;
-# photographs are flat / smooth and print well on canvas.
 OIL_MEDIUM_TERMS = [
+    # English
     "oil on canvas", "oil on panel", "oil on board", "oil on wood",
-    "oil on copper", "oil on paper", "huile sur toile",
-    "photograph",
+    "oil on copper", "oil on paper", "oil on metal",
+    # French (Paris Musées / Joconde metadata)
+    "huile sur toile", "huile sur panneau", "huile sur bois",
+    "huile sur cuivre", "huile sur papier", "huile sur carton",
+    "peinture à l'huile",
+]
+
+# Any of these terms → classify as "photograph" (distinct from paintings)
+# Checked before oil terms so photos are never miscategorised as oils.
+PHOTOGRAPH_MEDIUM_TERMS = [
+    "photograph", "photography", "photographie",
+    "gelatin silver", "albumen print", "albumen silver",
+    "chromogenic", "silver gelatin",
+    "photographic print", "color photograph", "colour photograph",
+    "black-and-white photograph", "c-print",
 ]
 
 # If any of these terms appear in medium or description → reject as impasto
@@ -231,10 +253,8 @@ EXCLUDE_MEDIUM_TERMS = [
 ]
 
 # If any of these appear in medium/description → heuristically flag as smooth oil
-# "photograph" is included so photos don't need Claude vision or artist matching
 SMOOTH_OIL_MEDIUM_HINT_TERMS = [
     "glazing", "glaze", "smooth", "detailed", "luminous", "academic", "trompe",
-    "photograph",
 ]
 
 # Artists whose oils are typically smooth/flat enough for canvas printing.
@@ -377,6 +397,21 @@ NON_PAINTING_TITLE_TERMS = [
     # Figure studies (not landscapes)
     "nude male figure", "nude female figure",
     "study of a figure", "figure study",
+    # Framed / display-state photographs of artworks
+    # (photos showing a painting inside its physical frame, not the painting itself)
+    "in its frame", "in its original frame", "in frame",
+    "with frame", "in a frame",
+    # Back/verso of works — not a painting view
+    " verso", "(verso)", " recto", "(recto)",
+    # Book/album/document works
+    "album page", "sketchbook page", "book illustration",
+    "bookplate", "playing card",
+    # Asian scroll formats (rarely landscape-printable)
+    "hanging scroll", "hand scroll", "handscroll",
+    # Folding screens (multi-panel, wrong aspect ratio)
+    "folding screen",
+    # Decorative fan paintings
+    "fan design", "fan painting", "painted fan",
 ]
 
 # ---------------------------------------------------------------------------

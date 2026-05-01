@@ -13,6 +13,7 @@ def classify_medium(medium: str) -> str:
     """
     Classify a medium string into one of:
       'watercolor'   — watercolor, gouache, aquarelle, wash, etc.
+      'photograph'   — photographic print, gelatin silver, etc.
       'impasto_oil'  — oil with texture keywords (disqualified)
       'oil'          — oil painting without impasto flags
       'other'        — unrecognized medium
@@ -23,6 +24,8 @@ def classify_medium(medium: str) -> str:
 
     # Reproductive / print processes disqualify regardless of other terms.
     # Catches e.g. "Color lithograph; watercolor facsimile".
+    # Note: daguerreotype is in EXCLUDE_MEDIUM_TERMS so it is caught here
+    # before the PHOTOGRAPH_MEDIUM_TERMS check below.
     for kw in config.EXCLUDE_MEDIUM_TERMS:
         if kw in m:
             return "other"
@@ -30,6 +33,12 @@ def classify_medium(medium: str) -> str:
     for kw in config.IMPASTO_DISQUALIFY_TERMS:
         if kw in m:
             return "impasto_oil"
+
+    # Photographs: checked before oil so "photograph" is never mis-classified
+    # as an oil painting (the two share no vocabulary).
+    for term in config.PHOTOGRAPH_MEDIUM_TERMS:
+        if term in m:
+            return "photograph"
 
     for term in config.WATERCOLOR_MEDIUM_TERMS:
         if term in m:
