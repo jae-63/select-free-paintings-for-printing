@@ -172,7 +172,8 @@ def main():
     data        = json.loads(Path(args.input).read_text(encoding="utf-8"))
     watercolors = data.get("watercolors", [])
     smooth_oils = data.get("smooth_oils", [])
-    all_recs    = watercolors + smooth_oils
+    photographs = data.get("photographs", [])
+    all_recs    = watercolors + smooth_oils + photographs
 
     target_mpx = config.PREVIEW_TARGET_PIXELS / 1_000_000
     print(f"Preparing to download {len(all_recs)} images")

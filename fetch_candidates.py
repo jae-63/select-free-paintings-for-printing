@@ -124,6 +124,7 @@ def apply_filters(
     min_width_px: int,
     watercolor_target: int,
     oil_target: int,
+    photo_target: int = 0,
     check_resolution: bool = True,
     exclude_religious: bool = False,
     verbose: bool = False,
@@ -131,14 +132,16 @@ def apply_filters(
     """
     Walk through all fetched records and apply:
       1. Famous-painting exclusion
-      2. Medium classification (watercolor vs smooth oil vs reject)
+      2. Medium classification (watercolor / photograph / smooth oil / reject)
       3. Aspect ratio check (physical dimensions first, pixel fallback)
       4. Resolution check (pixel width of downloadable image)
 
-    Returns dict with keys 'watercolors', 'smooth_oils', 'rejected_counts'.
+    Returns dict with keys 'watercolors', 'smooth_oils', 'photographs',
+    and 'rejected_counts'.
     """
     watercolors = []
     smooth_oils = []
+    photographs = []
     rejected = {
         "no_image":        0,
         "excluded_famous": 0,
@@ -185,15 +188,17 @@ def apply_filters(
         med_class = classify_medium(medium)
         is_wc     = (med_class == "watercolor")
         is_oil    = (med_class == "oil")
+        is_photo  = (med_class == "photograph")
 
         # Determine what we still need
-        need_wc  = len(watercolors) < watercolor_target
-        need_oil = len(smooth_oils) < oil_target
+        need_wc    = len(watercolors) < watercolor_target
+        need_oil   = len(smooth_oils) < oil_target
+        need_photo = photo_target > 0 and len(photographs) < photo_target
 
-        if not need_wc and not need_oil:
+        if not need_wc and not need_oil and not need_photo:
             break   # targets met — stop early
 
-        if not is_wc and not is_oil:
+        if not is_wc and not is_oil and not is_photo:
             rejected["wrong_medium"] += 1
             continue
 
@@ -201,6 +206,8 @@ def apply_filters(
         if is_wc and not need_wc:
             continue
         if is_oil and not need_oil:
+            continue
+        if is_photo and not need_photo:
             continue
 
         # ── For oils: check smoothness (Claude vision or heuristic)
@@ -255,8 +262,7 @@ def apply_filters(
         if check_resolution:
             if px_w == 0:
                 # Probe failed or no pixel data available — reject rather than
-                # silently passing. A work we can't verify meets resolution
-                # requirements shouldn't end up in the final selection.
+                # silently passing.
                 rejected["low_resolution"] += 1
                 if verbose:
                     print(f"  [unprobed res] {artist} — {title}")
@@ -268,18 +274,23 @@ def apply_filters(
                 continue
 
         # ── Passed all filters
-        rec["_medium_class"] = "watercolor" if is_wc else "smooth_oil"
-
-        if is_wc and len(watercolors) < watercolor_target:
+        if is_wc:
+            rec["_medium_class"] = "watercolor"
             watercolors.append(rec)
             print(f"  ✓ watercolor #{len(watercolors):3d} | {artist} — {title}")
-        elif is_oil and len(smooth_oils) < oil_target:
+        elif is_oil:
+            rec["_medium_class"] = "smooth_oil"
             smooth_oils.append(rec)
             print(f"  ✓ smooth oil #{len(smooth_oils):3d} | {artist} — {title}")
+        elif is_photo:
+            rec["_medium_class"] = "photograph"
+            photographs.append(rec)
+            print(f"  ✓ photograph #{len(photographs):3d} | {artist} — {title}")
 
     return {
-        "watercolors":    watercolors,
-        "smooth_oils":    smooth_oils,
+        "watercolors":     watercolors,
+        "smooth_oils":     smooth_oils,
+        "photographs":     photographs,
         "rejected_counts": rejected,
     }
 
@@ -296,7 +307,7 @@ def parse_args():
     p.add_argument("--sources", nargs="+",
                    default=config.DEFAULT_SOURCES,
                    choices=["met", "aic", "europeana", "smithsonian", "getty",
-                            "nga", "cleveland", "loc", "ycba"],
+                            "nga", "cleveland", "loc", "ycba", "wikimedia"],
                    help="Which museum APIs to query")
     p.add_argument("--watercolor-target", type=int,
                    default=config.WATERCOLOR_TARGET,
@@ -306,6 +317,10 @@ def parse_args():
                    default=config.OIL_TARGET,
                    metavar="N",
                    help="Target number of smooth oil paintings")
+    p.add_argument("--photo-target", type=int,
+                   default=getattr(config, "PHOTOGRAPH_TARGET", 0),
+                   metavar="N",
+                   help="Target number of photographs (0 = disabled)")
     p.add_argument("--print-width", type=float,
                    default=config.PRINT_WIDTH_INCHES,
                    metavar="INCHES",
@@ -353,6 +368,7 @@ def main():
     print(f"  Sources:          {', '.join(args.sources).upper()}")
     print(f"  Watercolor target:{args.watercolor_target}")
     print(f"  Smooth oil target:{args.oil_target}")
+    print(f"  Photograph target:{args.photo_target}")
     print(f"  Print spec:       {args.print_width}\" × {args.print_dpi} DPI")
     print(f"  Min pixel width:  {min_width_px}px")
     print(f"  Min aspect ratio: {args.min_ratio}")
@@ -460,6 +476,23 @@ def main():
             print("[YCBA] Fetching oil candidates...")
             all_records += ycba_fetch(queries=YCBA_OIL_Q, limit=args.limit)
 
+    if "wikimedia" in args.sources:
+        from sources.wikimedia import (
+            fetch_all_candidates as wmc_fetch,
+            WATERCOLOR_CATEGORIES as WMC_WC_CATS,
+            OIL_CATEGORIES        as WMC_OIL_CATS,
+            PHOTO_CATEGORIES      as WMC_PHOTO_CATS,
+        )
+        if args.watercolor_target > 0:
+            print("[Wikimedia] Fetching watercolor candidates...")
+            all_records += wmc_fetch(categories=WMC_WC_CATS, limit=args.limit)
+        if args.oil_target > 0:
+            print("[Wikimedia] Fetching painting candidates (oils/mixed)...")
+            all_records += wmc_fetch(categories=WMC_OIL_CATS, limit=args.limit)
+        if args.photo_target > 0:
+            print("[Wikimedia] Fetching photograph candidates...")
+            all_records += wmc_fetch(categories=WMC_PHOTO_CATS, limit=args.limit)
+
     print(f"\nTotal raw records fetched: {len(all_records)}")
 
     # ── Filter
@@ -470,6 +503,7 @@ def main():
         min_width_px=min_width_px,
         watercolor_target=args.watercolor_target,
         oil_target=args.oil_target,
+        photo_target=args.photo_target,
         check_resolution=not args.no_resolution_check,
         exclude_religious=args.exclude_religious,
         verbose=args.verbose,
@@ -477,6 +511,7 @@ def main():
 
     watercolors = results["watercolors"]
     smooth_oils = results["smooth_oils"]
+    photographs = results["photographs"]
     rejected    = results["rejected_counts"]
 
     # ── Summary
@@ -484,6 +519,7 @@ def main():
     print(f"RESULTS")
     print(f"  Watercolors: {len(watercolors):3d} / {args.watercolor_target} target")
     print(f"  Smooth oils: {len(smooth_oils):3d} / {args.oil_target} target")
+    print(f"  Photographs: {len(photographs):3d} / {args.photo_target} target")
     print(f"\nRejection breakdown:")
     for reason, count in rejected.items():
         print(f"  {reason:25s}: {count}")
@@ -494,6 +530,7 @@ def main():
             "sources":            args.sources,
             "watercolor_target":  args.watercolor_target,
             "oil_target":         args.oil_target,
+            "photo_target":       args.photo_target,
             "min_ratio":          args.min_ratio,
             "print_width_inches": args.print_width,
             "print_dpi":          args.print_dpi,
@@ -504,11 +541,13 @@ def main():
         },
         "watercolors": watercolors,
         "smooth_oils": smooth_oils,
+        "photographs": photographs,
     }
 
     out_path = Path(args.output)
     out_path.write_text(json.dumps(output, indent=2, ensure_ascii=False))
-    print(f"\n✓ Saved {len(watercolors) + len(smooth_oils)} candidates to: {out_path}")
+    total = len(watercolors) + len(smooth_oils) + len(photographs)
+    print(f"\n✓ Saved {total} candidates to: {out_path}")
 
     # ── Helpful hints if targets not met
     if len(watercolors) < args.watercolor_target:
@@ -526,6 +565,11 @@ def main():
             print(f"   --sources met aic europeana")
         if args.no_vision and config.ANTHROPIC_API_KEY:
             print(f"   Remove --no-vision to use Claude for better oil detection")
+
+    if args.photo_target > 0 and len(photographs) < args.photo_target:
+        shortage = args.photo_target - len(photographs)
+        print(f"\n⚠  {shortage} photograph(s) short of target. Try:")
+        print(f"   --sources loc wikimedia   (LoC Highsmith + Wikimedia Commons photos)")
 
 
 if __name__ == "__main__":

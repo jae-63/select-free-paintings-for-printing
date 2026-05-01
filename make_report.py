@@ -29,15 +29,16 @@ HTML_TEMPLATE = """\
 <title>{report_title}</title>
 <style>
   :root {{
-    --bg:       #1a1a1a;
-    --card-bg:  #252525;
-    --text:     #e0e0e0;
-    --muted:    #999;
-    --accent:   #c8a96e;
-    --border:   #333;
-    --wc-tag:   #3a7a5a;
-    --oil-tag:  #5a4a7a;
-    --shadow:   0 4px 16px rgba(0,0,0,0.5);
+    --bg:        #1a1a1a;
+    --card-bg:   #252525;
+    --text:      #e0e0e0;
+    --muted:     #999;
+    --accent:    #c8a96e;
+    --border:    #333;
+    --wc-tag:    #3a7a5a;
+    --oil-tag:   #5a4a7a;
+    --photo-tag: #5a6a3a;
+    --shadow:    0 4px 16px rgba(0,0,0,0.5);
   }}
   * {{ box-sizing: border-box; margin: 0; padding: 0; }}
   body {{
@@ -90,8 +91,9 @@ HTML_TEMPLATE = """\
     font-weight: bold; letter-spacing: .05em; text-transform: uppercase;
     margin-right: 4px; margin-bottom: 6px;
   }}
-  .tag-wc  {{ background: var(--wc-tag);  color: #a8e8c8; }}
-  .tag-oil {{ background: var(--oil-tag); color: #c8b8f0; }}
+  .tag-wc    {{ background: var(--wc-tag);    color: #a8e8c8; }}
+  .tag-oil   {{ background: var(--oil-tag);   color: #c8b8f0; }}
+  .tag-photo {{ background: var(--photo-tag); color: #d0e8a0; }}
   .tag-src {{ background: #333; color: #aaa; }}
   .card-title  {{ font-size: 0.98rem; color: var(--text); margin-bottom: .25rem; font-style: italic; }}
   .card-artist {{ font-size: 0.83rem; color: var(--accent); margin-bottom: .45rem;
@@ -112,6 +114,7 @@ HTML_TEMPLATE = """\
 <div class="stats">
   <div>Watercolors: <b>{n_wc}</b></div>
   <div>Smooth Oils: <b>{n_oil}</b></div>
+  <div>Photographs: <b>{n_photo}</b></div>
   <div>Total: <b>{n_total}</b></div>
   <div>Min aspect ratio: <b>{min_ratio}:1</b></div>
   <div>Print spec: <b>{print_width}" @ {print_dpi} DPI ({min_px}px)</b></div>
@@ -128,6 +131,8 @@ HTML_TEMPLATE = """\
 <div class="grid">
 {oil_cards}
 </div>
+
+{photo_section}
 
 </body>
 </html>
@@ -152,12 +157,26 @@ CARD_TEMPLATE = """\
 # Card builder
 # ---------------------------------------------------------------------------
 
-SOURCE_NAMES = {"met": "The Met", "aic": "Art Institute", "europeana": "Europeana"}
+SOURCE_NAMES = {
+    "met":       "The Met",
+    "aic":       "Art Institute",
+    "europeana": "Europeana",
+    "wikimedia": "Wikimedia",
+    "loc":       "Library of Congress",
+    "nga":       "Natl Gallery",
+    "cleveland": "Cleveland Museum",
+    "ycba":      "Yale YCBA",
+}
 
 
 def make_card(rec: dict) -> str:
-    med_class = "wc" if rec.get("_medium_class") == "watercolor" else "oil"
-    med_label = "Watercolor" if med_class == "wc" else "Smooth Oil"
+    mc = rec.get("_medium_class", "")
+    if mc == "watercolor":
+        med_class, med_label = "wc",    "Watercolor"
+    elif mc == "photograph":
+        med_class, med_label = "photo", "Photograph"
+    else:
+        med_class, med_label = "oil",   "Smooth Oil"
     source = rec.get("source", "?")
 
     img_url = rec.get("image_url_small") or rec.get("image_url_full") or ""
@@ -233,19 +252,30 @@ def main():
     args = p.parse_args()
 
     data = json.loads(Path(args.input).read_text(encoding="utf-8"))
-    meta        = data.get("meta", {})
-    watercolors = data.get("watercolors", [])
-    smooth_oils = data.get("smooth_oils", [])
+    meta         = data.get("meta", {})
+    watercolors  = data.get("watercolors", [])
+    smooth_oils  = data.get("smooth_oils", [])
+    photographs  = data.get("photographs", [])
 
-    wc_cards  = "\n".join(make_card(r) for r in watercolors)
-    oil_cards = "\n".join(make_card(r) for r in smooth_oils)
+    wc_cards    = "\n".join(make_card(r) for r in watercolors)
+    oil_cards   = "\n".join(make_card(r) for r in smooth_oils)
+    photo_cards = "\n".join(make_card(r) for r in photographs)
+
+    if photographs:
+        photo_section = (
+            f'<div class="section-header">Photographs — {len(photographs)} works</div>\n'
+            f'<div class="grid">\n{photo_cards}\n</div>'
+        )
+    else:
+        photo_section = ""
 
     html = HTML_TEMPLATE.format(
         report_title    = config.REPORT_TITLE,
         report_subtitle = config.REPORT_SUBTITLE,
         n_wc            = len(watercolors),
         n_oil           = len(smooth_oils),
-        n_total         = len(watercolors) + len(smooth_oils),
+        n_photo         = len(photographs),
+        n_total         = len(watercolors) + len(smooth_oils) + len(photographs),
         min_ratio       = meta.get("min_ratio", config.MIN_ASPECT_RATIO),
         print_width     = meta.get("print_width_inches", config.PRINT_WIDTH_INCHES),
         print_dpi       = meta.get("print_dpi", config.PRINT_DPI),
@@ -254,6 +284,7 @@ def main():
         vision          = meta.get("vision_status", "unknown"),
         watercolor_cards = wc_cards,
         oil_cards        = oil_cards,
+        photo_section    = photo_section,
     )
 
     Path(args.output).write_text(html, encoding="utf-8")
