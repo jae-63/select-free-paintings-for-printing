@@ -110,9 +110,7 @@ python fetch_candidates.py --sources getty --output candidates_getty.json $EXTRA
 # Wikimedia Commons (no API key needed; traverses painting/watercolor/photo categories)
 # Covers Musée d'Orsay, Louvre, Marmottan, Versailles, Hudson River School,
 # Impressionists, and public-domain landscape photography
-python fetch_candidates.py --sources wikimedia \
-  --watercolor-target 20 --oil-target 10 --photo-target 10 \
-  --no-vision --output candidates_wikimedia.json $EXTRA_FETCH_FLAGS
+python fetch_candidates.py --sources wikimedia --output candidates_wikimedia.json $EXTRA_FETCH_FLAGS
 
 # Paris Musées (requires PARIS_MUSEES_API_TOKEN in .env; 1 000 req/day limit)
 # Covers 14 municipal Paris museums: Petit Palais, Carnavalet, Vie Romantique, etc.
