@@ -1,0 +1,1867 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Canvas Print Candidates</title>
+<style>
+  :root {
+    --bg:        #1a1a1a;
+    --card-bg:   #252525;
+    --text:      #e0e0e0;
+    --muted:     #999;
+    --accent:    #c8a96e;
+    --border:    #333;
+    --wc-tag:    #3a7a5a;
+    --oil-tag:   #5a4a7a;
+    --photo-tag: #5a6a3a;
+    --shadow:    0 4px 16px rgba(0,0,0,0.5);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: Georgia, 'Times New Roman', serif;
+    padding: 2rem;
+  }
+  h1 { color: var(--accent); font-size: 2rem; margin-bottom: 0.4rem; }
+  .subtitle {
+    color: var(--muted); font-size: 0.9rem; margin-bottom: 1.5rem;
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+  }
+  .stats {
+    background: var(--card-bg); border: 1px solid var(--border);
+    border-radius: 8px; padding: 0.8rem 1.4rem; margin-bottom: 2rem;
+    font-family: 'Helvetica Neue', Arial, sans-serif; font-size: 0.82rem;
+    color: var(--muted); display: flex; gap: 2rem; flex-wrap: wrap;
+  }
+  .stats b { color: var(--text); }
+  .section-header {
+    font-size: 1.4rem; color: var(--accent);
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 0.4rem; margin: 2.5rem 0 1.4rem; font-style: italic;
+  }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.4rem;
+  }
+  .card {
+    background: var(--card-bg); border: 1px solid var(--border);
+    border-radius: 10px; overflow: hidden; box-shadow: var(--shadow);
+    transition: transform .2s, box-shadow .2s;
+  }
+  .card:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(0,0,0,.7); }
+  .card img {
+    width: 100%; height: 185px; object-fit: cover; object-position: center;
+    display: block; background: #111;
+  }
+  .no-image {
+    width: 100%; height: 185px; background: #111;
+    display: flex; align-items: center; justify-content: center;
+    color: #444; font-size: 0.8rem; font-family: 'Helvetica Neue', Arial, sans-serif;
+  }
+  .card-body { padding: 0.9rem 1rem 1rem; }
+  .tag {
+    display: inline-block; padding: 2px 8px; border-radius: 12px;
+    font-size: 0.68rem; font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-weight: bold; letter-spacing: .05em; text-transform: uppercase;
+    margin-right: 4px; margin-bottom: 6px;
+  }
+  .tag-wc    { background: var(--wc-tag);    color: #a8e8c8; }
+  .tag-oil   { background: var(--oil-tag);   color: #c8b8f0; }
+  .tag-photo { background: var(--photo-tag); color: #d0e8a0; }
+  .tag-src { background: #333; color: #aaa; }
+  .card-title  { font-size: 0.98rem; color: var(--text); margin-bottom: .25rem; font-style: italic; }
+  .card-artist { font-size: 0.83rem; color: var(--accent); margin-bottom: .45rem;
+                  font-family: 'Helvetica Neue', Arial, sans-serif; font-weight: bold; }
+  .card-meta   { font-family: 'Helvetica Neue', Arial, sans-serif; font-size: 0.74rem;
+                  color: var(--muted); line-height: 1.55; }
+  .dims        { margin-top: .3rem; font-size: 0.70rem; color: #666; font-family: monospace; }
+  .card-links  { margin-top: .7rem; font-family: 'Helvetica Neue', Arial, sans-serif; font-size: 0.74rem; }
+  .card-links a { color: var(--accent); text-decoration: none; margin-right: 1rem; }
+  .card-links a:hover { text-decoration: underline; }
+</style>
+</head>
+<body>
+
+<h1>🎨 Canvas Print Candidates</h1>
+<p class="subtitle">Public-domain landscapes filtered for high-resolution canvas printing (≥200 DPI at 40")</p>
+
+<div class="stats">
+  <div>Watercolors: <b>67</b></div>
+  <div>Smooth Oils: <b>60</b></div>
+  <div>Photographs: <b>19</b></div>
+  <div>Total: <b>146</b></div>
+  <div>Min aspect ratio: <b>1.4:1</b></div>
+  <div>Print spec: <b>40" @ 200 DPI (8000px)</b></div>
+  <div>Sources: <b>YCBA, GETTY, AIC, CLEVELAND, WIKIMEDIA, LOC, NGA</b></div>
+  <div>Vision: <b>unknown</b></div>
+</div>
+
+<div class="section-header">Watercolors &amp; Gouaches — 67 works</div>
+<div class="grid">
+<div class="card">
+  <img src="https://api.nga.gov/iiif/bd5664bc-0ccf-4c93-99c7-188b75b2092d/full/!700,700/0/default.jpg" alt="The Race Track" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-wc">Watercolor</span>
+    <span class="tag tag-src">NGA</span>
+    <div class="card-title">"The Race Track"</div>
+    <div class="card-artist">Jean-Louis Forain</div>
+    <div class="card-meta"><b>c. 1891</b><br>gouache on canvas<br></div>
+    <div class="dims">Physical: 114.9 × 80.5 cm (ratio 1.43)<br>Image: 26302 × 18304px (658 DPI@40")</div>
+    <div class="card-links"><a href="https://api.nga.gov/iiif/bd5664bc-0ccf-4c93-99c7-188b75b2092d/full/full/0/default.jpg" target="_blank">Full image ↗</a><a href="https://www.nga.gov/collection/art-object-page.66416.html" target="_blank">Natl Gallery page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://api.nga.gov/iiif/182bfc68-8155-41ea-aba7-856e419f8f0d/full/!700,700/0/default.jpg" alt="The Heather or Broom Gatherers" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-wc">Watercolor</span>
+    <span class="tag tag-src">NGA</span>
+    <div class="card-title">"The Heather or Broom Gatherers"</div>
+    <div class="card-artist">David Cox</div>
+    <div class="card-meta"><b>1851</b><br>watercolor on wove paper<br></div>
+    <div class="dims">Physical: 87.2 × 61.3 cm (ratio 1.42)<br>Image: 17875 × 12630px (447 DPI@40")</div>
+    <div class="card-links"><a href="https://api.nga.gov/iiif/182bfc68-8155-41ea-aba7-856e419f8f0d/full/full/0/default.jpg" target="_blank">Full image ↗</a><a href="https://www.nga.gov/collection/art-object-page.221604.html" target="_blank">Natl Gallery page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://api.nga.gov/iiif/f0f0c285-6c5b-4077-8a3a-21ed6d4776ff/full/!700,700/0/default.jpg" alt="Eel Bucks at Goring" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-wc">Watercolor</span>
+    <span class="tag tag-src">NGA</span>
+    <div class="card-title">"Eel Bucks at Goring"</div>
+    <div class="card-artist">William James Müller</div>
+    <div class="card-meta"><b>c. 1843</b><br>watercolor on wove paper<br></div>
+    <div class="dims">Physical: 53.8 × 36.1 cm (ratio 1.49)<br>Image: 15654 × 10582px (391 DPI@40")</div>
+    <div class="card-links"><a href="https://api.nga.gov/iiif/f0f0c285-6c5b-4077-8a3a-21ed6d4776ff/full/full/0/default.jpg" target="_blank">Full image ↗</a><a href="https://www.nga.gov/collection/art-object-page.215588.html" target="_blank">Natl Gallery page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://api.nga.gov/iiif/1ec0bcbd-a06d-4108-950a-443412ccccb2/full/!700,700/0/default.jpg" alt="Derwentwater" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-wc">Watercolor</span>
+    <span class="tag tag-src">NGA</span>
+    <div class="card-title">"Derwentwater"</div>
+    <div class="card-artist">Paul Sandby</div>
+    <div class="card-meta"><b>late 18th century</b><br>watercolor on wove paper<br></div>
+    <div class="dims">Physical: 43.8 × 28.2 cm (ratio 1.55)<br>Image: 13743 × 9034px (344 DPI@40")</div>
+    <div class="card-links"><a href="https://api.nga.gov/iiif/1ec0bcbd-a06d-4108-950a-443412ccccb2/full/full/0/default.jpg" target="_blank">Full image ↗</a><a href="https://www.nga.gov/collection/art-object-page.136748.html" target="_blank">Natl Gallery page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://api.nga.gov/iiif/22baf067-5142-4518-a329-fa876c4ad49d/full/!700,700/0/default.jpg" alt="The Old Barn, Arreton, Isle of Wight" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-wc">Watercolor</span>
+    <span class="tag tag-src">NGA</span>
+    <div class="card-title">"The Old Barn, Arreton, Isle of Wight"</div>
+    <div class="card-artist">Marie Spartali Stillman</div>
+    <div class="card-meta"><b>probably 1890s</b><br>watercolor and gouache on paper mounted on a stretcher<br></div>
+    <div class="dims">Physical: 53.5 × 37.0 cm (ratio 1.45)<br>Image: 13522 × 9356px (338 DPI@40")</div>
+    <div class="card-links"><a href="https://api.nga.gov/iiif/22baf067-5142-4518-a329-fa876c4ad49d/full/full/0/default.jpg" target="_blank">Full image ↗</a><a href="https://www.nga.gov/collection/art-object-page.229829.html" target="_blank">Natl Gallery page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://api.nga.gov/iiif/a9c7040a-1e13-4916-bec3-f75b54bc702f/full/!700,700/0/default.jpg" alt="Harrowing--View near the Cross Fells" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-wc">Watercolor</span>
+    <span class="tag tag-src">NGA</span>
+    <div class="card-title">"Harrowing--View near the Cross Fells"</div>
+    <div class="card-artist">Peter De Wint</div>
+    <div class="card-meta"><b>c. 1840</b><br>watercolor and gouache with scratching out on wove paper<br></div>
+    <div class="dims">Physical: 45.5 × 29.2 cm (ratio 1.56)<br>Image: 12899 × 8352px (322 DPI@40")</div>
+    <div class="card-links"><a href="https://api.nga.gov/iiif/a9c7040a-1e13-4916-bec3-f75b54bc702f/full/full/0/default.jpg" target="_blank">Full image ↗</a><a href="https://www.nga.gov/collection/art-object-page.136182.html" target="_blank">Natl Gallery page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://api.nga.gov/iiif/bb86f00f-03b8-4aef-bb60-cd10c8cd60c0/full/!700,700/0/default.jpg" alt="The Bridge at Grez [recto]" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-wc">Watercolor</span>
+    <span class="tag tag-src">NGA</span>
+    <div class="card-title">"The Bridge at Grez [recto]"</div>
+    <div class="card-artist">Childe Hassam</div>
+    <div class="card-meta"><b>1904</b><br>watercolor on wove paper<br></div>
+    <div class="dims">Physical: 25.2 × 17.6 cm (ratio 1.43)<br>Image: 12669 × 8834px (317 DPI@40")</div>
+    <div class="card-links"><a href="https://api.nga.gov/iiif/bb86f00f-03b8-4aef-bb60-cd10c8cd60c0/full/full/0/default.jpg" target="_blank">Full image ↗</a><a href="https://www.nga.gov/collection/art-object-page.180938.html" target="_blank">Natl Gallery page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://api.nga.gov/iiif/33a9c244-7aed-486c-b9ed-f997af7f3abd/full/!700,700/0/default.jpg" alt="The Afterglow, Grand Canyon, Arizona" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-wc">Watercolor</span>
+    <span class="tag tag-src">NGA</span>
+    <div class="card-title">"The Afterglow, Grand Canyon, Arizona"</div>
+    <div class="card-artist">Lucien Whiting Powell</div>
+    <div class="card-meta"><b>c. 1904</b><br>watercolor and gouache on paperboard<br></div>
+    <div class="dims">Physical: 76.5 × 51.1 cm (ratio 1.50)<br>Image: 12623 × 8388px (316 DPI@40")</div>
+    <div class="card-links"><a href="https://api.nga.gov/iiif/33a9c244-7aed-486c-b9ed-f997af7f3abd/full/full/0/default.jpg" target="_blank">Full image ↗</a><a href="https://www.nga.gov/collection/art-object-page.182257.html" target="_blank">Natl Gallery page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://www.artic.edu/iiif/2/444f3e95-b21f-c821-e6af-00fe9560fb95/full/700,/0/default.jpg" alt="Statue of the Madonna in the Mountains" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-wc">Watercolor</span>
+    <span class="tag tag-src">AIC</span>
+    <div class="card-title">"Statue of the Madonna in the Mountains"</div>
+    <div class="card-artist">Caspar David Friedrich</div>
+    <div class="card-meta"><b>1804</b><br>Brush and black ink and gray wash, with graphite, on cream wove paper<br></div>
+    <div class="dims">Physical: 24.4 × 38.2 cm (ratio 1.57)<br>Image: 12369 × 8001px (309 DPI@40")</div>
+    <div class="card-links"><a href="https://www.artic.edu/iiif/2/444f3e95-b21f-c821-e6af-00fe9560fb95/full/full/0/default.jpg" target="_blank">Full image ↗</a><a href="https://www.artic.edu/artworks/50276" target="_blank">Art Institute page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://www.artic.edu/iiif/2/4472904e-92de-7e95-d52e-4a7c764973df/full/700,/0/default.jpg" alt="Schooner - Nassau" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-wc">Watercolor</span>
+    <span class="tag tag-src">AIC</span>
+    <div class="card-title">"Schooner - Nassau"</div>
+    <div class="card-artist">Winslow Homer</div>
+    <div class="card-meta"><b>1898/99</b><br>Transparent watercolor, with traces of opaque watercolor, rewetting, blotting an…<br></div>
+    <div class="dims">Physical: 38.0 × 54.5 cm (ratio 1.43)<br>Image: 11801 × 8288px (295 DPI@40")</div>
+    <div class="card-links"><a href="https://www.artic.edu/iiif/2/4472904e-92de-7e95-d52e-4a7c764973df/full/full/0/default.jpg" target="_blank">Full image ↗</a><a href="https://www.artic.edu/artworks/145823" target="_blank">Art Institute page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/cb/Winslow_Homer_-_Schooner%2C_Nassau_%281898-99%29.jpg/960px-Winslow_Homer_-_Schooner%2C_Nassau_%281898-99%29.jpg" alt="Schooner - Nassau label QS:Len,&quot;Schooner - Nassau&quot;" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-wc">Watercolor</span>
+    <span class="tag tag-src">WIKIMEDIA</span>
+    <div class="card-title">"Schooner - Nassau label QS:Len,"Schooner - Nassau""</div>
+    <div class="card-artist">Winslow Homer</div>
+    <div class="card-meta"><b>1898</b><br>watercolor on paper<br></div>
+    <div class="dims">Image: 11801 × 8288px (295 DPI@40")</div>
+    <div class="card-links"><a href="https://upload.wikimedia.org/wikipedia/commons/c/cb/Winslow_Homer_-_Schooner%2C_Nassau_%281898-99%29.jpg" target="_blank">Full image ↗</a><a href="https://commons.wikimedia.org/wiki/File:Winslow_Homer_-_Schooner,_Nassau_(1898-99).jpg" target="_blank">Wikimedia page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://www.artic.edu/iiif/2/b34de958-1cbe-065f-4941-c34f64d2b366/full/700,/0/default.jpg" alt="After the Hurricane, Bahamas" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-wc">Watercolor</span>
+    <span class="tag tag-src">AIC</span>
+    <div class="card-title">"After the Hurricane, Bahamas"</div>
+    <div class="card-artist">Winslow Homer</div>
+    <div class="card-meta"><b>1899</b><br>Transparent watercolor, with touches of opaque watercolor, rewetting, blotting a…<br></div>
+    <div class="dims">Physical: 37.2 × 54.2 cm (ratio 1.46)<br>Image: 11777 × 8265px (294 DPI@40")</div>
+    <div class="card-links"><a href="https://www.artic.edu/iiif/2/b34de958-1cbe-065f-4941-c34f64d2b366/full/full/0/default.jpg" target="_blank">Full image ↗</a><a href="https://www.artic.edu/artworks/16776" target="_blank">Art Institute page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/24/Winslow_Homer_-_After_the_Hurricane%2C_Bahamas_%281899%29.jpg/960px-Winslow_Homer_-_After_the_Hurricane%2C_Bahamas_%281899%29.jpg" alt="After the Hurricane, Bahamas" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-wc">Watercolor</span>
+    <span class="tag tag-src">WIKIMEDIA</span>
+    <div class="card-title">"After the Hurricane, Bahamas"</div>
+    <div class="card-artist">Winslow Homer</div>
+    <div class="card-meta"><b>1899</b><br>watercolor on paper<br></div>
+    <div class="dims">Image: 11569 × 8095px (289 DPI@40")</div>
+    <div class="card-links"><a href="https://upload.wikimedia.org/wikipedia/commons/2/24/Winslow_Homer_-_After_the_Hurricane%2C_Bahamas_%281899%29.jpg" target="_blank">Full image ↗</a><a href="https://commons.wikimedia.org/wiki/File:Winslow_Homer_-_After_the_Hurricane,_Bahamas_(1899).jpg" target="_blank">Wikimedia page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://www.artic.edu/iiif/2/5ca8e39e-8cf3-b0e1-a4a2-b54444954de3/full/700,/0/default.jpg" alt="Sunshine and Shadow, Prout's Neck" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-wc">Watercolor</span>
+    <span class="tag tag-src">AIC</span>
+    <div class="card-title">"Sunshine and Shadow, Prout's Neck"</div>
+    <div class="card-artist">Winslow Homer</div>
+    <div class="card-meta"><b>1894</b><br>Watercolor, with rewetting and blotting, over graphite, on thick, rough-textured…<br></div>
+    <div class="dims">Physical: 38.5 × 54.6 cm (ratio 1.42)<br>Image: 11543 × 8047px (289 DPI@40")</div>
+    <div class="card-links"><a href="https://www.artic.edu/iiif/2/5ca8e39e-8cf3-b0e1-a4a2-b54444954de3/full/full/0/default.jpg" target="_blank">Full image ↗</a><a href="https://www.artic.edu/artworks/16834" target="_blank">Art Institute page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://www.artic.edu/iiif/2/2a4794cd-a78e-b43d-06e8-65573bf812e9/full/700,/0/default.jpg" alt="Life-Size Black Bass" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-wc">Watercolor</span>
+    <span class="tag tag-src">AIC</span>
+    <div class="card-title">"Life-Size Black Bass"</div>
+    <div class="card-artist">Winslow Homer</div>
+    <div class="card-meta"><b>1904</b><br>Transparent watercolor, with touches of opaque watercolor, rewetting, blotting a…<br></div>
+    <div class="dims">Physical: 35.0 × 52.6 cm (ratio 1.50)<br>Image: 11310 × 7535px (283 DPI@40")</div>
+    <div class="card-links"><a href="https://www.artic.edu/iiif/2/2a4794cd-a78e-b43d-06e8-65573bf812e9/full/full/0/default.jpg" target="_blank">Full image ↗</a><a href="https://www.artic.edu/artworks/189152" target="_blank">Art Institute page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://www.artic.edu/iiif/2/a43821ad-2d25-3098-ac50-7e55d2173b26/full/700,/0/default.jpg" alt="Interior View of the Church of St. Peter's in the Vatican" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-wc">Watercolor</span>
+    <span class="tag tag-src">AIC</span>
+    <div class="card-title">"Interior View of the Church of St. Peter's in the Vatican"</div>
+    <div class="card-artist">Francesco Panini</div>
+    <div class="card-meta"><b>c. 1770</b><br>Transparent and opaque watercolors with shell gold and pen and black ink, over e…<br></div>
+    <div class="dims">Physical: 58.0 × 88.5 cm (ratio 1.53)<br>Image: 11275 × 7491px (282 DPI@40")</div>
+    <div class="card-links"><a href="https://www.artic.edu/iiif/2/a43821ad-2d25-3098-ac50-7e55d2173b26/full/full/0/default.jpg" target="_blank">Full image ↗</a><a href="https://www.artic.edu/artworks/147067" target="_blank">Art Institute page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://api.nga.gov/iiif/2f98f68b-b379-4410-844b-5a4c431b964a/full/!700,700/0/default.jpg" alt="Fan with Poppies" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-wc">Watercolor</span>
+    <span class="tag tag-src">NGA</span>
+    <div class="card-title">"Fan with Poppies"</div>
+    <div class="card-artist">Henri-Charles Guérard</div>
+    <div class="card-meta"><b>c. 1890</b><br>gouache on blue silk, partially faded, with pieces of paper residue marking the …<br></div>
+    <div class="dims">Physical: 61.0 × 33.4 cm (ratio 1.83)<br>Image: 11245 × 6177px (281 DPI@40")</div>
+    <div class="card-links"><a href="https://api.nga.gov/iiif/2f98f68b-b379-4410-844b-5a4c431b964a/full/full/0/default.jpg" target="_blank">Full image ↗</a><a href="https://www.nga.gov/collection/art-object-page.209771.html" target="_blank">Natl Gallery page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://www.artic.edu/iiif/2/3d3c78e3-3360-f2d1-894d-556b5e289dab/full/700,/0/default.jpg" alt="Netting the Fish" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-wc">Watercolor</span>
+    <span class="tag tag-src">AIC</span>
+    <div class="card-title">"Netting the Fish"</div>
+    <div class="card-artist">Winslow Homer</div>
+    <div class="card-meta"><b>1889</b><br>Transparent watercolor, heightened with opaque white watercolor, with rewetting,…<br></div>
+    <div class="dims">Physical: 35.3 × 50.8 cm (ratio 1.44)<br>Image: 11135 × 7811px (278 DPI@40")</div>
+    <div class="card-links"><a href="https://www.artic.edu/iiif/2/3d3c78e3-3360-f2d1-894d-556b5e289dab/full/full/0/default.jpg" target="_blank">Full image ↗</a><a href="https://www.artic.edu/artworks/14837" target="_blank">Art Institute page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://www.artic.edu/iiif/2/c3152f34-b272-5bc5-bf52-031c467bb57a/full/700,/0/default.jpg" alt="The End of the Day, Adirondacks" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-wc">Watercolor</span>
+    <span class="tag tag-src">AIC</span>
+    <div class="card-title">"The End of the Day, Adirondacks"</div>
+    <div class="card-artist">Winslow Homer</div>
+    <div class="card-meta"><b>1890</b><br>Transparent watercolor, with traces of opaque watercolor, rewetting, blotting, a…<br></div>
+    <div class="dims">Physical: 35.4 × 50.8 cm (ratio 1.44)<br>Image: 11012 × 7746px (275 DPI@40")</div>
+    <div class="card-links"><a href="https://www.artic.edu/iiif/2/c3152f34-b272-5bc5-bf52-031c467bb57a/full/full/0/default.jpg" target="_blank">Full image ↗</a><a href="https://www.artic.edu/artworks/16785" target="_blank">Art Institute page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://api.nga.gov/iiif/af7c653a-c255-41e5-bfe7-244268bee649/full/!700,700/0/default.jpg" alt="Untitled" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-wc">Watercolor</span>
+    <span class="tag tag-src">NGA</span>
+    <div class="card-title">"Untitled"</div>
+    <div class="card-artist">Emily Sargent</div>
+    <div class="card-meta"><b>1904</b><br>watercolor<br></div>
+    <div class="dims">Physical: 50.8 × 35.6 cm (ratio 1.43)<br>Image: 10875 × 7603px (272 DPI@40")</div>
+    <div class="card-links"><a href="https://api.nga.gov/iiif/af7c653a-c255-41e5-bfe7-244268bee649/full/full/0/default.jpg" target="_blank">Full image ↗</a><a href="https://www.nga.gov/collection/art-object-page.222881.html" target="_blank">Natl Gallery page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://www.artic.edu/iiif/2/2ba29e23-e11f-1346-971f-a8c63f94bc54/full/700,/0/default.jpg" alt="Boy in Boat, Gloucester" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-wc">Watercolor</span>
+    <span class="tag tag-src">AIC</span>
+    <div class="card-title">"Boy in Boat, Gloucester"</div>
+    <div class="card-artist">Winslow Homer</div>
+    <div class="card-meta"><b>1880/81</b><br>Transparent watercolor, with touches of opaque watercolor and scraping, over gra…<br></div>
+    <div class="dims">Physical: 23.2 × 34.9 cm (ratio 1.50)<br>Image: 10858 × 7248px (271 DPI@40")</div>
+    <div class="card-links"><a href="https://www.artic.edu/iiif/2/2ba29e23-e11f-1346-971f-a8c63f94bc54/full/full/0/default.jpg" target="_blank">Full image ↗</a><a href="https://www.artic.edu/artworks/16800" target="_blank">Art Institute page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/37/Winslow_Homer_-_The_End_of_the_Day%2C_Adirondacks_%281890%29.jpg/960px-Winslow_Homer_-_The_End_of_the_Day%2C_Adirondacks_%281890%29.jpg" alt="The End of the Day, Adirondacks" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-wc">Watercolor</span>
+    <span class="tag tag-src">WIKIMEDIA</span>
+    <div class="card-title">"The End of the Day, Adirondacks"</div>
+    <div class="card-artist">Winslow Homer</div>
+    <div class="card-meta"><b>1890</b><br>watercolor on paper<br></div>
+    <div class="dims">Image: 10834 × 7549px (271 DPI@40")</div>
+    <div class="card-links"><a href="https://upload.wikimedia.org/wikipedia/commons/3/37/Winslow_Homer_-_The_End_of_the_Day%2C_Adirondacks_%281890%29.jpg" target="_blank">Full image ↗</a><a href="https://commons.wikimedia.org/wiki/File:Winslow_Homer_-_The_End_of_the_Day,_Adirondacks_(1890).jpg" target="_blank">Wikimedia page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://www.artic.edu/iiif/2/1de73bb7-52d6-e099-f4e1-763e201e78fa/full/700,/0/default.jpg" alt="The Water Fan" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-wc">Watercolor</span>
+    <span class="tag tag-src">AIC</span>
+    <div class="card-title">"The Water Fan"</div>
+    <div class="card-artist">Winslow Homer</div>
+    <div class="card-meta"><b>1898/99</b><br>Watercolor, with blotting and touches of scraping, over graphite, on thick, roug…<br></div>
+    <div class="dims">Physical: 37.4 × 53.4 cm (ratio 1.43)<br>Image: 10659 × 7423px (266 DPI@40")</div>
+    <div class="card-links"><a href="https://www.artic.edu/iiif/2/1de73bb7-52d6-e099-f4e1-763e201e78fa/full/full/0/default.jpg" target="_blank">Full image ↗</a><a href="https://www.artic.edu/artworks/38666" target="_blank">Art Institute page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/be/Winslow_Homer_-_The_Water_Fan_%281898-99%29.jpg/960px-Winslow_Homer_-_The_Water_Fan_%281898-99%29.jpg" alt="The Water Fan" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-wc">Watercolor</span>
+    <span class="tag tag-src">WIKIMEDIA</span>
+    <div class="card-title">"The Water Fan"</div>
+    <div class="card-artist">Winslow Homer</div>
+    <div class="card-meta"><b>1898</b><br>watercolor on paper<br></div>
+    <div class="dims">Image: 10659 × 7423px (266 DPI@40")</div>
+    <div class="card-links"><a href="https://upload.wikimedia.org/wikipedia/commons/b/be/Winslow_Homer_-_The_Water_Fan_%281898-99%29.jpg" target="_blank">Full image ↗</a><a href="https://commons.wikimedia.org/wiki/File:Winslow_Homer_-_The_Water_Fan_(1898-99).jpg" target="_blank">Wikimedia page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://www.artic.edu/iiif/2/560ff8f8-8932-6114-54d5-8174144615e5/full/700,/0/default.jpg" alt="Mussooree and the Dhoon from Landour" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-wc">Watercolor</span>
+    <span class="tag tag-src">AIC</span>
+    <div class="card-title">"Mussooree and the Dhoon from Landour"</div>
+    <div class="card-artist">Joseph Mallord William Turner</div>
+    <div class="card-meta"><b>c. 1835</b><br>Watercolor and gouache, over graphite, on off-white wove paper, edge mounted on …<br></div>
+    <div class="dims">Physical: 12.3 × 20.2 cm (ratio 1.64)<br>Image: 10316 × 6346px (258 DPI@40")</div>
+    <div class="card-links"><a href="https://www.artic.edu/iiif/2/560ff8f8-8932-6114-54d5-8174144615e5/full/full/0/default.jpg" target="_blank">Full image ↗</a><a href="https://www.artic.edu/artworks/186418" target="_blank">Art Institute page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://api.nga.gov/iiif/a75b8149-14f7-44bb-b025-e91f7a17fa7c/full/!700,700/0/default.jpg" alt="Building with Washing" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-wc">Watercolor</span>
+    <span class="tag tag-src">NGA</span>
+    <div class="card-title">"Building with Washing"</div>
+    <div class="card-artist">Emily Sargent</div>
+    <div class="card-meta"><b>1908</b><br>watercolor<br></div>
+    <div class="dims">Physical: 47.0 × 31.8 cm (ratio 1.48)<br>Image: 10263 × 6870px (257 DPI@40")</div>
+    <div class="card-links"><a href="https://api.nga.gov/iiif/a75b8149-14f7-44bb-b025-e91f7a17fa7c/full/full/0/default.jpg" target="_blank">Full image ↗</a><a href="https://www.nga.gov/collection/art-object-page.222879.html" target="_blank">Natl Gallery page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/Winslow_Homer_-_Shepherdess_of_Houghton_Farm_%281878%29.jpg/960px-Winslow_Homer_-_Shepherdess_of_Houghton_Farm_%281878%29.jpg" alt="Shepherdess of Houghton Farm" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-wc">Watercolor</span>
+    <span class="tag tag-src">WIKIMEDIA</span>
+    <div class="card-title">"Shepherdess of Houghton Farm"</div>
+    <div class="card-artist">Winslow Homer</div>
+    <div class="card-meta"><b>1878</b><br>watercolor on paper<br></div>
+    <div class="dims">Image: 9955 × 5779px (249 DPI@40")</div>
+    <div class="card-links"><a href="https://upload.wikimedia.org/wikipedia/commons/b/b3/Winslow_Homer_-_Shepherdess_of_Houghton_Farm_%281878%29.jpg" target="_blank">Full image ↗</a><a href="https://commons.wikimedia.org/wiki/File:Winslow_Homer_-_Shepherdess_of_Houghton_Farm_(1878).jpg" target="_blank">Wikimedia page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/Homer_Fishing_Boats%2C_Key_West.jpg/960px-Homer_Fishing_Boats%2C_Key_West.jpg" alt="Fishing Boats, Key West" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-wc">Watercolor</span>
+    <span class="tag tag-src">WIKIMEDIA</span>
+    <div class="card-title">"Fishing Boats, Key West"</div>
+    <div class="card-artist">Winslow Homer</div>
+    <div class="card-meta"><b>1903</b><br>watercolor on paper<br></div>
+    <div class="dims">Image: 9947 × 6360px (249 DPI@40")</div>
+    <div class="card-links"><a href="https://upload.wikimedia.org/wikipedia/commons/a/ab/Homer_Fishing_Boats%2C_Key_West.jpg" target="_blank">Full image ↗</a><a href="https://commons.wikimedia.org/wiki/File:Homer_Fishing_Boats,_Key_West.jpg" target="_blank">Wikimedia page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/cc/Winslow_Homer_-_A_good_pool%2C_Saguenay_River.jpg/960px-Winslow_Homer_-_A_good_pool%2C_Saguenay_River.jpg" alt="A good pool, Saguenay River label QS:Len,&quot;A good pool, Saguenay River&quot;" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-wc">Watercolor</span>
+    <span class="tag tag-src">WIKIMEDIA</span>
+    <div class="card-title">"A good pool, Saguenay River label QS:Len,"A good pool, Saguenay River""</div>
+    <div class="card-artist">Winslow Homer</div>
+    <div class="card-meta"><b>1895</b><br>watercolor on paper<br></div>
+    <div class="dims">Image: 9924 × 5178px (248 DPI@40")</div>
+    <div class="card-links"><a href="https://upload.wikimedia.org/wikipedia/commons/c/cc/Winslow_Homer_-_A_good_pool%2C_Saguenay_River.jpg" target="_blank">Full image ↗</a><a href="https://commons.wikimedia.org/wiki/File:Winslow_Homer_-_A_good_pool,_Saguenay_River.jpg" target="_blank">Wikimedia page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/ed/Winslow_Homer_-_Fish_and_Butterflies.jpg/960px-Winslow_Homer_-_Fish_and_Butterflies.jpg" alt="Fish and Butterflies label QS:Len,&quot;Fish and Butterflies&quot;" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-wc">Watercolor</span>
+    <span class="tag tag-src">WIKIMEDIA</span>
+    <div class="card-title">"Fish and Butterflies label QS:Len,"Fish and Butterflies""</div>
+    <div class="card-artist">Winslow Homer</div>
+    <div class="card-meta"><b>1900</b><br>watercolor on paper<br></div>
+    <div class="dims">Image: 9906 × 6925px (248 DPI@40")</div>
+    <div class="card-links"><a href="https://upload.wikimedia.org/wikipedia/commons/e/ed/Winslow_Homer_-_Fish_and_Butterflies.jpg" target="_blank">Full image ↗</a><a href="https://commons.wikimedia.org/wiki/File:Winslow_Homer_-_Fish_and_Butterflies.jpg" target="_blank">Wikimedia page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://api.nga.gov/iiif/e3373364-aba7-4500-a09e-a66f39eeb1c9/full/!700,700/0/default.jpg" alt="Coastal Seascape" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-wc">Watercolor</span>
+    <span class="tag tag-src">NGA</span>
+    <div class="card-title">"Coastal Seascape"</div>
+    <div class="card-artist">B. de Brycker</div>
+    <div class="card-meta"><b>c. 1880</b><br>gouache on paperboard<br></div>
+    <div class="dims">Physical: 33.0 × 6.7 cm (ratio 4.95)<br>Image: 9845 × 1857px (246 DPI@40")</div>
+    <div class="card-links"><a href="https://api.nga.gov/iiif/e3373364-aba7-4500-a09e-a66f39eeb1c9/full/full/0/default.jpg" target="_blank">Full image ↗</a><a href="https://www.nga.gov/collection/art-object-page.220953.html" target="_blank">Natl Gallery page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://api.nga.gov/iiif/4154e04d-3dd5-4b2c-9d95-006539d04fd3/full/!700,700/0/default.jpg" alt="Tangier" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-wc">Watercolor</span>
+    <span class="tag tag-src">NGA</span>
+    <div class="card-title">"Tangier"</div>
+    <div class="card-artist">Emily Sargent</div>
+    <div class="card-meta"><b>1900</b><br>watercolor<br></div>
+    <div class="dims">Physical: 45.7 × 30.5 cm (ratio 1.50)<br>Image: 9817 × 6588px (245 DPI@40")</div>
+    <div class="card-links"><a href="https://api.nga.gov/iiif/4154e04d-3dd5-4b2c-9d95-006539d04fd3/full/full/0/default.jpg" target="_blank">Full image ↗</a><a href="https://www.nga.gov/collection/art-object-page.222884.html" target="_blank">Natl Gallery page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://www.artic.edu/iiif/2/84d9d54d-a83c-bf89-fa5f-a0665cb9cc47/full/700,/0/default.jpg" alt="Montagne Sainte-Victoire (The Arc Valley)" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-wc">Watercolor</span>
+    <span class="tag tag-src">AIC</span>
+    <div class="card-title">"Montagne Sainte-Victoire (The Arc Valley)"</div>
+    <div class="card-artist">Paul Cézanne</div>
+    <div class="card-meta"><b>c. 1885</b><br>Watercolor with graphite, heightened with opaque white watercolor, on cream wove…<br></div>
+    <div class="dims">Physical: 35.4 × 53.7 cm (ratio 1.52)<br>Image: 9810 × 6534px (245 DPI@40")</div>
+    <div class="card-links"><a href="https://www.artic.edu/iiif/2/84d9d54d-a83c-bf89-fa5f-a0665cb9cc47/full/full/0/default.jpg" target="_blank">Full image ↗</a><a href="https://www.artic.edu/artworks/20529" target="_blank">Art Institute page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://api.nga.gov/iiif/f7598a21-3a22-4069-92c3-cff1c6663149/full/!700,700/0/default.jpg" alt="Elaborate Wall Decoration with Endymion and Hebe" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-wc">Watercolor</span>
+    <span class="tag tag-src">NGA</span>
+    <div class="card-title">"Elaborate Wall Decoration with Endymion and Hebe"</div>
+    <div class="card-artist">Tommaso Bigatti</div>
+    <div class="card-meta"><b>c. 1800</b><br>gouache with gum arabic on "swan skin" (fine mammalian parchment made to appear …<br></div>
+    <div class="dims">Physical: 53.0 × 30.2 cm (ratio 1.75)<br>Image: 9600 × 5141px (240 DPI@40")</div>
+    <div class="card-links"><a href="https://api.nga.gov/iiif/f7598a21-3a22-4069-92c3-cff1c6663149/full/full/0/default.jpg" target="_blank">Full image ↗</a><a href="https://www.nga.gov/collection/art-object-page.211410.html" target="_blank">Natl Gallery page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://api.nga.gov/iiif/d134d3c3-2576-434e-9fc4-1ff3125a21b7/full/!700,700/0/default.jpg" alt="Quayside Scene with Church" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-wc">Watercolor</span>
+    <span class="tag tag-src">NGA</span>
+    <div class="card-title">"Quayside Scene with Church"</div>
+    <div class="card-artist">Emily Sargent</div>
+    <div class="card-meta"><b>1908</b><br>watercolor<br></div>
+    <div class="dims">Physical: 31.1 × 46.7 cm (ratio 1.50)<br>Image: 9400 × 6775px (235 DPI@40")</div>
+    <div class="card-links"><a href="https://api.nga.gov/iiif/d134d3c3-2576-434e-9fc4-1ff3125a21b7/full/full/0/default.jpg" target="_blank">Full image ↗</a><a href="https://www.nga.gov/collection/art-object-page.222875.html" target="_blank">Natl Gallery page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a3/Perils_of_the_Sea_Winslow_Homer_1881.jpeg/960px-Perils_of_the_Sea_Winslow_Homer_1881.jpeg" alt="Perils of the Sea label QS:Len,&quot;Perils of the Sea&quot;" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-wc">Watercolor</span>
+    <span class="tag tag-src">WIKIMEDIA</span>
+    <div class="card-title">"Perils of the Sea label QS:Len,"Perils of the Sea""</div>
+    <div class="card-artist">Winslow Homer</div>
+    <div class="card-meta"><b>1881</b><br>watercolor on paper<br></div>
+    <div class="dims">Image: 9213 × 6458px (230 DPI@40")</div>
+    <div class="card-links"><a href="https://upload.wikimedia.org/wikipedia/commons/a/a3/Perils_of_the_Sea_Winslow_Homer_1881.jpeg" target="_blank">Full image ↗</a><a href="https://commons.wikimedia.org/wiki/File:Perils_of_the_Sea_Winslow_Homer_1881.jpeg" target="_blank">Wikimedia page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/45/Winslow_Homer_An_October_Day.jpg/960px-Winslow_Homer_An_October_Day.jpg" alt="An October Day label QS:Len,&quot;An October Day&quot;" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-wc">Watercolor</span>
+    <span class="tag tag-src">WIKIMEDIA</span>
+    <div class="card-title">"An October Day label QS:Len,"An October Day""</div>
+    <div class="card-artist">Winslow Homer</div>
+    <div class="card-meta"><b>1889</b><br>watercolor on paper<br></div>
+    <div class="dims">Image: 9160 × 6426px (229 DPI@40")</div>
+    <div class="card-links"><a href="https://upload.wikimedia.org/wikipedia/commons/4/45/Winslow_Homer_An_October_Day.jpg" target="_blank">Full image ↗</a><a href="https://commons.wikimedia.org/wiki/File:Winslow_Homer_An_October_Day.jpg" target="_blank">Wikimedia page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/Winslow_Homer_-_Beach_scene%2C_cullercoats.jpg/960px-Winslow_Homer_-_Beach_scene%2C_cullercoats.jpg" alt="Beach Scene, Cullercoats label QS:Len,&quot;Beach Scene, Cullercoats&quot;" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-wc">Watercolor</span>
+    <span class="tag tag-src">WIKIMEDIA</span>
+    <div class="card-title">"Beach Scene, Cullercoats label QS:Len,"Beach Scene, Cullercoats""</div>
+    <div class="card-artist">Winslow Homer</div>
+    <div class="card-meta"><b>1881</b><br>watercolor on paper<br></div>
+    <div class="dims">Image: 9114 × 5444px (228 DPI@40")</div>
+    <div class="card-links"><a href="https://upload.wikimedia.org/wikipedia/commons/f/fa/Winslow_Homer_-_Beach_scene%2C_cullercoats.jpg" target="_blank">Full image ↗</a><a href="https://commons.wikimedia.org/wiki/File:Winslow_Homer_-_Beach_scene,_cullercoats.jpg" target="_blank">Wikimedia page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Georges_Delperier_aquarelle.jpg/960px-Georges_Delperier_aquarelle.jpg" alt="Georges Delperier aquarelle" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-wc">Watercolor</span>
+    <span class="tag tag-src">WIKIMEDIA</span>
+    <div class="card-title">"Georges Delperier aquarelle"</div>
+    <div class="card-artist">Georges Delpérier</div>
+    <div class="card-meta"><b>1915</b><br>watercolor on paper<br></div>
+    <div class="dims">Image: 9005 × 5777px (225 DPI@40")</div>
+    <div class="card-links"><a href="https://upload.wikimedia.org/wikipedia/commons/1/1b/Georges_Delperier_aquarelle.jpg" target="_blank">Full image ↗</a><a href="https://commons.wikimedia.org/wiki/File:Georges_Delperier_aquarelle.jpg" target="_blank">Wikimedia page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://www.artic.edu/iiif/2/9d0b3787-9300-717b-fafb-4f21fc6e4d43/full/700,/0/default.jpg" alt="Sunset" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-wc">Watercolor</span>
+    <span class="tag tag-src">AIC</span>
+    <div class="card-title">"Sunset"</div>
+    <div class="card-artist">Auguste Rodin</div>
+    <div class="card-meta"><b>n.d.</b><br>Watercolor and graphite, with smudging, on cream wove paper<br></div>
+    <div class="dims">Physical: 32.8 × 50.2 cm (ratio 1.53)<br>Image: 8854 × 5707px (221 DPI@40")</div>
+    <div class="card-links"><a href="https://www.artic.edu/iiif/2/9d0b3787-9300-717b-fafb-4f21fc6e4d43/full/full/0/default.jpg" target="_blank">Full image ↗</a><a href="https://www.artic.edu/artworks/66958" target="_blank">Art Institute page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/de/Winslow_Homer_-_Fisherman_in_Quebec%2C_Canada_%281895%29.jpg/960px-Winslow_Homer_-_Fisherman_in_Quebec%2C_Canada_%281895%29.jpg" alt="Fisherman in Quebec, Canada" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-wc">Watercolor</span>
+    <span class="tag tag-src">WIKIMEDIA</span>
+    <div class="card-title">"Fisherman in Quebec, Canada"</div>
+    <div class="card-artist">Winslow Homer</div>
+    <div class="card-meta"><b>1895</b><br>watercolor on paper<br></div>
+    <div class="dims">Image: 8831 × 5488px (221 DPI@40")</div>
+    <div class="card-links"><a href="https://upload.wikimedia.org/wikipedia/commons/d/de/Winslow_Homer_-_Fisherman_in_Quebec%2C_Canada_%281895%29.jpg" target="_blank">Full image ↗</a><a href="https://commons.wikimedia.org/wiki/File:Winslow_Homer_-_Fisherman_in_Quebec,_Canada_(1895).jpg" target="_blank">Wikimedia page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://api.nga.gov/iiif/f91ec3e1-9aed-46da-bfc9-15b9126f3bbd/full/!700,700/0/default.jpg" alt="View across a Bay (Monaco)" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-wc">Watercolor</span>
+    <span class="tag tag-src">NGA</span>
+    <div class="card-title">"View across a Bay (Monaco)"</div>
+    <div class="card-artist">Edward Lear</div>
+    <div class="card-meta"><b>1884/1885</b><br>gray wash and black wash on card<br></div>
+    <div class="dims">Physical: 14.7 × 9.8 cm (ratio 1.50)<br>Image: 8400 × 5580px (210 DPI@40")</div>
+    <div class="card-links"><a href="https://api.nga.gov/iiif/f91ec3e1-9aed-46da-bfc9-15b9126f3bbd/full/full/0/default.jpg" target="_blank">Full image ↗</a><a href="https://www.nga.gov/collection/art-object-page.143734.html" target="_blank">Natl Gallery page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://www.artic.edu/iiif/2/0f508824-c688-36bc-f52f-05ec3717034e/full/700,/0/default.jpg" alt="Miracle of the Deer of Saint Bassiano, from a Choir Book" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-wc">Watercolor</span>
+    <span class="tag tag-src">AIC</span>
+    <div class="card-title">"Miracle of the Deer of Saint Bassiano, from a Choir Book"</div>
+    <div class="card-artist">Master B. F. (possibly Francesco Binasco)</div>
+    <div class="card-meta"><b>1500/10</b><br>Opaque watercolor and shell gold on parchment<br></div>
+    <div class="dims">Physical: 12.6 × 29.5 cm (ratio 2.34)<br>Image: 8104 × 3575px (203 DPI@40")</div>
+    <div class="card-links"><a href="https://www.artic.edu/iiif/2/0f508824-c688-36bc-f52f-05ec3717034e/full/full/0/default.jpg" target="_blank">Full image ↗</a><a href="https://www.artic.edu/artworks/235550" target="_blank">Art Institute page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/ff/Landschap_met_bebouwing_tussen_Orvieto_en_Bagnoregio%2C_RP-T-1972-65-5%28V%29.jpg/960px-Landschap_met_bebouwing_tussen_Orvieto_en_Bagnoregio%2C_RP-T-1972-65-5%28V%29.jpg" alt="Landschap met bebouwing tussen Orvieto en Bagnoregio, RP-T-1972-65-5(V)" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-wc">Watercolor</span>
+    <span class="tag tag-src">WIKIMEDIA</span>
+    <div class="card-title">"Landschap met bebouwing tussen Orvieto en Bagnoregio, RP-T-1972-65-5(V)"</div>
+    <div class="card-artist">Rijksmuseum</div>
+    <div class="card-meta"><b>1808</b><br>watercolor on paper<br></div>
+    <div class="dims">Image: 8034 × 3072px (201 DPI@40")</div>
+    <div class="card-links"><a href="https://upload.wikimedia.org/wikipedia/commons/f/ff/Landschap_met_bebouwing_tussen_Orvieto_en_Bagnoregio%2C_RP-T-1972-65-5%28V%29.jpg" target="_blank">Full image ↗</a><a href="https://commons.wikimedia.org/wiki/File:Landschap_met_bebouwing_tussen_Orvieto_en_Bagnoregio,_RP-T-1972-65-5(V).jpg" target="_blank">Wikimedia page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://www.artic.edu/iiif/2/d6a6ee14-75f4-c6b8-3d14-a0c0a8344be5/full/700,/0/default.jpg" alt="Olive Trees, Corfu" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-wc">Watercolor</span>
+    <span class="tag tag-src">AIC</span>
+    <div class="card-title">"Olive Trees, Corfu"</div>
+    <div class="card-artist">John Singer Sargent</div>
+    <div class="card-meta"><b>1909</b><br>Watercolor and opaque watercolor with scraping and wax resist over graphite on i…<br></div>
+    <div class="dims">Physical: 35.6 × 50.8 cm (ratio 1.43)<br>Image: 8000 × 6000px (200 DPI@40")</div>
+    <div class="card-links"><a href="https://www.artic.edu/iiif/2/d6a6ee14-75f4-c6b8-3d14-a0c0a8344be5/full/full/0/default.jpg" target="_blank">Full image ↗</a><a href="https://www.artic.edu/artworks/14792" target="_blank">Art Institute page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://openaccess-cdn.clevelandart.org/2015.586/2015.586_web.jpg" alt="View of a City at Night" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-wc">Watercolor</span>
+    <span class="tag tag-src">CLEVELAND</span>
+    <div class="card-title">"View of a City at Night"</div>
+    <div class="card-artist">Unknown</div>
+    <div class="card-meta"><b>1831</b><br>pastel heightened with white gouache<br></div>
+    <div class="dims">Physical: 43.3 × 28.5 cm (ratio 1.52)<br>Image: 14874 × 9871px (372 DPI@40")</div>
+    <div class="card-links"><a href="https://openaccess-cdn.clevelandart.org/2015.586/2015.586_full.tif" target="_blank">Full image ↗</a><a href="https://clevelandart.org/art/2015.586" target="_blank">Cleveland Museum page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://openaccess-cdn.clevelandart.org/2024.35/2024.35_web.jpg" alt="Portraits of Georges Arnold Fitzwilliam and Portrait of Eleanor Ramsay Fitzwilliam; a pair" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-wc">Watercolor</span>
+    <span class="tag tag-src">CLEVELAND</span>
+    <div class="card-title">"Portraits of Georges Arnold Fitzwilliam and Portrait of Eleanor Ramsay Fitzwilli"</div>
+    <div class="card-artist">Unknown</div>
+    <div class="card-meta"><b>c. 1790–1852</b><br>black and white chalk on buff paper with pink wash in original frames<br></div>
+    <div class="dims">Image: 13522 × 8342px (338 DPI@40")</div>
+    <div class="card-links"><a href="https://openaccess-cdn.clevelandart.org/2024.35/2024.35_full.tif" target="_blank">Full image ↗</a><a href="https://clevelandart.org/art/2024.35" target="_blank">Cleveland Museum page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://openaccess-cdn.clevelandart.org/2017.210/2017.210_web.jpg" alt="Le Petit Trianon, Versailles" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-wc">Watercolor</span>
+    <span class="tag tag-src">CLEVELAND</span>
+    <div class="card-title">"Le Petit Trianon, Versailles"</div>
+    <div class="card-artist">Unknown</div>
+    <div class="card-meta"><b>1700s</b><br>gouache<br></div>
+    <div class="dims">Physical: 32.7 × 22.9 cm (ratio 1.43)<br>Image: 13072 × 9368px (327 DPI@40")</div>
+    <div class="card-links"><a href="https://openaccess-cdn.clevelandart.org/2017.210/2017.210_full.tif" target="_blank">Full image ↗</a><a href="https://clevelandart.org/art/2017.210" target="_blank">Cleveland Museum page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://openaccess-cdn.clevelandart.org/1954.128/1954.128_web.jpg" alt="Boy with Anchor" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-wc">Watercolor</span>
+    <span class="tag tag-src">CLEVELAND</span>
+    <div class="card-title">"Boy with Anchor"</div>
+    <div class="card-artist">Unknown</div>
+    <div class="card-meta"><b>1873</b><br>watercolor and gouache with graphite<br></div>
+    <div class="dims">Physical: 34.9 × 19.4 cm (ratio 1.80)<br>Image: 13051 × 7414px (326 DPI@40")</div>
+    <div class="card-links"><a href="https://openaccess-cdn.clevelandart.org/1954.128/1954.128_full.tif" target="_blank">Full image ↗</a><a href="https://clevelandart.org/art/1954.128" target="_blank">Cleveland Museum page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://openaccess-cdn.clevelandart.org/1930.851/1930.851_web.jpg" alt="Lighthouse Village (also known as Cape Elizabeth)" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-wc">Watercolor</span>
+    <span class="tag tag-src">CLEVELAND</span>
+    <div class="card-title">"Lighthouse Village (also known as Cape Elizabeth)"</div>
+    <div class="card-artist">Unknown</div>
+    <div class="card-meta"><b>1929</b><br>watercolor with gouache over graphite<br></div>
+    <div class="dims">Physical: 63.3 × 40.5 cm (ratio 1.56)<br>Image: 13041 × 8429px (326 DPI@40")</div>
+    <div class="card-links"><a href="https://openaccess-cdn.clevelandart.org/1930.851/1930.851_full.tif" target="_blank">Full image ↗</a><a href="https://clevelandart.org/art/1930.851" target="_blank">Cleveland Museum page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://openaccess-cdn.clevelandart.org/2024.60/2024.60_web.jpg" alt="The Manor House, Cresswells" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-wc">Watercolor</span>
+    <span class="tag tag-src">CLEVELAND</span>
+    <div class="card-title">"The Manor House, Cresswells"</div>
+    <div class="card-artist">Unknown</div>
+    <div class="card-meta"><b>c. 1665</b><br>pen, ink, wash with watercolor on two conjoined pieces of paper<br></div>
+    <div class="dims">Physical: 88.9 × 27.9 cm (ratio 3.19)<br>Image: 12839 × 4283px (321 DPI@40")</div>
+    <div class="card-links"><a href="https://openaccess-cdn.clevelandart.org/2024.60/2024.60_full.tif" target="_blank">Full image ↗</a><a href="https://clevelandart.org/art/2024.60" target="_blank">Cleveland Museum page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://openaccess-cdn.clevelandart.org/2022.94/2022.94_web.jpg" alt="Luton Park, Bedfordshire" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-wc">Watercolor</span>
+    <span class="tag tag-src">CLEVELAND</span>
+    <div class="card-title">"Luton Park, Bedfordshire"</div>
+    <div class="card-artist">Unknown</div>
+    <div class="card-meta"><b>1760s</b><br>watercolor over pencil, heightened with bodycolor and pen and gray ink on laid p…<br></div>
+    <div class="dims">Physical: 104.9 × 49.1 cm (ratio 2.14)<br>Image: 12810 × 5854px (320 DPI@40")</div>
+    <div class="card-links"><a href="https://openaccess-cdn.clevelandart.org/2022.94/2022.94_full.tif" target="_blank">Full image ↗</a><a href="https://clevelandart.org/art/2022.94" target="_blank">Cleveland Museum page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://openaccess-cdn.clevelandart.org/2021.101/2021.101_web.jpg" alt="Evening" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-wc">Watercolor</span>
+    <span class="tag tag-src">CLEVELAND</span>
+    <div class="card-title">"Evening"</div>
+    <div class="card-artist">Unknown</div>
+    <div class="card-meta"><b>c. 1879</b><br>conté crayon and charcoal with stumping and white gouache on laid paper discolor…<br></div>
+    <div class="dims">Physical: 48.5 × 31.8 cm (ratio 1.53)<br>Image: 12526 × 8348px (313 DPI@40")</div>
+    <div class="card-links"><a href="https://openaccess-cdn.clevelandart.org/2021.101/2021.101_full.tif" target="_blank">Full image ↗</a><a href="https://clevelandart.org/art/2021.101" target="_blank">Cleveland Museum page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://openaccess-cdn.clevelandart.org/2022.87/2022.87_web.jpg" alt="Asnæs Skov, Bay at Kalundborg Fjord" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-wc">Watercolor</span>
+    <span class="tag tag-src">CLEVELAND</span>
+    <div class="card-title">"Asnæs Skov, Bay at Kalundborg Fjord"</div>
+    <div class="card-artist">Unknown</div>
+    <div class="card-meta"><b>1839</b><br>pen and black ink and gray and brown ink washes with arched framing line in pen …<br></div>
+    <div class="dims">Physical: 37.9 × 26.0 cm (ratio 1.46)<br>Image: 12343 × 7854px (309 DPI@40")</div>
+    <div class="card-links"><a href="https://openaccess-cdn.clevelandart.org/2022.87/2022.87_full.tif" target="_blank">Full image ↗</a><a href="https://clevelandart.org/art/2022.87" target="_blank">Cleveland Museum page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://openaccess-cdn.clevelandart.org/2018.32/2018.32_web.jpg" alt="Traunstein River on the Road to Empfig, Bavaria" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-wc">Watercolor</span>
+    <span class="tag tag-src">CLEVELAND</span>
+    <div class="card-title">"Traunstein River on the Road to Empfig, Bavaria"</div>
+    <div class="card-artist">Unknown</div>
+    <div class="card-meta"><b>c. 1893–96</b><br>watercolor and gouache on blue paper<br></div>
+    <div class="dims">Physical: 56.5 × 38.3 cm (ratio 1.48)<br>Image: 12289 × 8399px (307 DPI@40")</div>
+    <div class="card-links"><a href="https://openaccess-cdn.clevelandart.org/2018.32/2018.32_full.tif" target="_blank">Full image ↗</a><a href="https://clevelandart.org/art/2018.32" target="_blank">Cleveland Museum page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://openaccess-cdn.clevelandart.org/2020.225/2020.225_web.jpg" alt="View from the Battery toward the City" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-wc">Watercolor</span>
+    <span class="tag tag-src">CLEVELAND</span>
+    <div class="card-title">"View from the Battery toward the City"</div>
+    <div class="card-artist">Unknown</div>
+    <div class="card-meta"><b>1836</b><br>graphite, pen and black and gray ink, and brush and gray wash on wove paper<br></div>
+    <div class="dims">Physical: 31.5 × 18.5 cm (ratio 1.70)<br>Image: 11707 × 7027px (293 DPI@40")</div>
+    <div class="card-links"><a href="https://openaccess-cdn.clevelandart.org/2020.225/2020.225_full.tif" target="_blank">Full image ↗</a><a href="https://clevelandart.org/art/2020.225" target="_blank">Cleveland Museum page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://openaccess-cdn.clevelandart.org/2020.142/2020.142_web.jpg" alt="The Ruin of Huis 't Sant at Katwijk aan Zee" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-wc">Watercolor</span>
+    <span class="tag tag-src">CLEVELAND</span>
+    <div class="card-title">"The Ruin of Huis 't Sant at Katwijk aan Zee"</div>
+    <div class="card-artist">Unknown</div>
+    <div class="card-meta"><b>1647</b><br>black chalk and gray wash, with some oiled charcoal, on cream laid paper<br></div>
+    <div class="dims">Physical: 50.6 × 34.5 cm (ratio 1.47)<br>Image: 11554 × 8025px (289 DPI@40")</div>
+    <div class="card-links"><a href="https://openaccess-cdn.clevelandart.org/2020.142/2020.142_full.tif" target="_blank">Full image ↗</a><a href="https://clevelandart.org/art/2020.142" target="_blank">Cleveland Museum page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://openaccess-cdn.clevelandart.org/2022.9/2022.9_web.jpg" alt="Studies of Insects" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-wc">Watercolor</span>
+    <span class="tag tag-src">CLEVELAND</span>
+    <div class="card-title">"Studies of Insects"</div>
+    <div class="card-artist">Unknown</div>
+    <div class="card-meta"><b>c. 1665–1727</b><br>watercolor, opaque watercolor, and gum arabic with brown ink framing lines<br></div>
+    <div class="dims">Physical: 31.4 × 20.7 cm (ratio 1.52)<br>Image: 11532 × 7639px (288 DPI@40")</div>
+    <div class="card-links"><a href="https://openaccess-cdn.clevelandart.org/2022.9/2022.9_full.tif" target="_blank">Full image ↗</a><a href="https://clevelandart.org/art/2022.9" target="_blank">Cleveland Museum page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://openaccess-cdn.clevelandart.org/1954.682/1954.682_web.jpg" alt="The Peasant Who Blew Hot and Cold (copy after Aegidius Sadeler)" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-wc">Watercolor</span>
+    <span class="tag tag-src">CLEVELAND</span>
+    <div class="card-title">"The Peasant Who Blew Hot and Cold (copy after Aegidius Sadeler)"</div>
+    <div class="card-artist">Unknown</div>
+    <div class="card-meta"><b>c. 1610</b><br>pen and black ink and brush and gray wash<br></div>
+    <div class="dims">Physical: 11.5 × 8.2 cm (ratio 1.40)<br>Image: 10845 × 8419px (271 DPI@40")</div>
+    <div class="card-links"><a href="https://openaccess-cdn.clevelandart.org/1954.682/1954.682_full.tif" target="_blank">Full image ↗</a><a href="https://clevelandart.org/art/1954.682" target="_blank">Cleveland Museum page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://openaccess-cdn.clevelandart.org/2020.144/2020.144_web.jpg" alt="A Track on the Edge of a Wood with a Peasant Carrying Sheep" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-wc">Watercolor</span>
+    <span class="tag tag-src">CLEVELAND</span>
+    <div class="card-title">"A Track on the Edge of a Wood with a Peasant Carrying Sheep"</div>
+    <div class="card-artist">Unknown</div>
+    <div class="card-meta"><b>after 1640</b><br>charcoal and wetted charcoal and gray wash on cream laid paper<br></div>
+    <div class="dims">Physical: 39.5 × 25.8 cm (ratio 1.53)<br>Image: 10705 × 7206px (268 DPI@40")</div>
+    <div class="card-links"><a href="https://openaccess-cdn.clevelandart.org/2020.144/2020.144_full.tif" target="_blank">Full image ↗</a><a href="https://clevelandart.org/art/2020.144" target="_blank">Cleveland Museum page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://openaccess-cdn.clevelandart.org/2022.3/2022.3_web.jpg" alt="Balaam and the Ass" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-wc">Watercolor</span>
+    <span class="tag tag-src">CLEVELAND</span>
+    <div class="card-title">"Balaam and the Ass"</div>
+    <div class="card-artist">Unknown</div>
+    <div class="card-meta"><b>1583</b><br>gouache heightened with gold on vellum laid down on panel<br></div>
+    <div class="dims">Physical: 19.6 × 13.7 cm (ratio 1.43)<br>Image: 10664 × 7277px (267 DPI@40")</div>
+    <div class="card-links"><a href="https://openaccess-cdn.clevelandart.org/2022.3/2022.3_full.tif" target="_blank">Full image ↗</a><a href="https://clevelandart.org/art/2022.3" target="_blank">Cleveland Museum page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://openaccess-cdn.clevelandart.org/2019.61/2019.61_web.jpg" alt="A Caravan in the Desert" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-wc">Watercolor</span>
+    <span class="tag tag-src">CLEVELAND</span>
+    <div class="card-title">"A Caravan in the Desert"</div>
+    <div class="card-artist">Unknown</div>
+    <div class="card-meta"><b>c. 1860s</b><br>watercolor on wove paper<br></div>
+    <div class="dims">Physical: 31.0 × 19.3 cm (ratio 1.61)<br>Image: 10375 × 6641px (259 DPI@40")</div>
+    <div class="card-links"><a href="https://openaccess-cdn.clevelandart.org/2019.61/2019.61_full.tif" target="_blank">Full image ↗</a><a href="https://clevelandart.org/art/2019.61" target="_blank">Cleveland Museum page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://openaccess-cdn.clevelandart.org/2024.32/2024.32_web.jpg" alt="The Good Samaritan" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-wc">Watercolor</span>
+    <span class="tag tag-src">CLEVELAND</span>
+    <div class="card-title">"The Good Samaritan"</div>
+    <div class="card-artist">Unknown</div>
+    <div class="card-meta"><b>c. 1865–70</b><br>watercolor, gouache, and graphite on paper<br></div>
+    <div class="dims">Physical: 29.4 × 21.0 cm (ratio 1.40)<br>Image: 10035 × 7217px (251 DPI@40")</div>
+    <div class="card-links"><a href="https://openaccess-cdn.clevelandart.org/2024.32/2024.32_full.tif" target="_blank">Full image ↗</a><a href="https://clevelandart.org/art/2024.32" target="_blank">Cleveland Museum page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://openaccess-cdn.clevelandart.org/1955.140/1955.140_web.jpg" alt="Still Life with Birds and Fruit" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-wc">Watercolor</span>
+    <span class="tag tag-src">CLEVELAND</span>
+    <div class="card-title">"Still Life with Birds and Fruit"</div>
+    <div class="card-artist">Unknown</div>
+    <div class="card-meta"><b>c. 1650</b><br>watercolor with graphite, heightened with lead white<br></div>
+    <div class="dims">Physical: 41.6 × 25.7 cm (ratio 1.62)<br>Image: 9648 × 6060px (241 DPI@40")</div>
+    <div class="card-links"><a href="https://openaccess-cdn.clevelandart.org/1955.140/1955.140_full.tif" target="_blank">Full image ↗</a><a href="https://clevelandart.org/art/1955.140" target="_blank">Cleveland Museum page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://openaccess-cdn.clevelandart.org/2021.108/2021.108_web.jpg" alt="Two Boats at the Harbor of Dieppe" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-wc">Watercolor</span>
+    <span class="tag tag-src">CLEVELAND</span>
+    <div class="card-title">"Two Boats at the Harbor of Dieppe"</div>
+    <div class="card-artist">Unknown</div>
+    <div class="card-meta"><b>1854</b><br>watercolor and pencil on paper laid down on board<br></div>
+    <div class="dims">Physical: 34.6 × 22.5 cm (ratio 1.54)<br>Image: 9225 × 6179px (231 DPI@40")</div>
+    <div class="card-links"><a href="https://openaccess-cdn.clevelandart.org/2021.108/2021.108_full.tif" target="_blank">Full image ↗</a><a href="https://clevelandart.org/art/2021.108" target="_blank">Cleveland Museum page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://openaccess-cdn.clevelandart.org/1961.79/1961.79_web.jpg" alt="View of Dordrecht from the River" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-wc">Watercolor</span>
+    <span class="tag tag-src">CLEVELAND</span>
+    <div class="card-title">"View of Dordrecht from the River"</div>
+    <div class="card-artist">Unknown</div>
+    <div class="card-meta"><b>1775–1815</b><br>pen and black and brown ink and brush and black, gray, brown and blue wash, over…<br></div>
+    <div class="dims">Physical: 36.5 × 20.5 cm (ratio 1.78)<br>Image: 8000 × 4534px (200 DPI@40")</div>
+    <div class="card-links"><a href="https://openaccess-cdn.clevelandart.org/1961.79/1961.79_full.tif" target="_blank">Full image ↗</a><a href="https://clevelandart.org/art/1961.79" target="_blank">Cleveland Museum page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://openaccess-cdn.clevelandart.org/2016.6/2016.6_web.jpg" alt="Mountain View" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-wc">Watercolor</span>
+    <span class="tag tag-src">CLEVELAND</span>
+    <div class="card-title">"Mountain View"</div>
+    <div class="card-artist">Unknown</div>
+    <div class="card-meta"><b>1862–67</b><br>watercolor with graphite and touches of gouache and scraping on paper<br></div>
+    <div class="dims">Physical: 75.8 × 52.8 cm (ratio 1.44)<br>Image: 8000 × 5588px (200 DPI@40")</div>
+    <div class="card-links"><a href="https://openaccess-cdn.clevelandart.org/2016.6/2016.6_full.tif" target="_blank">Full image ↗</a><a href="https://clevelandart.org/art/2016.6" target="_blank">Cleveland Museum page ↗</a></div>
+  </div>
+</div>
+</div>
+
+<div class="section-header">Smooth-Technique Oils — 60 works</div>
+<div class="grid">
+<div class="card">
+  <img src="https://api.nga.gov/iiif/0253c293-4cc1-4131-89a9-f2c997aebba0/full/!700,700/0/default.jpg" alt="Autumn - On the Hudson River" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-oil">Smooth Oil</span>
+    <span class="tag tag-src">NGA</span>
+    <div class="card-title">"Autumn - On the Hudson River"</div>
+    <div class="card-artist">Jasper Francis Cropsey</div>
+    <div class="card-meta"><b>1860</b><br>oil on canvas<br></div>
+    <div class="dims">Physical: 274.9 × 151.8 cm (ratio 1.81)<br>Image: 47306 × 26078px (1183 DPI@40")</div>
+    <div class="card-links"><a href="https://api.nga.gov/iiif/0253c293-4cc1-4131-89a9-f2c997aebba0/full/full/0/default.jpg" target="_blank">Full image ↗</a><a href="https://www.nga.gov/collection/art-object-page.46474.html" target="_blank">Natl Gallery page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://api.nga.gov/iiif/08ccd023-4e99-4f91-8ab6-7fa0511b5dc5/full/!700,700/0/default.jpg" alt="Scenes from a Legend" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-oil">Smooth Oil</span>
+    <span class="tag tag-src">NGA</span>
+    <div class="card-title">"Scenes from a Legend"</div>
+    <div class="card-artist">Giovanni Larciani (Master of the Kress Landscapes)</div>
+    <div class="card-meta"><b>probably c. 1515/1520</b><br>oil on canvas<br></div>
+    <div class="dims">Physical: 88.9 × 27.9 cm (ratio 3.19)<br>Image: 37328 × 11346px (933 DPI@40")</div>
+    <div class="card-links"><a href="https://api.nga.gov/iiif/08ccd023-4e99-4f91-8ab6-7fa0511b5dc5/full/full/0/default.jpg" target="_blank">Full image ↗</a><a href="https://www.nga.gov/collection/art-object-page.486.html" target="_blank">Natl Gallery page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://api.nga.gov/iiif/15d2bf9f-4b1b-4518-a77d-de26a4ebda37/full/!700,700/0/default.jpg" alt="Le Bas Meudon (A Curve of the Seine near Paris)" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-oil">Smooth Oil</span>
+    <span class="tag tag-src">NGA</span>
+    <div class="card-title">"Le Bas Meudon (A Curve of the Seine near Paris)"</div>
+    <div class="card-artist">Attributed to Paul Huet</div>
+    <div class="card-meta"><b>c. 1824/1828</b><br>oil on wood<br></div>
+    <div class="dims">Physical: 51.4 × 29.2 cm (ratio 1.76)<br>Image: 33930 × 18938px (848 DPI@40")</div>
+    <div class="card-links"><a href="https://api.nga.gov/iiif/15d2bf9f-4b1b-4518-a77d-de26a4ebda37/full/full/0/default.jpg" target="_blank">Full image ↗</a><a href="https://www.nga.gov/collection/art-object-page.178208.html" target="_blank">Natl Gallery page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://api.nga.gov/iiif/016249c7-c3d7-4203-9b7f-decf29692d6d/full/!700,700/0/default.jpg" alt="Lake George" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-oil">Smooth Oil</span>
+    <span class="tag tag-src">NGA</span>
+    <div class="card-title">"Lake George"</div>
+    <div class="card-artist">John William Casilear</div>
+    <div class="card-meta"><b>after 1851</b><br>oil on canvas<br></div>
+    <div class="dims">Physical: 114.9 × 64.8 cm (ratio 1.77)<br>Image: 33928 × 18800px (848 DPI@40")</div>
+    <div class="card-links"><a href="https://api.nga.gov/iiif/016249c7-c3d7-4203-9b7f-decf29692d6d/full/full/0/default.jpg" target="_blank">Full image ↗</a><a href="https://www.nga.gov/collection/art-object-page.195112.html" target="_blank">Natl Gallery page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://api.nga.gov/iiif/104fd57e-cd5f-4fa5-a31c-440dcd256ed6/full/!700,700/0/default.jpg" alt="En route pour la pêche (Setting Out to Fish)" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-oil">Smooth Oil</span>
+    <span class="tag tag-src">NGA</span>
+    <div class="card-title">"En route pour la pêche (Setting Out to Fish)"</div>
+    <div class="card-artist">John Singer Sargent</div>
+    <div class="card-meta"><b>1878</b><br>oil on canvas<br></div>
+    <div class="dims">Physical: 122.9 × 78.7 cm (ratio 1.56)<br>Image: 31495 × 19903px (787 DPI@40")</div>
+    <div class="card-links"><a href="https://api.nga.gov/iiif/104fd57e-cd5f-4fa5-a31c-440dcd256ed6/full/full/0/default.jpg" target="_blank">Full image ↗</a><a href="https://www.nga.gov/collection/art-object-page.166472.html" target="_blank">Natl Gallery page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://api.nga.gov/iiif/05213163-b2fc-4523-b963-575f85884783/full/!700,700/0/default.jpg" alt="The Much Resounding Sea" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-oil">Smooth Oil</span>
+    <span class="tag tag-src">NGA</span>
+    <div class="card-title">"The Much Resounding Sea"</div>
+    <div class="card-artist">Thomas Moran</div>
+    <div class="card-meta"><b>1884</b><br>oil on canvas<br></div>
+    <div class="dims">Physical: 158.2 × 63.9 cm (ratio 2.48)<br>Image: 29253 × 11664px (731 DPI@40")</div>
+    <div class="card-links"><a href="https://api.nga.gov/iiif/05213163-b2fc-4523-b963-575f85884783/full/full/0/default.jpg" target="_blank">Full image ↗</a><a href="https://www.nga.gov/collection/art-object-page.50729.html" target="_blank">Natl Gallery page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://api.nga.gov/iiif/12daec31-876f-46b1-8f0b-eff186efc4f3/full/!700,700/0/default.jpg" alt="Castle Gondolfo, Lake Albano, Italy" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-oil">Smooth Oil</span>
+    <span class="tag tag-src">NGA</span>
+    <div class="card-title">"Castle Gondolfo, Lake Albano, Italy"</div>
+    <div class="card-artist">Christopher Pearse Cranch</div>
+    <div class="card-meta"><b>1852</b><br>oil on canvas<br></div>
+    <div class="dims">Physical: 138.4 × 92.7 cm (ratio 1.49)<br>Image: 26829 × 17831px (671 DPI@40")</div>
+    <div class="card-links"><a href="https://api.nga.gov/iiif/12daec31-876f-46b1-8f0b-eff186efc4f3/full/full/0/default.jpg" target="_blank">Full image ↗</a><a href="https://www.nga.gov/collection/art-object-page.178320.html" target="_blank">Natl Gallery page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Albert_Bierstadt_-_Buffalo_Trail%2C_The_Impending_Storm_%281869%29_-_NGA.jpg/960px-Albert_Bierstadt_-_Buffalo_Trail%2C_The_Impending_Storm_%281869%29_-_NGA.jpg" alt="Buffalo Trail: The Impending Storm" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-oil">Smooth Oil</span>
+    <span class="tag tag-src">WIKIMEDIA</span>
+    <div class="card-title">"Buffalo Trail: The Impending Storm"</div>
+    <div class="card-artist">Albert Bierstadt</div>
+    <div class="card-meta"><b>1869</b><br>oil on canvas<br></div>
+    <div class="dims">Image: 21225 × 12646px (531 DPI@40")</div>
+    <div class="card-links"><a href="https://upload.wikimedia.org/wikipedia/commons/3/3f/Albert_Bierstadt_-_Buffalo_Trail%2C_The_Impending_Storm_%281869%29_-_NGA.jpg" target="_blank">Full image ↗</a><a href="https://commons.wikimedia.org/wiki/File:Albert_Bierstadt_-_Buffalo_Trail,_The_Impending_Storm_(1869)_-_NGA.jpg" target="_blank">Wikimedia page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://media.getty.edu/iiif/image/60bad9c0-76d4-4661-8f8b-0a6df2bd691e/full/700,/0/default.jpg" alt="Regatta on the Grand Canal in Honor of Frederick IV, King of Denmark" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-oil">Smooth Oil</span>
+    <span class="tag tag-src">GETTY</span>
+    <div class="card-title">"Regatta on the Grand Canal in Honor of Frederick IV, King of Denmark"</div>
+    <div class="card-artist">Luca Carlevarijs</div>
+    <div class="card-meta">oil on canvas<br></div>
+    <div class="dims">Physical: 259.7 × 135.3 cm (ratio 1.92)<br>Image: 20803 × 10722px (520 DPI@40")</div>
+    <div class="card-links"><a href="https://media.getty.edu/iiif/image/60bad9c0-76d4-4661-8f8b-0a6df2bd691e/full/full/0/default.jpg" target="_blank">Full image ↗</a><a href="https://www.getty.edu/art/collection/object/103RJ3" target="_blank">GETTY page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://www.artic.edu/iiif/2/3826e366-e82a-e853-12e4-b303a1618103/full/700,/0/default.jpg" alt="Sawmill, Outskirts of Paris" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-oil">Smooth Oil</span>
+    <span class="tag tag-src">AIC</span>
+    <div class="card-title">"Sawmill, Outskirts of Paris"</div>
+    <div class="card-artist">Henri Rousseau</div>
+    <div class="card-meta"><b>c. 1893/95</b><br>Oil on canvas<br></div>
+    <div class="dims">Physical: 25.5 × 45.5 cm (ratio 1.78)<br>Image: 19601 × 10528px (490 DPI@40")</div>
+    <div class="card-links"><a href="https://www.artic.edu/iiif/2/3826e366-e82a-e853-12e4-b303a1618103/full/full/0/default.jpg" target="_blank">Full image ↗</a><a href="https://www.artic.edu/artworks/68433" target="_blank">Art Institute page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://api.nga.gov/iiif/208a01da-c708-4b7e-980b-9dfffb94cbf1/full/!700,700/0/default.jpg" alt="Beach Scene" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-oil">Smooth Oil</span>
+    <span class="tag tag-src">NGA</span>
+    <div class="card-title">"Beach Scene"</div>
+    <div class="card-artist">Eugène Boudin</div>
+    <div class="card-meta"><b>1862</b><br>oil on wood<br></div>
+    <div class="dims">Physical: 47.5 × 31.2 cm (ratio 1.52)<br>Image: 18641 × 12106px (466 DPI@40")</div>
+    <div class="card-links"><a href="https://api.nga.gov/iiif/208a01da-c708-4b7e-980b-9dfffb94cbf1/full/full/0/default.jpg" target="_blank">Full image ↗</a><a href="https://www.nga.gov/collection/art-object-page.61363.html" target="_blank">Natl Gallery page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://api.nga.gov/iiif/0769e5d6-dcd0-4595-9876-3f48d5305a06/full/!700,700/0/default.jpg" alt="The Moored Boatman: Souvenir of an Italian Lake" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-oil">Smooth Oil</span>
+    <span class="tag tag-src">NGA</span>
+    <div class="card-title">"The Moored Boatman: Souvenir of an Italian Lake"</div>
+    <div class="card-artist">Jean-Baptiste-Camille Corot</div>
+    <div class="card-meta"><b>1861</b><br>oil on canvas<br></div>
+    <div class="dims">Physical: 90.2 × 61.0 cm (ratio 1.48)<br>Image: 18356 × 12185px (459 DPI@40")</div>
+    <div class="card-links"><a href="https://api.nga.gov/iiif/0769e5d6-dcd0-4595-9876-3f48d5305a06/full/full/0/default.jpg" target="_blank">Full image ↗</a><a href="https://www.nga.gov/collection/art-object-page.195865.html" target="_blank">Natl Gallery page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://www.artic.edu/iiif/2/e9ce5aca-4c34-c8dd-b8a1-91b3e3197211/full/700,/0/default.jpg" alt="The Races at Longchamp" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-oil">Smooth Oil</span>
+    <span class="tag tag-src">AIC</span>
+    <div class="card-title">"The Races at Longchamp"</div>
+    <div class="card-artist">Édouard Manet (French, 1832–1883)</div>
+    <div class="card-meta"><b>1866</b><br>Oil on canvas<br></div>
+    <div class="dims">Physical: 44.0 × 84.2 cm (ratio 1.91)<br>Image: 17784 × 9254px (445 DPI@40")</div>
+    <div class="card-links"><a href="https://www.artic.edu/iiif/2/e9ce5aca-4c34-c8dd-b8a1-91b3e3197211/full/full/0/default.jpg" target="_blank">Full image ↗</a><a href="https://www.artic.edu/artworks/81533" target="_blank">Art Institute page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://api.nga.gov/iiif/1ff7cdea-f23a-4158-bb9a-ede300b87574/full/!700,700/0/default.jpg" alt="Hunting Scene with a Pond" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-oil">Smooth Oil</span>
+    <span class="tag tag-src">NGA</span>
+    <div class="card-title">"Hunting Scene with a Pond"</div>
+    <div class="card-artist">American 18th Century</div>
+    <div class="card-meta"><b>18th century</b><br>oil on canvas<br></div>
+    <div class="dims">Physical: 127.4 × 65.8 cm (ratio 1.94)<br>Image: 17660 × 8935px (442 DPI@40")</div>
+    <div class="card-links"><a href="https://api.nga.gov/iiif/1ff7cdea-f23a-4158-bb9a-ede300b87574/full/full/0/default.jpg" target="_blank">Full image ↗</a><a href="https://www.nga.gov/collection/art-object-page.52246.html" target="_blank">Natl Gallery page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://api.nga.gov/iiif/03b37311-d35a-4a91-ab2b-6c3df89ab232/full/!700,700/0/default.jpg" alt="The Northern Whale Fishery: The &quot;Swan&quot; and &quot;Isabella&quot;" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-oil">Smooth Oil</span>
+    <span class="tag tag-src">NGA</span>
+    <div class="card-title">"The Northern Whale Fishery: The "Swan" and "Isabella""</div>
+    <div class="card-artist">John Ward of Hull</div>
+    <div class="card-meta"><b>c. 1840</b><br>oil on canvas<br></div>
+    <div class="dims">Physical: 71.8 × 48.9 cm (ratio 1.47)<br>Image: 17263 × 11694px (432 DPI@40")</div>
+    <div class="card-links"><a href="https://api.nga.gov/iiif/03b37311-d35a-4a91-ab2b-6c3df89ab232/full/full/0/default.jpg" target="_blank">Full image ↗</a><a href="https://www.nga.gov/collection/art-object-page.138852.html" target="_blank">Natl Gallery page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://www.artic.edu/iiif/2/8a647e1c-d778-db71-6ba4-6456b800d6b9/full/700,/0/default.jpg" alt="Husking Bee, Island of Nantucket" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-oil">Smooth Oil</span>
+    <span class="tag tag-src">AIC</span>
+    <div class="card-title">"Husking Bee, Island of Nantucket"</div>
+    <div class="card-artist">Eastman Johnson (American, 1824–1906)</div>
+    <div class="card-meta"><b>1876</b><br>Oil on canvas<br></div>
+    <div class="dims">Physical: 69.6 × 138.2 cm (ratio 1.99)<br>Image: 16047 × 7906px (401 DPI@40")</div>
+    <div class="card-links"><a href="https://www.artic.edu/iiif/2/8a647e1c-d778-db71-6ba4-6456b800d6b9/full/full/0/default.jpg" target="_blank">Full image ↗</a><a href="https://www.artic.edu/artworks/81564" target="_blank">Art Institute page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://www.artic.edu/iiif/2/ed7aa098-e5c9-04dd-b09c-3416d1c56854/full/700,/0/default.jpg" alt="Watering Place at Marly" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-oil">Smooth Oil</span>
+    <span class="tag tag-src">AIC</span>
+    <div class="card-title">"Watering Place at Marly"</div>
+    <div class="card-artist">Alfred Sisley (British, active in France, 1839–1899)</div>
+    <div class="card-meta"><b>1875</b><br>Oil on canvas<br></div>
+    <div class="dims">Physical: 39.5 × 56.2 cm (ratio 1.42)<br>Image: 14715 × 10303px (368 DPI@40")</div>
+    <div class="card-links"><a href="https://www.artic.edu/iiif/2/ed7aa098-e5c9-04dd-b09c-3416d1c56854/full/full/0/default.jpg" target="_blank">Full image ↗</a><a href="https://www.artic.edu/artworks/37741" target="_blank">Art Institute page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://images.collections.yale.edu/iiif/2/ycba:4f227f08-7842-46cc-b05a-e3c6a4614cc1/full/500,/0/default.jpg" alt="Dort, or Dordrecht: The Dort Packet-Boat from Rotterdam Becalmed" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-oil">Smooth Oil</span>
+    <span class="tag tag-src">YCBA</span>
+    <div class="card-title">"Dort, or Dordrecht: The Dort Packet-Boat from Rotterdam Becalmed"</div>
+    <div class="card-artist">Joseph Mallord William Turner</div>
+    <div class="card-meta"><b>1818</b><br>oil on canvas<br></div>
+    <div class="dims">Physical: 233.7 × 157.5 cm (ratio 1.48)<br>Image: 14484 × 9741px (362 DPI@40")</div>
+    <div class="card-links"><a href="https://images.collections.yale.edu/iiif/2/ycba:4f227f08-7842-46cc-b05a-e3c6a4614cc1/full/full/0/default.jpg" target="_blank">Full image ↗</a><a href="https://collections.britishart.yale.edu/objects/34" target="_blank">Yale YCBA page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/55/Landscape%2C_Ile-de-France.jpg/960px-Landscape%2C_Ile-de-France.jpg" alt="Landscape, Ile-de-France label QS:Len,&quot; Open Fields with Haystacks near Pontoise &quot; label QS:Lda,&quot; Marker med høstakke nær Pontoise &quot;" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-oil">Smooth Oil</span>
+    <span class="tag tag-src">WIKIMEDIA</span>
+    <div class="card-title">"Landscape, Ile-de-France label QS:Len," Open Fields with Haystacks near Pontoise"</div>
+    <div class="card-artist">Camille Pissarro</div>
+    <div class="card-meta"><b>1873</b><br>oil on canvas<br></div>
+    <div class="dims">Image: 14204 × 9580px (355 DPI@40")</div>
+    <div class="card-links"><a href="https://upload.wikimedia.org/wikipedia/commons/5/55/Landscape%2C_Ile-de-France.jpg" target="_blank">Full image ↗</a><a href="https://commons.wikimedia.org/wiki/File:Landscape,_Ile-de-France.jpg" target="_blank">Wikimedia page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/40/Goyen_1644_View_of_Dordrecht_from_the_Dordtse_Kil.jpg/960px-Goyen_1644_View_of_Dordrecht_from_the_Dordtse_Kil.jpg" alt="View of Dordrecht from the Dordtse Kil ." loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-oil">Smooth Oil</span>
+    <span class="tag tag-src">WIKIMEDIA</span>
+    <div class="card-title">"View of Dordrecht from the Dordtse Kil ."</div>
+    <div class="card-artist">Jan van Goyen</div>
+    <div class="card-meta"><b>1644</b><br>oil on canvas<br></div>
+    <div class="dims">Image: 13993 × 9404px (350 DPI@40")</div>
+    <div class="card-links"><a href="https://upload.wikimedia.org/wikipedia/commons/4/40/Goyen_1644_View_of_Dordrecht_from_the_Dordtse_Kil.jpg" target="_blank">Full image ↗</a><a href="https://commons.wikimedia.org/wiki/File:Goyen_1644_View_of_Dordrecht_from_the_Dordtse_Kil.jpg" target="_blank">Wikimedia page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://api.nga.gov/iiif/00ab6c46-6677-438e-b6ff-0db0f36956e7/full/!700,700/0/default.jpg" alt="Three Pears and an Apple" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-oil">Smooth Oil</span>
+    <span class="tag tag-src">NGA</span>
+    <div class="card-title">"Three Pears and an Apple"</div>
+    <div class="card-artist">David Johnson</div>
+    <div class="card-meta"><b>1857</b><br>oil on board<br></div>
+    <div class="dims">Physical: 34.3 × 21.6 cm (ratio 1.59)<br>Image: 13951 × 8961px (349 DPI@40")</div>
+    <div class="card-links"><a href="https://api.nga.gov/iiif/00ab6c46-6677-438e-b6ff-0db0f36956e7/full/full/0/default.jpg" target="_blank">Full image ↗</a><a href="https://www.nga.gov/collection/art-object-page.129358.html" target="_blank">Natl Gallery page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://api.nga.gov/iiif/1b437599-19d1-42ce-be06-354aa9f5ad2e/full/!700,700/0/default.jpg" alt="View of the Cloaca Maxima, Rome" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-oil">Smooth Oil</span>
+    <span class="tag tag-src">NGA</span>
+    <div class="card-title">"View of the Cloaca Maxima, Rome"</div>
+    <div class="card-artist">Christoffer Wilhelm Eckersberg</div>
+    <div class="card-meta"><b>1814</b><br>oil on canvas<br></div>
+    <div class="dims">Physical: 47.4 × 31.8 cm (ratio 1.49)<br>Image: 12930 × 8630px (323 DPI@40")</div>
+    <div class="card-links"><a href="https://api.nga.gov/iiif/1b437599-19d1-42ce-be06-354aa9f5ad2e/full/full/0/default.jpg" target="_blank">Full image ↗</a><a href="https://www.nga.gov/collection/art-object-page.125227.html" target="_blank">Natl Gallery page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://www.artic.edu/iiif/2/5f663d6c-0121-a8ca-e875-896d9857a3f3/full/700,/0/default.jpg" alt="Violet and Silver—The Deep Sea" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-oil">Smooth Oil</span>
+    <span class="tag tag-src">AIC</span>
+    <div class="card-title">"Violet and Silver—The Deep Sea"</div>
+    <div class="card-artist">James McNeill Whistler (American, 1834–1903)</div>
+    <div class="card-meta"><b>1893</b><br>Oil on canvas<br></div>
+    <div class="dims">Physical: 50.2 × 73.3 cm (ratio 1.46)<br>Image: 12914 × 8780px (323 DPI@40")</div>
+    <div class="card-links"><a href="https://www.artic.edu/iiif/2/5f663d6c-0121-a8ca-e875-896d9857a3f3/full/full/0/default.jpg" target="_blank">Full image ↗</a><a href="https://www.artic.edu/artworks/84088" target="_blank">Art Institute page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/64/Winslow_Homer_-_Crossing_the_Pasture_%281871-72%29.jpg/960px-Winslow_Homer_-_Crossing_the_Pasture_%281871-72%29.jpg" alt="Crossing the Pasture" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-oil">Smooth Oil</span>
+    <span class="tag tag-src">WIKIMEDIA</span>
+    <div class="card-title">"Crossing the Pasture"</div>
+    <div class="card-artist">Winslow Homer</div>
+    <div class="card-meta"><b>1871</b><br>oil on canvas<br></div>
+    <div class="dims">Image: 12158 × 8319px (304 DPI@40")</div>
+    <div class="card-links"><a href="https://upload.wikimedia.org/wikipedia/commons/6/64/Winslow_Homer_-_Crossing_the_Pasture_%281871-72%29.jpg" target="_blank">Full image ↗</a><a href="https://commons.wikimedia.org/wiki/File:Winslow_Homer_-_Crossing_the_Pasture_(1871-72).jpg" target="_blank">Wikimedia page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d0/1880_C%C3%A9zanne_Stillleben_mit_Obst_Nationalgalerie_Prag_anagoria.jpg/960px-1880_C%C3%A9zanne_Stillleben_mit_Obst_Nationalgalerie_Prag_anagoria.jpg" alt="Fruit" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-oil">Smooth Oil</span>
+    <span class="tag tag-src">WIKIMEDIA</span>
+    <div class="card-title">"Fruit"</div>
+    <div class="card-artist">Paul Cézanne</div>
+    <div class="card-meta"><b>1880</b><br>oil on canvas<br></div>
+    <div class="dims">Image: 12000 × 7000px (300 DPI@40")</div>
+    <div class="card-links"><a href="https://upload.wikimedia.org/wikipedia/commons/d/d0/1880_C%C3%A9zanne_Stillleben_mit_Obst_Nationalgalerie_Prag_anagoria.jpg" target="_blank">Full image ↗</a><a href="https://commons.wikimedia.org/wiki/File:1880_Cézanne_Stillleben_mit_Obst_Nationalgalerie_Prag_anagoria.jpg" target="_blank">Wikimedia page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f1/Winslow_Homer_-_Crossing_the_Pasture.jpg/960px-Winslow_Homer_-_Crossing_the_Pasture.jpg" alt="Crossing the Pasture" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-oil">Smooth Oil</span>
+    <span class="tag tag-src">WIKIMEDIA</span>
+    <div class="card-title">"Crossing the Pasture"</div>
+    <div class="card-artist">Winslow Homer</div>
+    <div class="card-meta"><b>1871</b><br>oil on canvas<br></div>
+    <div class="dims">Image: 11898 × 8130px (297 DPI@40")</div>
+    <div class="card-links"><a href="https://upload.wikimedia.org/wikipedia/commons/f/f1/Winslow_Homer_-_Crossing_the_Pasture.jpg" target="_blank">Full image ↗</a><a href="https://commons.wikimedia.org/wiki/File:Winslow_Homer_-_Crossing_the_Pasture.jpg" target="_blank">Wikimedia page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c0/Thomas_Cole_-_The_Hunter%27s_Return_%281845%29.jpg/960px-Thomas_Cole_-_The_Hunter%27s_Return_%281845%29.jpg" alt="The Hunter's Return" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-oil">Smooth Oil</span>
+    <span class="tag tag-src">WIKIMEDIA</span>
+    <div class="card-title">"The Hunter's Return"</div>
+    <div class="card-artist">Thomas Cole</div>
+    <div class="card-meta"><b>1845</b><br>oil on canvas<br></div>
+    <div class="dims">Image: 11624 × 7568px (291 DPI@40")</div>
+    <div class="card-links"><a href="https://upload.wikimedia.org/wikipedia/commons/c/c0/Thomas_Cole_-_The_Hunter%27s_Return_%281845%29.jpg" target="_blank">Full image ↗</a><a href="https://commons.wikimedia.org/wiki/File:Thomas_Cole_-_The_Hunter's_Return_(1845).jpg" target="_blank">Wikimedia page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://www.artic.edu/iiif/2/37f802ca-7831-14d6-82c6-060d825baabd/full/700,/0/default.jpg" alt="Trouville (Grey and Green, the Silver Sea)" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-oil">Smooth Oil</span>
+    <span class="tag tag-src">AIC</span>
+    <div class="card-title">"Trouville (Grey and Green, the Silver Sea)"</div>
+    <div class="card-artist">James McNeill Whistler (American, 1834–1903)</div>
+    <div class="card-meta"><b>1865</b><br>Oil on canvas<br></div>
+    <div class="dims">Physical: 51.5 × 77.2 cm (ratio 1.50)<br>Image: 11146 × 7376px (279 DPI@40")</div>
+    <div class="card-links"><a href="https://www.artic.edu/iiif/2/37f802ca-7831-14d6-82c6-060d825baabd/full/full/0/default.jpg" target="_blank">Full image ↗</a><a href="https://www.artic.edu/artworks/81572" target="_blank">Art Institute page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1e/Albert_Bierstadt_-_Buffalo_Trail%2C_The_Impending_Storm.jpg/960px-Albert_Bierstadt_-_Buffalo_Trail%2C_The_Impending_Storm.jpg" alt="Buffalo Trail: The Impending Storm" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-oil">Smooth Oil</span>
+    <span class="tag tag-src">WIKIMEDIA</span>
+    <div class="card-title">"Buffalo Trail: The Impending Storm"</div>
+    <div class="card-artist">Albert Bierstadt</div>
+    <div class="card-meta"><b>1869</b><br>oil on canvas<br></div>
+    <div class="dims">Image: 11095 × 6611px (277 DPI@40")</div>
+    <div class="card-links"><a href="https://upload.wikimedia.org/wikipedia/commons/1/1e/Albert_Bierstadt_-_Buffalo_Trail%2C_The_Impending_Storm.jpg" target="_blank">Full image ↗</a><a href="https://commons.wikimedia.org/wiki/File:Albert_Bierstadt_-_Buffalo_Trail,_The_Impending_Storm.jpg" target="_blank">Wikimedia page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://api.nga.gov/iiif/0675ced3-e2f7-42a7-b39d-7b9db2e276b9/full/!700,700/0/default.jpg" alt="Pont de Palmiers and Tiger Shooting" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-oil">Smooth Oil</span>
+    <span class="tag tag-src">NGA</span>
+    <div class="card-title">"Pont de Palmiers and Tiger Shooting"</div>
+    <div class="card-artist">George Catlin</div>
+    <div class="card-meta"><b>1854/1869</b><br>oil on card mounted on paperboard<br></div>
+    <div class="dims">Physical: 63.7 × 45.2 cm (ratio 1.41)<br>Image: 11023 × 8706px (276 DPI@40")</div>
+    <div class="card-links"><a href="https://api.nga.gov/iiif/0675ced3-e2f7-42a7-b39d-7b9db2e276b9/full/full/0/default.jpg" target="_blank">Full image ↗</a><a href="https://www.nga.gov/collection/art-object-page.50566.html" target="_blank">Natl Gallery page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://media.getty.edu/iiif/image/c7a070ce-bae3-4424-8ad3-55e3dea5e1ff/full/700,/0/default.jpg" alt="Wheatstacks, Snow Effect, Morning (Meules, Effet de Neige, Le Matin)" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-oil">Smooth Oil</span>
+    <span class="tag tag-src">GETTY</span>
+    <div class="card-title">"Wheatstacks, Snow Effect, Morning (Meules, Effet de Neige, Le Matin)"</div>
+    <div class="card-artist">Claude Monet</div>
+    <div class="card-meta">oil on canvas<br></div>
+    <div class="dims">Physical: 100.3 × 64.8 cm (ratio 1.55)<br>Image: 10877 × 6994px (272 DPI@40")</div>
+    <div class="card-links"><a href="https://media.getty.edu/iiif/image/c7a070ce-bae3-4424-8ad3-55e3dea5e1ff/full/full/0/default.jpg" target="_blank">Full image ↗</a><a href="https://www.getty.edu/art/collection/object/103RK8" target="_blank">GETTY page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://media.getty.edu/iiif/image/0482e9c2-fe5d-476d-b3d2-8f136680f973/full/700,/0/default.jpg" alt="The Miraculous Draught of Fishes" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-oil">Smooth Oil</span>
+    <span class="tag tag-src">GETTY</span>
+    <div class="card-title">"The Miraculous Draught of Fishes"</div>
+    <div class="card-artist">Joachim Beuckelaer</div>
+    <div class="card-meta">oil on panel<br></div>
+    <div class="dims">Physical: 233.0 × 128.9 cm (ratio 1.81)<br>Image: 10836 × 5580px (271 DPI@40")</div>
+    <div class="card-links"><a href="https://media.getty.edu/iiif/image/0482e9c2-fe5d-476d-b3d2-8f136680f973/full/full/0/default.jpg" target="_blank">Full image ↗</a><a href="https://www.getty.edu/art/collection/object/103RBZ" target="_blank">GETTY page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/37/Winslow_Homer_-_The_End_of_the_Day%2C_Adirondacks_%281890%29.jpg/960px-Winslow_Homer_-_The_End_of_the_Day%2C_Adirondacks_%281890%29.jpg" alt="The End of the Day, Adirondacks" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-oil">Smooth Oil</span>
+    <span class="tag tag-src">WIKIMEDIA</span>
+    <div class="card-title">"The End of the Day, Adirondacks"</div>
+    <div class="card-artist">Winslow Homer</div>
+    <div class="card-meta"><b>1890</b><br>oil on canvas<br></div>
+    <div class="dims">Image: 10834 × 7549px (271 DPI@40")</div>
+    <div class="card-links"><a href="https://upload.wikimedia.org/wikipedia/commons/3/37/Winslow_Homer_-_The_End_of_the_Day%2C_Adirondacks_%281890%29.jpg" target="_blank">Full image ↗</a><a href="https://commons.wikimedia.org/wiki/File:Winslow_Homer_-_The_End_of_the_Day,_Adirondacks_(1890).jpg" target="_blank">Wikimedia page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://api.nga.gov/iiif/0aba1e55-9a63-4d9c-a4a0-90cfc7d1c57e/full/!700,700/0/default.jpg" alt="Scene from the Lower Mississippi" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-oil">Smooth Oil</span>
+    <span class="tag tag-src">NGA</span>
+    <div class="card-title">"Scene from the Lower Mississippi"</div>
+    <div class="card-artist">George Catlin</div>
+    <div class="card-meta"><b>1861/1869</b><br>oil on card mounted on paperboard<br></div>
+    <div class="dims">Physical: 63.0 × 45.0 cm (ratio 1.40)<br>Image: 10784 × 8400px (270 DPI@40")</div>
+    <div class="card-links"><a href="https://api.nga.gov/iiif/0aba1e55-9a63-4d9c-a4a0-90cfc7d1c57e/full/full/0/default.jpg" target="_blank">Full image ↗</a><a href="https://www.nga.gov/collection/art-object-page.50504.html" target="_blank">Natl Gallery page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://www.artic.edu/iiif/2/1db67905-d421-95bf-1e91-4b60dd776886/full/700,/0/default.jpg" alt="Final Study for &quot;Bathers at Asnières&quot;" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-oil">Smooth Oil</span>
+    <span class="tag tag-src">AIC</span>
+    <div class="card-title">"Final Study for "Bathers at Asnières""</div>
+    <div class="card-artist">Georges Seurat (French, 1859-1891)</div>
+    <div class="card-meta"><b>1883</b><br>Oil on panel<br></div>
+    <div class="dims">Physical: 15.8 × 25.1 cm (ratio 1.59)<br>Image: 10657 × 6653px (266 DPI@40")</div>
+    <div class="card-links"><a href="https://www.artic.edu/iiif/2/1db67905-d421-95bf-1e91-4b60dd776886/full/full/0/default.jpg" target="_blank">Full image ↗</a><a href="https://www.artic.edu/artworks/20199" target="_blank">Art Institute page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/71/La_battue_en_plaine_-_Alexandre-Gabriel_Decamps_-_Mus%C3%A9e_du_Louvre_Peintures_RF_1649.jpg/960px-La_battue_en_plaine_-_Alexandre-Gabriel_Decamps_-_Mus%C3%A9e_du_Louvre_Peintures_RF_1649.jpg" alt="French: La battue en plaine. title QS:P1476,fr:&quot;La battue en plaine. &quot; label QS:Lfr,&quot;La battue en plaine. &quot;" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-oil">Smooth Oil</span>
+    <span class="tag tag-src">WIKIMEDIA</span>
+    <div class="card-title">"French: La battue en plaine. title QS:P1476,fr:"La battue en plaine. " label QS:"</div>
+    <div class="card-artist">Alexandre-Gabriel Decamps</div>
+    <div class="card-meta"><b>1850</b><br>oil on canvas<br></div>
+    <div class="dims">Image: 10553 × 7131px (264 DPI@40")</div>
+    <div class="card-links"><a href="https://upload.wikimedia.org/wikipedia/commons/7/71/La_battue_en_plaine_-_Alexandre-Gabriel_Decamps_-_Mus%C3%A9e_du_Louvre_Peintures_RF_1649.jpg" target="_blank">Full image ↗</a><a href="https://commons.wikimedia.org/wiki/File:La_battue_en_plaine_-_Alexandre-Gabriel_Decamps_-_Musée_du_Louvre_Peintures_RF_1649.jpg" target="_blank">Wikimedia page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://api.nga.gov/iiif/17707775-8562-416f-a470-3761a4ba0414/full/!700,700/0/default.jpg" alt="Breton Village" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-oil">Smooth Oil</span>
+    <span class="tag tag-src">NGA</span>
+    <div class="card-title">"Breton Village"</div>
+    <div class="card-artist">Odilon Redon</div>
+    <div class="card-meta"><b>c. 1890</b><br>oil on canvas<br></div>
+    <div class="dims">Physical: 32.5 × 22.5 cm (ratio 1.44)<br>Image: 10543 × 7197px (264 DPI@40")</div>
+    <div class="card-links"><a href="https://api.nga.gov/iiif/17707775-8562-416f-a470-3761a4ba0414/full/full/0/default.jpg" target="_blank">Full image ↗</a><a href="https://www.nga.gov/collection/art-object-page.89684.html" target="_blank">Natl Gallery page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/97/L%27Automne_-_Jules_Dupr%C3%A9_-_Mus%C3%A9e_du_Louvre_Peintures_RF_1415.jpg/960px-L%27Automne_-_Jules_Dupr%C3%A9_-_Mus%C3%A9e_du_Louvre_Peintures_RF_1415.jpg" alt="French: L'Automne title QS:P1476,fr:&quot;L'Automne &quot; label QS:Lfr,&quot;L'Automne &quot;" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-oil">Smooth Oil</span>
+    <span class="tag tag-src">WIKIMEDIA</span>
+    <div class="card-title">"French: L'Automne title QS:P1476,fr:"L'Automne " label QS:Lfr,"L'Automne ""</div>
+    <div class="card-artist">Jules Dupré</div>
+    <div class="card-meta"><b>1800</b><br>oil on canvas<br></div>
+    <div class="dims">Image: 10271 × 7156px (257 DPI@40")</div>
+    <div class="card-links"><a href="https://upload.wikimedia.org/wikipedia/commons/9/97/L%27Automne_-_Jules_Dupr%C3%A9_-_Mus%C3%A9e_du_Louvre_Peintures_RF_1415.jpg" target="_blank">Full image ↗</a><a href="https://commons.wikimedia.org/wiki/File:L'Automne_-_Jules_Dupré_-_Musée_du_Louvre_Peintures_RF_1415.jpg" target="_blank">Wikimedia page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://media.getty.edu/iiif/image/56ea8206-3b47-4d25-8a09-645304672538/full/700,/0/default.jpg" alt="A View of the Maas at Dordrecht" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-oil">Smooth Oil</span>
+    <span class="tag tag-src">GETTY</span>
+    <div class="card-title">"A View of the Maas at Dordrecht"</div>
+    <div class="card-artist">Aelbert Cuyp</div>
+    <div class="card-meta">oil on panel<br></div>
+    <div class="dims">Physical: 107.0 × 49.8 cm (ratio 2.15)<br>Image: 10202 × 4733px (255 DPI@40")</div>
+    <div class="card-links"><a href="https://media.getty.edu/iiif/image/56ea8206-3b47-4d25-8a09-645304672538/full/full/0/default.jpg" target="_blank">Full image ↗</a><a href="https://www.getty.edu/art/collection/object/103RFB" target="_blank">GETTY page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/93/Thomas_Cole_-_A_View_of_the_Mountain_Pass_Called_the_Notch_of_the_White_Mountains.jpg/960px-Thomas_Cole_-_A_View_of_the_Mountain_Pass_Called_the_Notch_of_the_White_Mountains.jpg" alt="A View of the Mountain Pass Called the Notch of the White Mountains (Crawford Notch)" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-oil">Smooth Oil</span>
+    <span class="tag tag-src">WIKIMEDIA</span>
+    <div class="card-title">"A View of the Mountain Pass Called the Notch of the White Mountains (Crawford No"</div>
+    <div class="card-artist">Thomas Cole</div>
+    <div class="card-meta"><b>1839</b><br>oil on canvas<br></div>
+    <div class="dims">Image: 10152 × 6610px (254 DPI@40")</div>
+    <div class="card-links"><a href="https://upload.wikimedia.org/wikipedia/commons/9/93/Thomas_Cole_-_A_View_of_the_Mountain_Pass_Called_the_Notch_of_the_White_Mountains.jpg" target="_blank">Full image ↗</a><a href="https://commons.wikimedia.org/wiki/File:Thomas_Cole_-_A_View_of_the_Mountain_Pass_Called_the_Notch_of_the_White_Mountains.jpg" target="_blank">Wikimedia page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://images.collections.yale.edu/iiif/2/ycba:c6e59512-fe93-45ad-92c9-fc418eb9afad/full/500,/0/default.jpg" alt="Phaeton with a Pair of Cream Ponies and a Stable-Lad" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-oil">Smooth Oil</span>
+    <span class="tag tag-src">YCBA</span>
+    <div class="card-title">"Phaeton with a Pair of Cream Ponies and a Stable-Lad"</div>
+    <div class="card-artist">George Stubbs</div>
+    <div class="card-meta"><b>between 1780 and 1784</b><br>beeswax and oil on panel<br></div>
+    <div class="dims">Physical: 135.9 × 89.5 cm (ratio 1.52)<br>Image: 10133 × 6637px (253 DPI@40")</div>
+    <div class="card-links"><a href="https://images.collections.yale.edu/iiif/2/ycba:c6e59512-fe93-45ad-92c9-fc418eb9afad/full/full/0/default.jpg" target="_blank">Full image ↗</a><a href="https://collections.britishart.yale.edu/objects/38" target="_blank">Yale YCBA page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/8c/Winslow_Homer_-_Saco_Bay_%281896%29.jpg/960px-Winslow_Homer_-_Saco_Bay_%281896%29.jpg" alt="Saco Bay" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-oil">Smooth Oil</span>
+    <span class="tag tag-src">WIKIMEDIA</span>
+    <div class="card-title">"Saco Bay"</div>
+    <div class="card-artist">Winslow Homer</div>
+    <div class="card-meta"><b>1896</b><br>oil on canvas<br></div>
+    <div class="dims">Image: 10096 × 6329px (252 DPI@40")</div>
+    <div class="card-links"><a href="https://upload.wikimedia.org/wikipedia/commons/8/8c/Winslow_Homer_-_Saco_Bay_%281896%29.jpg" target="_blank">Full image ↗</a><a href="https://commons.wikimedia.org/wiki/File:Winslow_Homer_-_Saco_Bay_(1896).jpg" target="_blank">Wikimedia page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://images.collections.yale.edu/iiif/2/ycba:bcd30268-1519-4cdc-910f-7303c961d5bc/full/500,/0/default.jpg" alt="View of the City of Edinburgh" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-oil">Smooth Oil</span>
+    <span class="tag tag-src">YCBA</span>
+    <div class="card-title">"View of the City of Edinburgh"</div>
+    <div class="card-artist">Alexander Nasmyth</div>
+    <div class="card-meta"><b>ca. 1822</b><br>oil on canvas<br></div>
+    <div class="dims">Physical: 209.9 × 141.9 cm (ratio 1.48)<br>Image: 10093 × 6734px (252 DPI@40")</div>
+    <div class="card-links"><a href="https://images.collections.yale.edu/iiif/2/ycba:bcd30268-1519-4cdc-910f-7303c961d5bc/full/full/0/default.jpg" target="_blank">Full image ↗</a><a href="https://collections.britishart.yale.edu/objects/181" target="_blank">Yale YCBA page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/74/Winslow_Homer_-_The_two_guides.jpg/960px-Winslow_Homer_-_The_two_guides.jpg" alt="Two guides" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-oil">Smooth Oil</span>
+    <span class="tag tag-src">WIKIMEDIA</span>
+    <div class="card-title">"Two guides"</div>
+    <div class="card-artist">Winslow Homer</div>
+    <div class="card-meta"><b>1877</b><br>oil on canvas<br></div>
+    <div class="dims">Image: 9980 × 6284px (250 DPI@40")</div>
+    <div class="card-links"><a href="https://upload.wikimedia.org/wikipedia/commons/7/74/Winslow_Homer_-_The_two_guides.jpg" target="_blank">Full image ↗</a><a href="https://commons.wikimedia.org/wiki/File:Winslow_Homer_-_The_two_guides.jpg" target="_blank">Wikimedia page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://www.artic.edu/iiif/2/5dca7347-c6dc-24dd-d073-d705b9cdc575/full/700,/0/default.jpg" alt="The Herring Net" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-oil">Smooth Oil</span>
+    <span class="tag tag-src">AIC</span>
+    <div class="card-title">"The Herring Net"</div>
+    <div class="card-artist">Winslow Homer (American, 1836–1910)</div>
+    <div class="card-meta"><b>1885</b><br>Oil on canvas<br></div>
+    <div class="dims">Physical: 76.5 × 122.9 cm (ratio 1.61)<br>Image: 9953 × 6124px (249 DPI@40")</div>
+    <div class="card-links"><a href="https://www.artic.edu/iiif/2/5dca7347-c6dc-24dd-d073-d705b9cdc575/full/full/0/default.jpg" target="_blank">Full image ↗</a><a href="https://www.artic.edu/artworks/25865" target="_blank">Art Institute page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://media.getty.edu/iiif/image/fed9af1e-964e-4b7d-aed1-88025d7253a1/full/700,/0/default.jpg" alt="Still Life with Hen and Onion" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-oil">Smooth Oil</span>
+    <span class="tag tag-src">GETTY</span>
+    <div class="card-title">"Still Life with Hen and Onion"</div>
+    <div class="card-artist">Giacomo Ceruti</div>
+    <div class="card-meta">oil on paper laid down on canvas<br></div>
+    <div class="dims">Physical: 45.0 × 32.0 cm (ratio 1.41)<br>Image: 9945 × 7008px (249 DPI@40")</div>
+    <div class="card-links"><a href="https://media.getty.edu/iiif/image/fed9af1e-964e-4b7d-aed1-88025d7253a1/full/full/0/default.jpg" target="_blank">Full image ↗</a><a href="https://www.getty.edu/art/collection/object/10A1RD" target="_blank">GETTY page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://media.getty.edu/iiif/image/521f5588-0ae7-43ae-bd46-9f69b206bca0/full/700,/0/default.jpg" alt="Still Life with Bread, Salami, and Nuts" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-oil">Smooth Oil</span>
+    <span class="tag tag-src">GETTY</span>
+    <div class="card-title">"Still Life with Bread, Salami, and Nuts"</div>
+    <div class="card-artist">Giacomo Ceruti</div>
+    <div class="card-meta">oil on paper laid down on canvas<br></div>
+    <div class="dims">Physical: 45.0 × 32.0 cm (ratio 1.41)<br>Image: 9829 × 6877px (246 DPI@40")</div>
+    <div class="card-links"><a href="https://media.getty.edu/iiif/image/521f5588-0ae7-43ae-bd46-9f69b206bca0/full/full/0/default.jpg" target="_blank">Full image ↗</a><a href="https://www.getty.edu/art/collection/object/10A1RG" target="_blank">GETTY page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://www.artic.edu/iiif/2/3b06a501-7b91-07b2-80f1-a683cbfeaad9/full/700,/0/default.jpg" alt="Landscape with Hunters" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-oil">Smooth Oil</span>
+    <span class="tag tag-src">AIC</span>
+    <div class="card-title">"Landscape with Hunters"</div>
+    <div class="card-artist">Paul Bril (Flemish, 1553/54–1626)</div>
+    <div class="card-meta"><b>1619</b><br>Oil on canvas<br></div>
+    <div class="dims">Physical: 60.0 × 88.0 cm (ratio 1.47)<br>Image: 9805 × 6616px (245 DPI@40")</div>
+    <div class="card-links"><a href="https://www.artic.edu/iiif/2/3b06a501-7b91-07b2-80f1-a683cbfeaad9/full/full/0/default.jpg" target="_blank">Full image ↗</a><a href="https://www.artic.edu/artworks/209969" target="_blank">Art Institute page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://api.nga.gov/iiif/02c8ff0d-dc16-4120-b611-90a2ed8de407/full/!700,700/0/default.jpg" alt="Women on the Beach at Berck" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-oil">Smooth Oil</span>
+    <span class="tag tag-src">NGA</span>
+    <div class="card-title">"Women on the Beach at Berck"</div>
+    <div class="card-artist">Eugène Boudin</div>
+    <div class="card-meta"><b>1881</b><br>oil on wood<br></div>
+    <div class="dims">Physical: 36.2 × 24.8 cm (ratio 1.46)<br>Image: 9659 × 6646px (241 DPI@40")</div>
+    <div class="card-links"><a href="https://api.nga.gov/iiif/02c8ff0d-dc16-4120-b611-90a2ed8de407/full/full/0/default.jpg" target="_blank">Full image ↗</a><a href="https://www.nga.gov/collection/art-object-page.52159.html" target="_blank">Natl Gallery page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://media.getty.edu/iiif/image/7ef32c79-b8df-42ae-9c05-9ce545075062/full/700,/0/default.jpg" alt="Market Scene in an Imaginary Oriental Port" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-oil">Smooth Oil</span>
+    <span class="tag tag-src">GETTY</span>
+    <div class="card-title">"Market Scene in an Imaginary Oriental Port"</div>
+    <div class="card-artist">Jean-Baptiste Pillement</div>
+    <div class="card-meta">oil on canvas<br></div>
+    <div class="dims">Physical: 74.6 × 50.8 cm (ratio 1.47)<br>Image: 9658 × 6528px (241 DPI@40")</div>
+    <div class="card-links"><a href="https://media.getty.edu/iiif/image/7ef32c79-b8df-42ae-9c05-9ce545075062/full/full/0/default.jpg" target="_blank">Full image ↗</a><a href="https://www.getty.edu/art/collection/object/1095KK" target="_blank">GETTY page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://www.artic.edu/iiif/2/db36f74f-47d9-ad08-cdf9-b4b436e6d18c/full/700,/0/default.jpg" alt="Stack of Wheat (Snow Effect, Overcast Day)" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-oil">Smooth Oil</span>
+    <span class="tag tag-src">AIC</span>
+    <div class="card-title">"Stack of Wheat (Snow Effect, Overcast Day)"</div>
+    <div class="card-artist">Claude Monet (French, 1840–1926)</div>
+    <div class="card-meta"><b>1890–91</b><br>Oil on canvas<br></div>
+    <div class="dims">Physical: 66.0 × 93.0 cm (ratio 1.41)<br>Image: 9618 × 6751px (240 DPI@40")</div>
+    <div class="card-links"><a href="https://www.artic.edu/iiif/2/db36f74f-47d9-ad08-cdf9-b4b436e6d18c/full/full/0/default.jpg" target="_blank">Full image ↗</a><a href="https://www.artic.edu/artworks/16560" target="_blank">Art Institute page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://www.artic.edu/iiif/2/2b30e687-4526-f487-cedc-448b3188fd19/full/700,/0/default.jpg" alt="The Customs House at Varengeville" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-oil">Smooth Oil</span>
+    <span class="tag tag-src">AIC</span>
+    <div class="card-title">"The Customs House at Varengeville"</div>
+    <div class="card-artist">Claude Monet (French, 1840–1926)</div>
+    <div class="card-meta"><b>1897</b><br>Oil on canvas<br></div>
+    <div class="dims">Physical: 65.6 × 92.8 cm (ratio 1.41)<br>Image: 9517 × 6688px (238 DPI@40")</div>
+    <div class="card-links"><a href="https://www.artic.edu/iiif/2/2b30e687-4526-f487-cedc-448b3188fd19/full/full/0/default.jpg" target="_blank">Full image ↗</a><a href="https://www.artic.edu/artworks/16542" target="_blank">Art Institute page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://images.collections.yale.edu/iiif/2/ycba:82d4bb43-1c0d-4394-97c7-1903fec70641/full/500,/0/default.jpg" alt="A View of Tivoli" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-oil">Smooth Oil</span>
+    <span class="tag tag-src">YCBA</span>
+    <div class="card-title">"A View of Tivoli"</div>
+    <div class="card-artist">Thomas Patch</div>
+    <div class="card-meta"><b>between 1750 and 1754</b><br>oil on canvas<br></div>
+    <div class="dims">Physical: 115.9 × 81.6 cm (ratio 1.42)<br>Image: 9468 × 6792px (237 DPI@40")</div>
+    <div class="card-links"><a href="https://images.collections.yale.edu/iiif/2/ycba:82d4bb43-1c0d-4394-97c7-1903fec70641/full/full/0/default.jpg" target="_blank">Full image ↗</a><a href="https://collections.britishart.yale.edu/objects/144" target="_blank">Yale YCBA page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://api.nga.gov/iiif/06632adc-7f3d-4f3b-809e-b7fcdba8f691/full/!700,700/0/default.jpg" alt="Lemons" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-oil">Smooth Oil</span>
+    <span class="tag tag-src">NGA</span>
+    <div class="card-title">"Lemons"</div>
+    <div class="card-artist">George Henry Hall</div>
+    <div class="card-meta"><b>1884</b><br>oil on canvas<br></div>
+    <div class="dims">Physical: 24.1 × 16.5 cm (ratio 1.46)<br>Image: 9425 × 6320px (236 DPI@40")</div>
+    <div class="card-links"><a href="https://api.nga.gov/iiif/06632adc-7f3d-4f3b-809e-b7fcdba8f691/full/full/0/default.jpg" target="_blank">Full image ↗</a><a href="https://www.nga.gov/collection/art-object-page.214122.html" target="_blank">Natl Gallery page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://media.getty.edu/iiif/image/9cb139f1-e7e7-491e-8754-323c7fa0ea0a/full/700,/0/default.jpg" alt="The Grand Canal in Venice with Palazzo Bembo" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-oil">Smooth Oil</span>
+    <span class="tag tag-src">GETTY</span>
+    <div class="card-title">"The Grand Canal in Venice with Palazzo Bembo"</div>
+    <div class="card-artist">Francesco Guardi</div>
+    <div class="card-meta">oil on canvas<br></div>
+    <div class="dims">Physical: 76.5 × 47.0 cm (ratio 1.63)<br>Image: 9412 × 5731px (235 DPI@40")</div>
+    <div class="card-links"><a href="https://media.getty.edu/iiif/image/9cb139f1-e7e7-491e-8754-323c7fa0ea0a/full/full/0/default.jpg" target="_blank">Full image ↗</a><a href="https://www.getty.edu/art/collection/object/1098G3" target="_blank">GETTY page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0e/Winslow_Homer_-_Hound_and_Hunter_%281892%29.jpg/960px-Winslow_Homer_-_Hound_and_Hunter_%281892%29.jpg" alt="Hound and Hunter" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-oil">Smooth Oil</span>
+    <span class="tag tag-src">WIKIMEDIA</span>
+    <div class="card-title">"Hound and Hunter"</div>
+    <div class="card-artist">Winslow Homer</div>
+    <div class="card-meta"><b>1892</b><br>oil on canvas<br></div>
+    <div class="dims">Image: 9349 × 5300px (234 DPI@40")</div>
+    <div class="card-links"><a href="https://upload.wikimedia.org/wikipedia/commons/0/0e/Winslow_Homer_-_Hound_and_Hunter_%281892%29.jpg" target="_blank">Full image ↗</a><a href="https://commons.wikimedia.org/wiki/File:Winslow_Homer_-_Hound_and_Hunter_(1892).jpg" target="_blank">Wikimedia page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/45/Winslow_Homer_An_October_Day.jpg/960px-Winslow_Homer_An_October_Day.jpg" alt="An October Day label QS:Len,&quot;An October Day&quot;" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-oil">Smooth Oil</span>
+    <span class="tag tag-src">WIKIMEDIA</span>
+    <div class="card-title">"An October Day label QS:Len,"An October Day""</div>
+    <div class="card-artist">Winslow Homer</div>
+    <div class="card-meta"><b>1889</b><br>oil on canvas<br></div>
+    <div class="dims">Image: 9160 × 6426px (229 DPI@40")</div>
+    <div class="card-links"><a href="https://upload.wikimedia.org/wikipedia/commons/4/45/Winslow_Homer_An_October_Day.jpg" target="_blank">Full image ↗</a><a href="https://commons.wikimedia.org/wiki/File:Winslow_Homer_An_October_Day.jpg" target="_blank">Wikimedia page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/Winslow_Homer_-_Beach_scene%2C_cullercoats.jpg/960px-Winslow_Homer_-_Beach_scene%2C_cullercoats.jpg" alt="Beach Scene, Cullercoats label QS:Len,&quot;Beach Scene, Cullercoats&quot;" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-oil">Smooth Oil</span>
+    <span class="tag tag-src">WIKIMEDIA</span>
+    <div class="card-title">"Beach Scene, Cullercoats label QS:Len,"Beach Scene, Cullercoats""</div>
+    <div class="card-artist">Winslow Homer</div>
+    <div class="card-meta"><b>1881</b><br>oil on canvas<br></div>
+    <div class="dims">Image: 9114 × 5444px (228 DPI@40")</div>
+    <div class="card-links"><a href="https://upload.wikimedia.org/wikipedia/commons/f/fa/Winslow_Homer_-_Beach_scene%2C_cullercoats.jpg" target="_blank">Full image ↗</a><a href="https://commons.wikimedia.org/wiki/File:Winslow_Homer_-_Beach_scene,_cullercoats.jpg" target="_blank">Wikimedia page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://www.artic.edu/iiif/2/0f2d999d-0173-2935-a6d0-0175bb97b2a9/full/700,/0/default.jpg" alt="The Home of the Heron" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-oil">Smooth Oil</span>
+    <span class="tag tag-src">AIC</span>
+    <div class="card-title">"The Home of the Heron"</div>
+    <div class="card-artist">George Inness (American, 1825–1894)</div>
+    <div class="card-meta"><b>1893</b><br>Oil on canvas<br></div>
+    <div class="dims">Physical: 76.2 × 115.2 cm (ratio 1.51)<br>Image: 9100 × 5957px (228 DPI@40")</div>
+    <div class="card-links"><a href="https://www.artic.edu/iiif/2/0f2d999d-0173-2935-a6d0-0175bb97b2a9/full/full/0/default.jpg" target="_blank">Full image ↗</a><a href="https://www.artic.edu/artworks/64724" target="_blank">Art Institute page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://www.artic.edu/iiif/2/18dd28cc-ae57-b852-cbc4-d184c6f0555d/full/700,/0/default.jpg" alt="Cabin in the Cotton" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-oil">Smooth Oil</span>
+    <span class="tag tag-src">AIC</span>
+    <div class="card-title">"Cabin in the Cotton"</div>
+    <div class="card-artist">Horace Pippin (American, 1888–1946)</div>
+    <div class="card-meta"><b>c. 1931–37</b><br>Oil on cotton, mounted on Masonite<br></div>
+    <div class="dims">Physical: 51.0 × 85.0 cm (ratio 1.67)<br>Image: 8964 × 5305px (224 DPI@40")</div>
+    <div class="card-links"><a href="https://www.artic.edu/iiif/2/18dd28cc-ae57-b852-cbc4-d184c6f0555d/full/full/0/default.jpg" target="_blank">Full image ↗</a><a href="https://www.artic.edu/artworks/111617" target="_blank">Art Institute page ↗</a></div>
+  </div>
+</div>
+</div>
+
+<div class="section-header">Photographs — 19 works</div>
+<div class="grid">
+<div class="card">
+  <img src="https://tile.loc.gov/storage-services/service/pnp/highsm/50000/50096v.jpg" alt="Landscape near Shaniko in Wasco County, Oregon" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-photo">Photograph</span>
+    <span class="tag tag-src">LOC</span>
+    <div class="card-title">"Landscape near Shaniko in Wasco County, Oregon"</div>
+    <div class="card-artist">Carol M. Highsmith</div>
+    <div class="card-meta"><b>2018</b><br>photograph<br></div>
+    <div class="dims">Image: 11314 × 8020px (283 DPI@40")</div>
+    <div class="card-links"><a href="https://tile.loc.gov/storage-services/master/pnp/highsm/50000/50096u.tif" target="_blank">Full image ↗</a><a href="https://www.loc.gov/item/2018698298/" target="_blank">Library of Congress page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://tile.loc.gov/storage-services/service/pnp/highsm/69300/69391v.jpg" alt="A dirt road (seemingly to nowhere) and surrounding late-fall fields near Lefor, North Dakota" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-photo">Photograph</span>
+    <span class="tag tag-src">LOC</span>
+    <div class="card-title">"A dirt road (seemingly to nowhere) and surrounding late-fall fields near Lefor, "</div>
+    <div class="card-artist">Carol M. Highsmith</div>
+    <div class="card-meta"><b>2021</b><br>photograph<br></div>
+    <div class="dims">Image: 8688 × 5792px (217 DPI@40")</div>
+    <div class="card-links"><a href="https://tile.loc.gov/storage-services/master/pnp/highsm/69300/69391u.tif" target="_blank">Full image ↗</a><a href="https://www.loc.gov/item/2021757612/" target="_blank">Library of Congress page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://tile.loc.gov/storage-services/service/pnp/highsm/71500/71546v.jpg" alt="A classic, barren-looking yellow landscape near Hardin in eastern Montana" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-photo">Photograph</span>
+    <span class="tag tag-src">LOC</span>
+    <div class="card-title">"A classic, barren-looking yellow landscape near Hardin in eastern Montana"</div>
+    <div class="card-artist">Carol M. Highsmith</div>
+    <div class="card-meta"><b>2022</b><br>photograph<br></div>
+    <div class="dims">Image: 8688 × 5792px (217 DPI@40")</div>
+    <div class="card-links"><a href="https://tile.loc.gov/storage-services/master/pnp/highsm/71500/71546u.tif" target="_blank">Full image ↗</a><a href="https://www.loc.gov/item/2023698184/" target="_blank">Library of Congress page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://tile.loc.gov/storage-services/service/pnp/highsm/49900/49984v.jpg" alt="Seaside landscape and Pacific Ocean view from Port Orford, Oregon" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-photo">Photograph</span>
+    <span class="tag tag-src">LOC</span>
+    <div class="card-title">"Seaside landscape and Pacific Ocean view from Port Orford, Oregon"</div>
+    <div class="card-artist">Carol M. Highsmith</div>
+    <div class="card-meta"><b>2018</b><br>photograph<br></div>
+    <div class="dims">Image: 8688 × 5792px (217 DPI@40")</div>
+    <div class="card-links"><a href="https://tile.loc.gov/storage-services/master/pnp/highsm/49900/49984u.tif" target="_blank">Full image ↗</a><a href="https://www.loc.gov/item/2018698186/" target="_blank">Library of Congress page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://tile.loc.gov/storage-services/service/pnp/highsm/66100/66124v.jpg" alt="Storm clouds rise over the landscape near Belen in central New Mexico" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-photo">Photograph</span>
+    <span class="tag tag-src">LOC</span>
+    <div class="card-title">"Storm clouds rise over the landscape near Belen in central New Mexico"</div>
+    <div class="card-artist">Carol M. Highsmith</div>
+    <div class="card-meta"><b>2020</b><br>photograph<br></div>
+    <div class="dims">Image: 8530 × 5687px (213 DPI@40")</div>
+    <div class="card-links"><a href="https://tile.loc.gov/storage-services/master/pnp/highsm/66100/66124u.tif" target="_blank">Full image ↗</a><a href="https://www.loc.gov/item/2020743211/" target="_blank">Library of Congress page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://tile.loc.gov/storage-services/service/pnp/highsm/70900/70988v.jpg" alt="Clouds decorate the rich-yellow landscape between Pocatello and Blackfoot in southeastern Idaho" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-photo">Photograph</span>
+    <span class="tag tag-src">LOC</span>
+    <div class="card-title">"Clouds decorate the rich-yellow landscape between Pocatello and Blackfoot in sou"</div>
+    <div class="card-artist">Carol M. Highsmith</div>
+    <div class="card-meta"><b>2022</b><br>photograph<br></div>
+    <div class="dims">Image: 8530 × 5687px (213 DPI@40")</div>
+    <div class="card-links"><a href="https://tile.loc.gov/storage-services/master/pnp/highsm/70900/70988u.tif" target="_blank">Full image ↗</a><a href="https://www.loc.gov/item/2023697617/" target="_blank">Library of Congress page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://tile.loc.gov/storage-services/service/pnp/highsm/55300/55317v.jpg" alt="Mountainous landscape outside Jerome, once a copper-mining boomtown in central Arizona" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-photo">Photograph</span>
+    <span class="tag tag-src">LOC</span>
+    <div class="card-title">"Mountainous landscape outside Jerome, once a copper-mining boomtown in central A"</div>
+    <div class="card-artist">Carol M. Highsmith</div>
+    <div class="card-meta"><b>2018</b><br>photograph<br></div>
+    <div class="dims">Image: 8486 × 5657px (212 DPI@40")</div>
+    <div class="card-links"><a href="https://tile.loc.gov/storage-services/master/pnp/highsm/55300/55317u.tif" target="_blank">Full image ↗</a><a href="https://www.loc.gov/item/2018703305/" target="_blank">Library of Congress page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://tile.loc.gov/storage-services/service/pnp/highsm/66100/66123v.jpg" alt="Storm clouds rise over the landscape near Belen in central New Mexico" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-photo">Photograph</span>
+    <span class="tag tag-src">LOC</span>
+    <div class="card-title">"Storm clouds rise over the landscape near Belen in central New Mexico"</div>
+    <div class="card-artist">Carol M. Highsmith</div>
+    <div class="card-meta"><b>2020</b><br>photograph<br></div>
+    <div class="dims">Image: 8450 × 5634px (211 DPI@40")</div>
+    <div class="card-links"><a href="https://tile.loc.gov/storage-services/master/pnp/highsm/66100/66123u.tif" target="_blank">Full image ↗</a><a href="https://www.loc.gov/item/2020743212/" target="_blank">Library of Congress page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://tile.loc.gov/storage-services/service/pnp/highsm/70900/70987v.jpg" alt="Clouds decorate the rich-yellow landscape between Pocatello and Blackfoot in southeastern Idaho" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-photo">Photograph</span>
+    <span class="tag tag-src">LOC</span>
+    <div class="card-title">"Clouds decorate the rich-yellow landscape between Pocatello and Blackfoot in sou"</div>
+    <div class="card-artist">Carol M. Highsmith</div>
+    <div class="card-meta"><b>2022</b><br>photograph<br></div>
+    <div class="dims">Image: 8450 × 5634px (211 DPI@40")</div>
+    <div class="card-links"><a href="https://tile.loc.gov/storage-services/master/pnp/highsm/70900/70987u.tif" target="_blank">Full image ↗</a><a href="https://www.loc.gov/item/2023697616/" target="_blank">Library of Congress page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://tile.loc.gov/storage-services/service/pnp/highsm/68300/68334v.jpg" alt="Autumn splendor in the Tennessee portion of Great Smoky Mountains National Park, the most-visited national park in the United States" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-photo">Photograph</span>
+    <span class="tag tag-src">LOC</span>
+    <div class="card-title">"Autumn splendor in the Tennessee portion of Great Smoky Mountains National Park,"</div>
+    <div class="card-artist">Carol M. Highsmith</div>
+    <div class="card-meta"><b>2021</b><br>photograph<br></div>
+    <div class="dims">Image: 8450 × 5634px (211 DPI@40")</div>
+    <div class="card-links"><a href="https://tile.loc.gov/storage-services/master/pnp/highsm/68300/68334u.tif" target="_blank">Full image ↗</a><a href="https://www.loc.gov/item/2021756555/" target="_blank">Library of Congress page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://tile.loc.gov/storage-services/service/pnp/highsm/70900/70952v.jpg" alt="Hay bales dot the landscape in southeastern Idaho's Bingham County" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-photo">Photograph</span>
+    <span class="tag tag-src">LOC</span>
+    <div class="card-title">"Hay bales dot the landscape in southeastern Idaho's Bingham County"</div>
+    <div class="card-artist">Carol M. Highsmith</div>
+    <div class="card-meta"><b>2022</b><br>photograph<br></div>
+    <div class="dims">Image: 8422 × 5615px (211 DPI@40")</div>
+    <div class="card-links"><a href="https://tile.loc.gov/storage-services/master/pnp/highsm/70900/70952u.tif" target="_blank">Full image ↗</a><a href="https://www.loc.gov/item/2023697582/" target="_blank">Library of Congress page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://tile.loc.gov/storage-services/service/pnp/highsm/54800/54890v.jpg" alt="Roiling cumulus clouds race across the rocky landscape ner Sedona, in nothern Arizona" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-photo">Photograph</span>
+    <span class="tag tag-src">LOC</span>
+    <div class="card-title">"Roiling cumulus clouds race across the rocky landscape ner Sedona, in nothern Ar"</div>
+    <div class="card-artist">Carol M. Highsmith</div>
+    <div class="card-meta"><b>2018</b><br>photograph<br></div>
+    <div class="dims">Image: 8422 × 5615px (211 DPI@40")</div>
+    <div class="card-links"><a href="https://tile.loc.gov/storage-services/master/pnp/highsm/54800/54890u.tif" target="_blank">Full image ↗</a><a href="https://www.loc.gov/item/2018702878/" target="_blank">Library of Congress page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://tile.loc.gov/storage-services/service/pnp/highsm/68300/68336v.jpg" alt="Autumn splendor in the Tennessee portion of Great Smoky Mountains National Park, the most-visited national park in the United States" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-photo">Photograph</span>
+    <span class="tag tag-src">LOC</span>
+    <div class="card-title">"Autumn splendor in the Tennessee portion of Great Smoky Mountains National Park,"</div>
+    <div class="card-artist">Carol M. Highsmith</div>
+    <div class="card-meta"><b>2021</b><br>photograph<br></div>
+    <div class="dims">Image: 8422 × 5615px (211 DPI@40")</div>
+    <div class="card-links"><a href="https://tile.loc.gov/storage-services/master/pnp/highsm/68300/68336u.tif" target="_blank">Full image ↗</a><a href="https://www.loc.gov/item/2021756557/" target="_blank">Library of Congress page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://tile.loc.gov/storage-services/service/pnp/highsm/69800/69806v.jpg" alt="The flat Nebraska landscape between December snowstorms, near the little village of Keystone" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-photo">Photograph</span>
+    <span class="tag tag-src">LOC</span>
+    <div class="card-title">"The flat Nebraska landscape between December snowstorms, near the little village"</div>
+    <div class="card-artist">Carol M. Highsmith</div>
+    <div class="card-meta"><b>2021</b><br>photograph<br></div>
+    <div class="dims">Image: 8400 × 5600px (210 DPI@40")</div>
+    <div class="card-links"><a href="https://tile.loc.gov/storage-services/master/pnp/highsm/69800/69806u.tif" target="_blank">Full image ↗</a><a href="https://www.loc.gov/item/2021758027/" target="_blank">Library of Congress page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://tile.loc.gov/storage-services/service/pnp/highsm/70900/70992v.jpg" alt="Clouds decorate the rich-yellow landscape between Pocatello and Blackfoot in southeastern Idaho" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-photo">Photograph</span>
+    <span class="tag tag-src">LOC</span>
+    <div class="card-title">"Clouds decorate the rich-yellow landscape between Pocatello and Blackfoot in sou"</div>
+    <div class="card-artist">Carol M. Highsmith</div>
+    <div class="card-meta"><b>2022</b><br>photograph<br></div>
+    <div class="dims">Image: 8400 × 5600px (210 DPI@40")</div>
+    <div class="card-links"><a href="https://tile.loc.gov/storage-services/master/pnp/highsm/70900/70992u.tif" target="_blank">Full image ↗</a><a href="https://www.loc.gov/item/2023697621/" target="_blank">Library of Congress page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://tile.loc.gov/storage-services/service/pnp/highsm/68300/68335v.jpg" alt="Autumn splendor in the Tennessee portion of Great Smoky Mountains National Park, the most-visited national park in the United States" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-photo">Photograph</span>
+    <span class="tag tag-src">LOC</span>
+    <div class="card-title">"Autumn splendor in the Tennessee portion of Great Smoky Mountains National Park,"</div>
+    <div class="card-artist">Carol M. Highsmith</div>
+    <div class="card-meta"><b>2021</b><br>photograph<br></div>
+    <div class="dims">Image: 8396 × 5597px (210 DPI@40")</div>
+    <div class="card-links"><a href="https://tile.loc.gov/storage-services/master/pnp/highsm/68300/68335u.tif" target="_blank">Full image ↗</a><a href="https://www.loc.gov/item/2021756556/" target="_blank">Library of Congress page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://tile.loc.gov/storage-services/service/pnp/highsm/49900/49985v.jpg" alt="Seaside landscape and Pacific Ocean view from Port Orford, Oregon" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-photo">Photograph</span>
+    <span class="tag tag-src">LOC</span>
+    <div class="card-title">"Seaside landscape and Pacific Ocean view from Port Orford, Oregon"</div>
+    <div class="card-artist">Carol M. Highsmith</div>
+    <div class="card-meta"><b>2018</b><br>photograph<br></div>
+    <div class="dims">Image: 8328 × 5709px (208 DPI@40")</div>
+    <div class="card-links"><a href="https://tile.loc.gov/storage-services/master/pnp/highsm/49900/49985u.tif" target="_blank">Full image ↗</a><a href="https://www.loc.gov/item/2018698187/" target="_blank">Library of Congress page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://tile.loc.gov/storage-services/service/pnp/highsm/55500/55584v.jpg" alt="Desolate landscape near Nogales, Arizona, and the U.S.-Mexican border" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-photo">Photograph</span>
+    <span class="tag tag-src">LOC</span>
+    <div class="card-title">"Desolate landscape near Nogales, Arizona, and the U.S.-Mexican border"</div>
+    <div class="card-artist">Carol M. Highsmith</div>
+    <div class="card-meta"><b>2018</b><br>photograph<br></div>
+    <div class="dims">Image: 8099 × 5399px (202 DPI@40")</div>
+    <div class="card-links"><a href="https://tile.loc.gov/storage-services/master/pnp/highsm/55500/55584u.tif" target="_blank">Full image ↗</a><a href="https://www.loc.gov/item/2018703507/" target="_blank">Library of Congress page ↗</a></div>
+  </div>
+</div>
+<div class="card">
+  <img src="https://tile.loc.gov/storage-services/service/pnp/highsm/68900/68959v.jpg" alt="A row of pumpjacks in Williams County, North Dakota" loading="lazy">
+  <div class="card-body">
+    <span class="tag tag-photo">Photograph</span>
+    <span class="tag tag-src">LOC</span>
+    <div class="card-title">"A row of pumpjacks in Williams County, North Dakota"</div>
+    <div class="card-artist">Carol M. Highsmith</div>
+    <div class="card-meta"><b>2021</b><br>photograph<br></div>
+    <div class="dims">Image: 8073 × 4718px (202 DPI@40")</div>
+    <div class="card-links"><a href="https://tile.loc.gov/storage-services/master/pnp/highsm/68900/68959u.tif" target="_blank">Full image ↗</a><a href="https://www.loc.gov/item/2021757180/" target="_blank">Library of Congress page ↗</a></div>
+  </div>
+</div>
+</div>
+
+</body>
+</html>
