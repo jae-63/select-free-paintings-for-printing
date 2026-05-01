@@ -67,6 +67,11 @@ SMITHSONIAN_API_KEY = os.environ.get("SMITHSONIAN_API_KEY", "")
 # If blank, the oil classifier falls back to heuristics only.
 ANTHROPIC_API_KEY = os.environ.get("ANTHROPIC_API_KEY", "")
 
+# Paris Musées Collections API (municipal museums of Paris — Petit Palais, etc.)
+# Register at https://apicollections.parismusees.paris.fr/user/register
+# Optional — only needed if you use --sources paris_musees
+PARIS_MUSEES_API_TOKEN = os.environ.get("PARIS_MUSEES_API_TOKEN", "")
+
 
 # ===========================================================================
 # SEARCH & FILTERING TARGETS
@@ -110,6 +115,8 @@ YCBA_REQUEST_DELAY         = 0.25   # one manifest fetch per item
 YCBA_OAI_TIMEOUT           = 60     # OAI-PMH server is slow; 15s default times out
 WIKIMEDIA_REQUEST_DELAY    = 0.25   # Wikimedia Commons / Wikidata polite rate
 WIKIMEDIA_BATCH_SIZE       = 50     # imageinfo requests per API call (max 50)
+PARIS_MUSEES_REQUEST_DELAY = 1.0    # conservative; quota is 1 000 req/day
+PARIS_MUSEES_PAGE_SIZE     = 100    # artworks per GraphQL request
 
 # Max pages to fetch per query per source (each page = up to 100 results)
 AIC_MAX_PAGES_PER_QUERY = 10
@@ -197,8 +204,13 @@ WATERCOLOR_MEDIUM_TERMS = [
 
 # Any of these terms in the medium field → candidate oil painting
 OIL_MEDIUM_TERMS = [
+    # English
     "oil on canvas", "oil on panel", "oil on board", "oil on wood",
-    "oil on copper", "oil on paper", "huile sur toile",
+    "oil on copper", "oil on paper", "oil on metal",
+    # French (Paris Musées / Joconde metadata)
+    "huile sur toile", "huile sur panneau", "huile sur bois",
+    "huile sur cuivre", "huile sur papier", "huile sur carton",
+    "peinture à l'huile",
 ]
 
 # Any of these terms → classify as "photograph" (distinct from paintings)

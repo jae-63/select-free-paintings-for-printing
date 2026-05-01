@@ -158,14 +158,15 @@ CARD_TEMPLATE = """\
 # ---------------------------------------------------------------------------
 
 SOURCE_NAMES = {
-    "met":       "The Met",
-    "aic":       "Art Institute",
-    "europeana": "Europeana",
-    "wikimedia": "Wikimedia",
-    "loc":       "Library of Congress",
-    "nga":       "Natl Gallery",
-    "cleveland": "Cleveland Museum",
-    "ycba":      "Yale YCBA",
+    "met":          "The Met",
+    "aic":          "Art Institute",
+    "europeana":    "Europeana",
+    "wikimedia":    "Wikimedia",
+    "loc":          "Library of Congress",
+    "nga":          "Natl Gallery",
+    "cleveland":    "Cleveland Museum",
+    "ycba":         "Yale YCBA",
+    "paris_musees": "Paris Musées",
 }
 
 

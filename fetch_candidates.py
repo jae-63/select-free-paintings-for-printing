@@ -307,7 +307,8 @@ def parse_args():
     p.add_argument("--sources", nargs="+",
                    default=config.DEFAULT_SOURCES,
                    choices=["met", "aic", "europeana", "smithsonian", "getty",
-                            "nga", "cleveland", "loc", "ycba", "wikimedia"],
+                            "nga", "cleveland", "loc", "ycba", "wikimedia",
+                            "paris_musees"],
                    help="Which museum APIs to query")
     p.add_argument("--watercolor-target", type=int,
                    default=config.WATERCOLOR_TARGET,
@@ -475,6 +476,11 @@ def main():
         if args.oil_target > 0:
             print("[YCBA] Fetching oil candidates...")
             all_records += ycba_fetch(queries=YCBA_OIL_Q, limit=args.limit)
+
+    if "paris_musees" in args.sources:
+        from sources.paris_musees import fetch_all_candidates as pm_fetch
+        print("[ParisMus] Fetching landscape painting candidates...")
+        all_records += pm_fetch(limit=args.limit)
 
     if "wikimedia" in args.sources:
         from sources.wikimedia import (
